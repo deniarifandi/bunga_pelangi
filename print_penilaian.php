@@ -1,7 +1,10 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT * FROM penilaian INNER JOIN hasil ON penilaian.hasil_id = hasil.id  where hasil_id = ".$_GET['id'];
+$sql = "SELECT * FROM penilaian 
+LEFT JOIN hasil ON penilaian.hasil_id = hasil.id
+left join murid on penilaian.murid_id = murid.murid_id
+where hasil_id = ".$_GET['id'] ;
 
 // echo $sql;
 
@@ -18,22 +21,12 @@ if ($result->num_rows > 0) {
 
 
 // print_r($list_hasil_array);
+//echo json_encode($list_hasil_array);
 
-$exploded_murid = explode("~",$list_hasil_array[0]['murid_id']);
-$exploded_radio_1 = str_split($list_hasil_array[0]['check_1']);
-$exploded_radio_2 = str_split($list_hasil_array[0]['check_2']);
-$exploded_radio_3 = str_split($list_hasil_array[0]['check_3']);
-$exploded_radio_4 = str_split($list_hasil_array[0]['check_4']);
-$exploded_radio_5 = str_split($list_hasil_array[0]['check_5']);
-$exploded_radio_6 = str_split($list_hasil_array[0]['check_6']);
-$exploded_amati_1 = explode("~",$list_hasil_array[0]['amati_1']);
-$exploded_amati_2 = explode("~",$list_hasil_array[0]['amati_2']);
-$exploded_amati_3 = explode("~",$list_hasil_array[0]['amati_3']);
-$exploded_amati_4 = explode("~",$list_hasil_array[0]['amati_4']);
-$exploded_amati_5 = explode("~",$list_hasil_array[0]['amati_5']);
-$exploded_amati_6 = explode("~",$list_hasil_array[0]['amati_6']);
+
 
 ?>
+
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -87,7 +80,7 @@ $exploded_amati_6 = explode("~",$list_hasil_array[0]['amati_6']);
 
 
 </head>
-<body onload="window.print()">
+<body>
 	
 
 
@@ -97,7 +90,7 @@ $exploded_amati_6 = explode("~",$list_hasil_array[0]['amati_6']);
 		
 		<main>
 
-			<?php for ($i=1; $i < count($exploded_murid); $i++) { 
+			<?php for ($i=1; $i < count($list_hasil_array); $i++) { 
 			?>
 			<h3>Penilaian Checklist Bunga Pelangi</h3>
 		<br>
@@ -112,7 +105,7 @@ $exploded_amati_6 = explode("~",$list_hasil_array[0]['amati_6']);
 				</tr>
 				<tr>
 					<th class="borderless">Nama Anak</th>
-					<th class="borderless">: <?php echo $exploded_murid[$i] ?></th>
+					<th class="borderless">: <?php echo $list_hasil_array[$i]['murid_nama'] ?></th>
 				</tr>
 
 			</table>
@@ -130,92 +123,92 @@ $exploded_amati_6 = explode("~",$list_hasil_array[0]['amati_6']);
 				<tbody>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_agama_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_1']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_1[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks1']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_1'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_1[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_1'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_1[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_1']; ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_agama_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_2']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_2[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks2']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_2'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_2[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_2'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_2[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_2']; ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_jati_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_3']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_3[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks3']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_3'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_3[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_3'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_3[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_3']; ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_jati_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_4']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_4[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks4']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_4'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_4[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_4'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_4[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_4']; ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_literasi_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_5']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_5[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks5']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_5'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_5[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_5'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_5[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_5'] ?>
 						</td>
 					</tr>
 					<tr>
 						<td><?php echo $list_hasil_array[0]['tujuan_jati_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks_6']; ?></td>
-						<td style="text-align:center"><?php if ($exploded_radio_6[$i-1] == 0) {
+						<td><?php echo $list_hasil_array[0]['konteks6']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_6'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($exploded_radio_6[$i-1] == 1) {
+							<?php if ($list_hasil_array[0]['check_6'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $exploded_amati_6[$i-1]; ?>
+							<?php echo $list_hasil_array[0]['amati_6'] ?>
 						</td>
 					</tr>
 					

@@ -89,7 +89,7 @@ include('list_hasil.php');
 						<td class="condensed"><a href="edit.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-warning" >Edit</a></td>
 					
 						<td class="condensed"><a href="penilaian_konteks.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-success" >Isi Konteks</a>
-							<a href="list_murid_nilai.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-success" >Isi Nilai</a>
+							<a href="list_murid_nilai.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-danger" style="background-color:blueviolet;" >Isi Nilai</a>
 						
 						</td>
 						

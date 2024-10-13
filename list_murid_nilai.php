@@ -85,6 +85,11 @@ if ($resultnilai->num_rows > 0) {
 		<main>
 			<!-- <a href="create.php" class="btn btn-success" >Penilaian_list</a> -->
 
+
+			<h2>ISI NILAI</h2>
+			<a href="index.php" class="btn btn-danger" type="button" id="submit_button" style="float: right; margin-left: 25px;">Kembali</a>
+			<br>
+			<br>
 			<br>
 
 			<table class="table table-bordered border-dark">

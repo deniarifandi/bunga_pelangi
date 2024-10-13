@@ -188,9 +188,15 @@ if ($resultpenilaian->num_rows > 0) {
 									?>
 									<td>
 										
-											<input type="radio" id="konteks1yes" name="konteks1" value="1" checked>
+											<input type="radio" id="konteks1yes" name="konteks1" value="1" <?php if ($list_penilaian_array[$i]['check_1'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks1yes">Muncul</label><br>
-											<input type="radio" id="konteks1no" name="konteks1" value="0">
+											<input type="radio" id="konteks1no" name="konteks1" value="0" <?php if ($list_penilaian_array[$i]['check_1'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks1no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -198,9 +204,15 @@ if ($resultpenilaian->num_rows > 0) {
 									</td>
 									<td>
 										
-											<input type="radio" id="konteks2yes" name="konteks2" value="1" checked>
+											<input type="radio" id="konteks2yes" name="konteks2" value="1" <?php if ($list_penilaian_array[$i]['check_2'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks2yes">Muncul</label><br>
-											<input type="radio" id="konteks2no" name="konteks2" value="0">
+											<input type="radio" id="konteks2no" name="konteks2" value="0" <?php if ($list_penilaian_array[$i]['check_2'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks2no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -208,9 +220,15 @@ if ($resultpenilaian->num_rows > 0) {
 									</td>
 									<td>
 										
-											<input type="radio" id="konteks3yes" name="konteks3" value="1" checked>
+											<input type="radio" id="konteks3yes" name="konteks3" value="1" <?php if ($list_penilaian_array[$i]['check_3'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks3yes">Muncul</label><br>
-											<input type="radio" id="konteks3no" name="konteks3" value="0">
+											<input type="radio" id="konteks3no" name="konteks3" value="0" <?php if ($list_penilaian_array[$i]['check_3'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks3no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -218,9 +236,15 @@ if ($resultpenilaian->num_rows > 0) {
 									</td>
 									<td>
 										
-											<input type="radio" id="konteks4yes" name="konteks4" value="1" checked>
+											<input type="radio" id="konteks4yes" name="konteks4" value="1" <?php if ($list_penilaian_array[$i]['check_4'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks4yes">Muncul</label><br>
-											<input type="radio" id="konteks4no" name="konteks4" value="0">
+											<input type="radio" id="konteks4no" name="konteks4" value="0" <?php if ($list_penilaian_array[$i]['check_4'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks4no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -228,9 +252,15 @@ if ($resultpenilaian->num_rows > 0) {
 									</td>
 									<td>
 										
-											<input type="radio" id="konteks5yes" name="konteks5" value="1" checked>
+											<input type="radio" id="konteks5yes" name="konteks5" value="1" <?php if ($list_penilaian_array[$i]['check_5'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks5yes">Muncul</label><br>
-											<input type="radio" id="konteks5no" name="konteks5" value="0">
+											<input type="radio" id="konteks5no" name="konteks5" value="0" <?php if ($list_penilaian_array[$i]['check_5'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks5no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -238,9 +268,15 @@ if ($resultpenilaian->num_rows > 0) {
 									</td>
 									<td colspan="2">
 										
-											<input type="radio" id="konteks6yes" name="konteks6" value="1" checked>
+											<input type="radio" id="konteks6yes" name="konteks6" value="1" <?php if ($list_penilaian_array[$i]['check_6'] == 1) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks6yes">Muncul</label><br>
-											<input type="radio" id="konteks6no" name="konteks6" value="0">
+											<input type="radio" id="konteks6no" name="konteks6" value="0" <?php if ($list_penilaian_array[$i]['check_6'] == 0) {
+												?>
+												checked
+												<?php } ?>>
 											<label for="konteks6no">Belum Muncul</label><br>
 											<br>
 											Kejadian yang diamati:
@@ -332,6 +368,7 @@ if ($resultpenilaian->num_rows > 0) {
 					</tbody>
 				</table>
 				<input type="text" name="murid_id" value="<?php echo $murid_id; ?>" style="display: none;">
+				<a href="list_murid_nilai.php?id=<?php echo $_GET['id'] ?>" class="btn btn-danger" type="button" id="submit_button" style="float: right; margin-left: 25px;">Back</a>
 				<input class="btn btn-success" type="submit" id="submit_button" style="float: right;">
 				<br>
 			</form>

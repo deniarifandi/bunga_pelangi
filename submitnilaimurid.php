@@ -4,11 +4,11 @@ include('connect.php');
 
 
 $radio_1 = $_POST['konteks1'];
-$radio_2 = $_POST['konteks1'];
-$radio_3 = $_POST['konteks1'];
-$radio_4 = $_POST['konteks1'];
-$radio_5 = $_POST['konteks1'];
-$radio_6 = $_POST['konteks1'];
+$radio_2 = $_POST['konteks2'];
+$radio_3 = $_POST['konteks3'];
+$radio_4 = $_POST['konteks4'];
+$radio_5 = $_POST['konteks5'];
+$radio_6 = $_POST['konteks6'];
 
 $id_hasil = $_POST['id_hasil'];
 $murid_id = $_POST['murid_id'];
