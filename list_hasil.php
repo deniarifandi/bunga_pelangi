@@ -4,7 +4,11 @@
 
 $sql = "SELECT id,nama_guru,kelompok_usia,semester,minggu,tanggal,bulan,tahun,topik_kegiatan,subtopik, penilaian.penilaian_id FROM hasil
 LEFT JOIN penilaian ON hasil.id = penilaian.hasil_id
- WHERE removed != '1' ORDER BY id desc";
+WHERE removed != '1' 
+GROUP BY hasil.id
+ORDER BY id desc
+
+";
 $result = $conn->query($sql);
 
 

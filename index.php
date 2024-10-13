@@ -60,6 +60,7 @@ include('list_hasil.php');
 
 				<thead>
 					<tr>
+						<th>No.</th>
 						<th style="width: 15%;">Nama Guru</th>
 						<th style="width: 15%">Topik</th>
 						<th style="width: 15%">Subtopik</th>
@@ -80,6 +81,7 @@ include('list_hasil.php');
 					for ($i=0; $i < count($list_hasil_array); $i++) { 
 						?>
 						<tr>
+							<td><?php echo count($list_hasil_array)-$i; ?></td>
 						<td class="condensed"><?php echo $list_hasil_array[$i]['nama_guru']; ?></td>
 						<td class="condensed"><?php echo $list_hasil_array[$i]['topik_kegiatan']; ?></td>
 						<td class="condensed"><?php echo $list_hasil_array[$i]['subtopik']; ?></td>
