@@ -122,93 +122,93 @@ if ($result->num_rows > 0) {
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_agama_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks1']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_1'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_agama_1']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks1']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_1'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_1'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_1'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_1']; ?>
+							<?php echo $list_hasil_array[$i]['amati_1']; ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_agama_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks2']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_2'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_agama_2']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks2']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_2'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_2'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_2'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_2']; ?>
+							<?php echo $list_hasil_array[$i]['amati_2']; ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_jati_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks3']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_3'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_jati_1']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks3']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_3'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_3'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_3'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_3']; ?>
+							<?php echo $list_hasil_array[$i]['amati_3']; ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_jati_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks4']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_4'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_jati_2']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks4']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_4'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_4'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_4'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_4']; ?>
+							<?php echo $list_hasil_array[$i]['amati_4']; ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_literasi_1']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks5']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_5'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_literasi_1']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks5']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_5'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_5'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_5'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_5'] ?>
+							<?php echo $list_hasil_array[$i]['amati_5'] ?>
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['tujuan_jati_2']; ?></td>
-						<td><?php echo $list_hasil_array[0]['konteks6']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[0]['check_6'] == 0) {
+						<td><?php echo $list_hasil_array[$i]['tujuan_jati_2']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['konteks6']; ?></td>
+						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_6'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?></td>
 						<td style="text-align: center;">
-							<?php if ($list_hasil_array[0]['check_6'] == 1) {
+							<?php if ($list_hasil_array[$i]['check_6'] == 1) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
 						} ?>
 						</td>
 						<td>
-							<?php echo $list_hasil_array[0]['amati_6'] ?>
+							<?php echo $list_hasil_array[$i]['amati_6'] ?>
 						</td>
 					</tr>
 					
