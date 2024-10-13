@@ -60,12 +60,13 @@ include('list_hasil.php');
 
 				<thead>
 					<tr>
-						<th>No.</th>
-						<th style="width: 15%;">Nama Guru</th>
-						<th style="width: 15%">Topik</th>
-						<th style="width: 15%">Subtopik</th>
+						<th style="width:5%">No.</th>
+						<th style="width: 5%;">Nama Guru</th>
+						<th style="width: 5%">Topik</th>
+						<th style="width: 5%">Subtopik</th>
 						<th style="width: 10%">Tanggal</th>
 						<th>Kelola</th>
+						<th>Konteks</th>
 						<th>Penilaian</th>
 						<th colspan="2">Print</th>
 						
@@ -91,6 +92,8 @@ include('list_hasil.php');
 						<td class="condensed"><a href="edit.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-warning" >Edit</a></td>
 					
 						<td class="condensed"><a href="penilaian_konteks.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-success" >Isi Konteks</a>
+						</td>
+							<td>
 							<a href="list_murid_nilai.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-danger" style="background-color:blueviolet;" >Isi Nilai</a>
 						
 						</td>
