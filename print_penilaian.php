@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
 
 
 // print_r($list_hasil_array);
-//echo json_encode($list_hasil_array);
+// echo json_encode($list_hasil_array);
 
 
 
@@ -228,7 +228,7 @@ if ($result->num_rows > 0) {
 		<br>
 		<br>
 		
-		Siti Maghfiroh, S.Kom&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <?php echo "guru"; ?>
+		Siti Maghfiroh, S.Kom&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <?php echo $list_hasil_array[$i]['nama_guru'] ?>
 	</div>
 	<div class="pagebreak"> </div>
 	<div class="col-lg-2">
