@@ -120,9 +120,11 @@ if ($resultnilai->num_rows > 0) {
 
 					<thead>
 						<tr>
+							<td>No</td>
 							<th width="50%">Nama Murid</th>
 						
 							<th >Beri Nilai</th>
+
 						</tr>
 						
 					
@@ -141,6 +143,7 @@ if ($resultnilai->num_rows > 0) {
 								?>
 
 								<tr>
+									<td><?php echo $i+1 ?></td>
 									<td class="condensed"><?php echo $list_hasil_array[$i]['murid_nama']; ?></td>
 									<?php $murid_id = $murid_id."~".$list_hasil_array[$i]['murid_nama']; ?>
 									
