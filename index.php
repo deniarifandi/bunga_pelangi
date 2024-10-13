@@ -64,7 +64,7 @@ include('list_hasil.php');
 						<th style="width: 5%;">Nama Guru</th>
 						<th style="width: 5%">Topik</th>
 						<th style="width: 5%">Subtopik</th>
-						<th style="width: 10%">Tanggal</th>
+						<th style="width: 5%">Tanggal</th>
 						<th>Kelola</th>
 						<th>Konteks</th>
 						<th>Penilaian</th>
