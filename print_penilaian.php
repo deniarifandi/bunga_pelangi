@@ -4,7 +4,9 @@ include('connect.php');
 $sql = "SELECT * FROM penilaian 
 LEFT JOIN hasil ON penilaian.hasil_id = hasil.id
 left join murid on penilaian.murid_id = murid.murid_id
-where hasil_id = ".$_GET['id'] ;
+where hasil_id = ".$_GET['id']."  
+order by murid.murid_nama"
+;
 
 // echo $sql;
 
