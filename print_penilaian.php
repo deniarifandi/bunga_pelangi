@@ -123,6 +123,7 @@ if ($result->num_rows > 0) {
 					</tr>
 				</thead>
 				<tbody>
+					<?php if($list_hasil_array[$i]['tujuan_agama_1'] != 0) {?>
 					<tr>
 						<td><?php echo $list_hasil_array[$i]['tujuan_agama_1']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks1']; ?></td>
@@ -138,6 +139,8 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_1']; ?>
 						</td>
 					</tr>
+					<?php } ?>
+					<?php if($list_hasil_array[$i]['tujuan_agama_2'] != 0) {?>
 					<tr>
 						<td><?php echo $list_hasil_array[$i]['tujuan_agama_2']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks2']; ?></td>
@@ -153,6 +156,8 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_2']; ?>
 						</td>
 					</tr>
+					<?php } ?>
+					<?php if($list_hasil_array[$i]['tujuan_jati_1'] != 0) {?>
 					<tr>
 						<td><?php echo $list_hasil_array[$i]['tujuan_jati_1']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks3']; ?></td>
@@ -168,6 +173,8 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_3']; ?>
 						</td>
 					</tr>
+					<?php } ?>
+					<?php if($list_hasil_array[$i]['tujuan_jati_2'] != 0) {?>
 					<tr>
 						<td><?php echo $list_hasil_array[$i]['tujuan_jati_2']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks4']; ?></td>
@@ -183,6 +190,8 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_4']; ?>
 						</td>
 					</tr>
+					<?php } ?>
+					<?php if($list_hasil_array[$i]['tujuan_literasi_1'] != 0) {?>
 					<tr>
 						<td><?php echo $list_hasil_array[$i]['tujuan_literasi_1']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks5']; ?></td>
@@ -198,8 +207,10 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_5'] ?>
 						</td>
 					</tr>
+					<?php } ?>
+					<?php if($list_hasil_array[$i]['tujuan_literasi_2'] != 0) {?>
 					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_jati_2']; ?></td>
+						<td><?php echo $list_hasil_array[$i]['tujuan_literasi_2']; ?></td>
 						<td><?php echo $list_hasil_array[$i]['konteks6']; ?></td>
 						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_6'] == 0) {
 							?><img src="img/centang.png" style="max-width:15px"><?php
@@ -213,6 +224,7 @@ if ($result->num_rows > 0) {
 							<?php echo $list_hasil_array[$i]['amati_6'] ?>
 						</td>
 					</tr>
+					<?php } ?>
 					
 				</tbody>
 			</table>
