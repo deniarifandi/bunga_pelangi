@@ -90,7 +90,7 @@ if ($result->num_rows > 0) {
 		
 		<main>
 
-			<?php for ($i=1; $i < count($list_hasil_array); $i++) { 
+			<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
 			?>
 			<h3>Penilaian Checklist Bunga Pelangi</h3>
 		<br>
