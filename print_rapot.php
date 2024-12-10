@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
 
 
 // print_r($list_hasil_array);
-echo json_encode($list_hasil_array);
+// echo json_encode($list_hasil_array);
 
 
 
@@ -138,7 +138,12 @@ echo json_encode($list_hasil_array);
 
 				</tr>
 				<tr class="">
-					<td>Isi Agama</td>
+					<td>
+						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+							echo $list_hasil_array[$i]['amati_1']."<br>";
+							echo $list_hasil_array[$i]['amati_2']."<br>";
+						} ?>
+					</td>
 				</tr>
 				<tr class="">
 					<td>FOTO KEGIATAN:</td>
@@ -153,7 +158,12 @@ echo json_encode($list_hasil_array);
 
 				</tr>
 				<tr class="">
-					<td>Isi Jati Diri</td>
+					<td>
+						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+							echo $list_hasil_array[$i]['amati_3']."<br>";
+							echo $list_hasil_array[$i]['amati_4']."<br>";
+						} ?>
+					</td>
 				</tr>
 				<tr class="">
 					<td>FOTO KEGIATAN:</td>
@@ -168,7 +178,12 @@ echo json_encode($list_hasil_array);
 
 				</tr>
 				<tr class="">
-					<td>Isi Literasi</td>
+					<td>
+						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+							echo $list_hasil_array[$i]['amati_5']."<br>";
+							echo $list_hasil_array[$i]['amati_6']."<br>";
+						} ?>
+					</td>
 				</tr>
 				<tr class="">
 					<td>FOTO KEGIATAN:</td>
