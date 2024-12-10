@@ -93,7 +93,7 @@ if ($result->num_rows > 0) {
 							<!-- <td class="condensed"><?php echo $list_hasil_array[$i]['nama']; ?></td> -->
 							<td class="condensed"><?php echo $list_hasil_array[$i]['murid_nama']; ?></td>
 				
-						<td class="condensed"><a href="print_rapot.php?id=<?php echo $list_hasil_array[$i]['id'];?>" class="btn btn-primary" target="_blank">Print Rapot</a></td>
+						<td class="condensed"><a href="print_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-primary" target="_blank">Print Rapot</a></td>
 						</tr>
 						<?php
 					}
