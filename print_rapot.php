@@ -7,7 +7,9 @@ left join penilaian on penilaian.murid_id = murid.murid_id
 left join nama_guru On nama_guru.kelompok = murid.murid_kelompok
 
 where murid.murid_id = ".$_GET['id']."  
-order by murid.murid_nama"
+group by penilaian.penilaian_id
+order by murid.murid_nama
+"
 ;
 
 // echo $sql;
