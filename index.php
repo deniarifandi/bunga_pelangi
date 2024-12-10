@@ -52,7 +52,7 @@ include('list_hasil.php');
 
 	<main>
 		<a href="create.php" class="btn btn-success" >Buat Modul Ajar</a>
-
+		<a href="index_rapot.php" class="btn btn-warning" >Lihat Rapot Bro</a>
 		<br>
 		<br>
 

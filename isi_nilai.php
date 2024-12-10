@@ -3,6 +3,7 @@ include('connect.php');
 // include('penilaian_list_data.php');
 
 $murid_id = $_GET['murid_id'];
+$hasil_id = $_GET['id'];
 
 $sql = "SELECT * FROM murid
 left join kelompok on murid.murid_kelompok = kelompok.id
@@ -34,7 +35,7 @@ if ($resultnilai->num_rows > 0) {
 	echo "0 results";
 }
 
-$penilaian = "SELECT * FROM penilaian where murid_id = ".$_GET['murid_id'];
+$penilaian = "SELECT * FROM penilaian WHERE murid_id = ".$_GET['murid_id']." AND hasil_id = ".$hasil_id;
 $resultpenilaian = $conn->query($penilaian);
 
 if ($resultpenilaian->num_rows > 0) {
