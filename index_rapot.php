@@ -2,9 +2,8 @@
 include('connect.php');
 
 $sql = "SELECT * FROM murid 
-left join kelompok on murid.murid_kelompok = kelompok.id
-left join nama_guru on kelompok.id = nama_guru.kelompok
-
+join kelompok on murid.murid_kelompok = kelompok.id
+join nama_guru on kelompok.id = nama_guru.kelompok
 order by murid.murid_kelompok";
 
 $result = $conn->query($sql);
@@ -65,14 +64,12 @@ if ($result->num_rows > 0) {
 <div class="col-lg-8 mx-auto p-4 py-md-5">
 
 
-	<main>
-		<br>
-		<h1>Print Rapot</h1>
-
-		<br>
-		<br>
-
-		<table class="table table-bordered border-dark">
+		<main>
+			<br>
+			<h1>Print Rapot <a href="index.php" class="btn btn-warning" style="float:right">Back</a></h1> 	
+			
+			<br>
+			<table class="table table-bordered border-dark">
 
 				<thead>
 					<tr>
@@ -83,9 +80,7 @@ if ($result->num_rows > 0) {
 						
 						<th colspan="1">Print</th>
 					</tr>
-				
-
-</thead>
+				</thead>
 
 				<tbody>
 					<?php
@@ -103,13 +98,12 @@ if ($result->num_rows > 0) {
 						<?php
 					}
 					
-					?>
-					
+					?>	
 				</tbody>
 			</table>
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
-</body>
-</html>
+	</body>
+	</html>

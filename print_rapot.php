@@ -1,9 +1,9 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT * FROM penilaian 
-LEFT JOIN hasil ON penilaian.hasil_id = hasil.id
-left join murid on penilaian.murid_id = murid.murid_id
+$sql = "SELECT nama_guru.*, murid.*, penilaian.*, kelompok.* FROM murid
+left join kelompok on kelompok.id = murid.murid_kelompok
+left join penilaian on penilaian.murid_id = murid.murid_id
 left join nama_guru On nama_guru.kelompok = murid.murid_kelompok
 
 where murid.murid_id = ".$_GET['id']."  
@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
 
 
 // print_r($list_hasil_array);
-// echo json_encode($list_hasil_array);
+echo json_encode($list_hasil_array);
 
 
 
@@ -94,8 +94,7 @@ if ($result->num_rows > 0) {
 		
 		<main>
 
-			<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
-			?>
+		
 			<h3>PP Bunga Pelangi Semester Report</h3>
 		<br>
 			<table class="" style="width: 100%;">
@@ -105,148 +104,78 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr class="">
 					<th class="">Nama Sekolah</th>
-					<th class="">: Pos Paud Bunga Pelangi</th>
+					<th class="">Pos Paud Bunga Pelangi</th>
 					<th class="">Kelas</th>
-					<th class="">: <?php echo $list_hasil_array[0]['semester']; ?></th>
+					<th class=""><?php echo $list_hasil_array[0]['judul']; ?></th>
 				</tr>
 				</tr>
 				<tr class="">
 					<th class="">Nama Siswa</th>
-					<th class="">: <?php echo $list_hasil_array[0]['murid_nama']; ?></th>
+					<th class=""><?php echo $list_hasil_array[0]['murid_nama']; ?></th>
 					<th class="">FASE</th>
 					<th class="">PAUD</th>
 				</tr>
 				<tr>
 					<th class="">Semester</th>
-					<th class="">: 1</th>
+					<th class="">1</th>
 					<th class="">TB</th>
 					<th></th>
 				</tr>
 				<tr>
 					<th class="">Guru Kelas</th>
-					<th class="">: <?php echo $list_hasil_array[$i]['nama'] ?></th>
+					<th class=""><?php echo $list_hasil_array[0]['nama'] ?></th>
 					<th class="">BB</th>
 					<th></th>
 				</tr>
 
 			</table>
 			<br>
-			<table style="width:100%">
-				<thead>
-					<tr>
-						<th>Tujuan Pembelajaran</th>
-						<th>Konteks / Kegiatan</th>
-						<th>Belum Muncul</th>
-						<th>Muncul</th>
-						<th>Kejadian yang Diamati</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if($list_hasil_array[$i]['tujuan_agama_1'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_agama_1']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks1']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_1'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_1'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_1']; ?>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php if($list_hasil_array[$i]['tujuan_agama_2'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_agama_2']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks2']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_2'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_2'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_2']; ?>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php if($list_hasil_array[$i]['tujuan_jati_1'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_jati_1']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks3']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_3'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_3'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_3']; ?>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php if($list_hasil_array[$i]['tujuan_jati_2'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_jati_2']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks4']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_4'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_4'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_4']; ?>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php if($list_hasil_array[$i]['tujuan_literasi_1'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_literasi_1']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks5']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_5'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_5'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_5'] ?>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php if($list_hasil_array[$i]['tujuan_literasi_2'] != 0) {?>
-					<tr>
-						<td><?php echo $list_hasil_array[$i]['tujuan_literasi_2']; ?></td>
-						<td><?php echo $list_hasil_array[$i]['konteks6']; ?></td>
-						<td style="text-align:center"><?php if ($list_hasil_array[$i]['check_6'] == 0) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?></td>
-						<td style="text-align: center;">
-							<?php if ($list_hasil_array[$i]['check_6'] == 1) {
-							?><img src="img/centang.png" style="max-width:15px"><?php
-						} ?>
-						</td>
-						<td>
-							<?php echo $list_hasil_array[$i]['amati_6'] ?>
-						</td>
-					</tr>
-					<?php } ?>
-					
-				</tbody>
+
+
+			<table class="" style="width: 100%;">
+				<tr class="">
+					<th colspan="4" style="text-align: center; background-color: green; color: white;">Nilai Agama Dan Budi Pekerti</th>
+
+				</tr>
+				<tr class="">
+					<td>Isi Agama</td>
+				</tr>
+				<tr class="">
+					<td>FOTO KEGIATAN:</td>
+				</tr>
+
 			</table>
+			<br>
+			<br>
+			<table class="" style="width: 100%;">
+				<tr class="">
+					<th colspan="4" style="text-align: center; background-color: green; color: white;">Nilai Jati Diri</th>
+
+				</tr>
+				<tr class="">
+					<td>Isi Jati Diri</td>
+				</tr>
+				<tr class="">
+					<td>FOTO KEGIATAN:</td>
+				</tr>
+
+			</table>
+			<br>
+			<br>
+			<table class="" style="width: 100%;">
+				<tr class="">
+					<th colspan="4" style="text-align: center; background-color: green; color: white;">Nilai dasar-dasar literasi, Matematika, Sains, Teknologi, Rekayasa dan Seni</th>
+
+				</tr>
+				<tr class="">
+					<td>Isi Literasi</td>
+				</tr>
+				<tr class="">
+					<td>FOTO KEGIATAN:</td>
+				</tr>
+
+			</table>
+			
 
 		<br>
 		<br>
@@ -261,13 +190,11 @@ if ($result->num_rows > 0) {
 		<br>
 		<br>
 		
-		Siti Maghfiroh, S.Kom&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <?php echo $list_hasil_array[$i]['nama_guru'] ?>
+		Siti Maghfiroh, S.Kom&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <?php echo $list_hasil_array[0]['nama'] ?>
 	</div>
 	<div class="pagebreak"> </div>
 	<div class="col-lg-2">
-			<?php
-				}
-			?>
+			
 		</main>
 
 		
