@@ -4,6 +4,7 @@ include('connect.php');
 $sql = "SELECT * FROM murid 
 join kelompok on murid.murid_kelompok = kelompok.id
 join nama_guru on kelompok.id = nama_guru.kelompok
+group by murid.murid_id
 order by murid.murid_kelompok";
 
 $result = $conn->query($sql);
