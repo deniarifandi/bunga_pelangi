@@ -21,9 +21,6 @@ $amati_5 = $_POST['amati5'];
 $amati_6 = $_POST['amati6'];
 
  
-
-
-
 $nilai = "SELECT * FROM penilaian where hasil_id = ".$_POST['id_hasil'];
 $resultmurid = $conn->query($nilai);
 
