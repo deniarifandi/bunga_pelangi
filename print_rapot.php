@@ -96,12 +96,13 @@ if ($result->num_rows > 0) {
 		
 		<main>
 
-		
-			<h3>PP Bunga Pelangi Semester Report</h3>
+			<img src="KOP SURAT PPBP.jpg" style="width:100%">
+			<br>
+			
 		<br>
 			<table class="" style="width: 100%;">
 				<tr class="">
-					<th colspan="4" style="text-align: center; background-color: yellow;">Laporan Perkembangan Anak Didik</th>
+					<th colspan="4" style="text-align: center; background-color: yellow; font-size:18px">Laporan Perkembangan Anak Didik</th>
 
 				</tr>
 				<tr class="">
