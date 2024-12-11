@@ -118,15 +118,15 @@ if ($result->num_rows > 0) {
 						<td><input type="radio" id="sm1" name="mulok1" value="2"><label for="sm1" style="margin-left: 10px;"> Sudah Muncul</label></td>
 					</tr>
 						<tr>
-						<th style="width:5%">1</th>
-						<th style="width:25%">K122</th>
+						<th style="width:5%">2</th>
+						<th style="width:25%">Kerapian</th>
 						<td><input type="radio" id="bm2" name="mulok2" value="0" checked="checked"><label for="bm2" style="margin-left: 10px;"> Belum Muncul</label></td>
 						<td><input type="radio" id="mm2" name="mulok2" value="1"><label for="mm2" style="margin-left: 10px;"> Mulai Muncul</label></td>
 						<td><input type="radio" id="sm2" name="mulok2" value="2"><label for="sm2" style="margin-left: 10px;"> Sudah Muncul</label></td>
 					</tr>
 						<tr>
-						<th style="width:5%">1</th>
-						<th style="width:25%">K33</th>
+						<th style="width:5%">3</th>
+						<th style="width:25%">Kesesuaian Tema</th>
 						<td><input type="radio" id="bm3" name="mulok3" value="0" checked="checked"><label for="bm3" style="margin-left: 10px;"> Belum Muncul</label></td>
 						<td><input type="radio" id="mm3" name="mulok3" value="1"><label for="mm3" style="margin-left: 10px;"> Mulai Muncul</label></td>
 						<td><input type="radio" id="sm3" name="mulok3" value="2"><label for="sm3" style="margin-left: 10px;"> Sudah Muncul</label></td>

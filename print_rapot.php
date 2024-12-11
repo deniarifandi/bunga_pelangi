@@ -1,10 +1,11 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT nama_guru.*, murid.*, penilaian.*, kelompok.* FROM murid
+$sql = "SELECT nama_guru.*, murid.*, penilaian.*, kelompok.*, detail_rapot.* FROM murid
 left join kelompok on kelompok.id = murid.murid_kelompok
 left join penilaian on penilaian.murid_id = murid.murid_id
 left join nama_guru On nama_guru.kelompok = murid.murid_kelompok
+left join detail_rapot on detail_rapot.murid_id = murid.murid_id
 
 where murid.murid_id = ".$_GET['id']."  
 group by penilaian.penilaian_id
@@ -52,6 +53,12 @@ if ($result->num_rows > 0) {
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 	<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" media="screen,print">
+
+<style type="text/css">
+  @media print {
+    .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+  }
+</style>
 
 	<style>
 		  @media print {
@@ -142,10 +149,12 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr class="">
 					<td>
-						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
-							echo $list_hasil_array[$i]['amati_1']."<br>";
-							echo $list_hasil_array[$i]['amati_2']."<br>";
-						} ?>
+						<textarea style="white-space:nowrap; width: 100%;" rows="<?php echo count($list_hasil_array)+2 ?>" class="form-control">
+<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+echo $list_hasil_array[$i]['amati_1'];
+echo $list_hasil_array[$i]['amati_2']."\n";
+} ?>
+					</textarea>
 					</td>
 				</tr>
 				<tr class="">
@@ -153,6 +162,8 @@ if ($result->num_rows > 0) {
 				</tr>
 
 			</table>
+
+			 <div class="pagebreak"> </div>
 			<br>
 			<br>
 			<table class="" style="width: 100%;">
@@ -162,10 +173,13 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr class="">
 					<td>
-						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
-							echo $list_hasil_array[$i]['amati_3']."<br>";
-							echo $list_hasil_array[$i]['amati_4']."<br>";
-						} ?>
+
+						<textarea style="white-space:pre-wrap; width: 100%;" rows="5" class="form-control"><?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+echo $list_hasil_array[$i]['amati_3'];
+echo $list_hasil_array[$i]['amati_4']."\n";
+} ?>
+						</textarea>
+
 					</td>
 				</tr>
 				<tr class="">
@@ -182,10 +196,11 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr class="">
 					<td>
-						<?php for ($i=0; $i < count($list_hasil_array); $i++) { 
-							echo $list_hasil_array[$i]['amati_5']."<br>";
-							echo $list_hasil_array[$i]['amati_6']."<br>";
-						} ?>
+						<textarea style="width:100%" class="form-control" rows="5"><?php for ($i=0; $i < count($list_hasil_array); $i++) { 
+echo $list_hasil_array[$i]['amati_5'];
+echo $list_hasil_array[$i]['amati_6']."\n";
+} ?>
+						</textarea>
 					</td>
 				</tr>
 				<tr class="">
@@ -193,12 +208,230 @@ if ($result->num_rows > 0) {
 				</tr>
 
 			</table>
-			
+		
+		<br>
+		 <div class="pagebreak"> </div>
 
 		<br>
+			<table class="" style="width: 100%;">
+				<tr class="">
+					<th colspan="4" style="text-align: center; background-color: green; color: white;">Project Profil Pelajar Pancasila</th>
+
+				</tr>
+				<tr class="">
+					<td>
+						<textarea style="width:100%" class="form-control" rows="5"><?php echo $list_hasil_array[0]['pp']; ?></textarea>
+					</td>
+				</tr>
+				<tr class="">
+					<td>FOTO KEGIATAN:</td>
+				</tr>
+
+			</table>
 		<br>
 		<br>
-		
+			<table class="" style="width: 100%; text-align: center;">
+				<tr class="">
+					<th colspan="5" style="text-align: center; background-color: green; color: white;">Muatan Lokal</th>
+				</tr>
+					<tr>
+						<th rowspan="2">No</th>
+						<th rowspan="2" style="width:25%">Bidang Pengembangan</th>
+						<th colspan="3">Capaian Perkembangan</th>
+					</tr>
+					<tr>
+						
+						
+						<th>BM</th>
+						<th>MM</th>
+						<th>SM</th>
+
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>Komposisi Warna</td>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok1'] != 0) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok1'] != 1) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok1'] != 2) {
+							?>display: none<?php
+						} ?>"></th>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Kerapian</td>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok2'] != 0) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok2'] != 1) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok2'] != 2) {
+							?>display: none<?php
+						} ?>"></th>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Kesesuaian Tema</td>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok3'] != 0) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok3'] != 1) {
+							?>display: none<?php
+						} ?>"></th>
+						<th><img src="img/centang2.png" style="max-width:15px; <?php if ($list_hasil_array[0]['mulok3'] != 2) {
+							?>display: none<?php
+						} ?>"></th>
+					</tr>
+
+			</table>
+		<br>
+		<table class="" style="width: 100%; text-align: center;">
+				<tr class="">
+					<th colspan="5" style="text-align: center; background-color: green; color: white;">Tumbuh Kembang</th>
+				</tr>
+					<tr>
+						<th>No</th>
+						<th style="width:25%">Aspek Perkembangan</th>
+						<th>Keterangan</th>
+					</tr>
+					
+					<tr>
+						<td>1</td>
+						<td>Pengelihatan (Mata)</td>
+						<td><?php echo $list_hasil_array[0]['mata'];?></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Pendengaran (Telinga)</td>
+						<td><?php echo $list_hasil_array[0]['telinga'];?></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Kesehatan Gigi & Mulut</td>
+						<td><?php echo $list_hasil_array[0]['mulut'];?></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>Kerapian dalam Berpakaian</td>
+						<td><?php echo $list_hasil_array[0]['pakaian'];?></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>Berat Badan</td>
+						<td><?php echo $list_hasil_array[0]['berat'];?></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>Tinggi Badan</td>
+						<td><?php echo $list_hasil_array[0]['tinggi'];?></td>
+					</tr>
+			</table>
+
+			<br>
+			<table class="" style="width: 100%; text-align: center;">
+				<tr class="">
+					<th colspan="5" style="text-align: center; background-color: green; color: white;">Presensi</th>
+				</tr>
+					<tr>
+						<th>No</th>
+						<th style="width:25%">Keterangan</th>
+						<th>Semester 1</th>
+					</tr>
+					
+					<tr>
+						<td>1</td>
+						<td>Sakit</td>
+						<td><?php echo $list_hasil_array[0]['sakit'];?></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Ijin</td>
+						<td><?php echo $list_hasil_array[0]['ijin'];?></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Alpha</td>
+						<td><?php echo $list_hasil_array[0]['alpha'];?></td>
+					</tr>
+			
+			</table>
+			<br>
+
+			<table class="" style="width:100%; text-align:center">
+				<thead>
+					<tr>
+						<th>Wali Kelas</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						
+						<th></th>
+						<th></th>
+						<th>Mengetahui</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr>
+						<td><?php echo $list_hasil_array[0]['nama']?></td>
+						<td></td>
+						<td></td>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</tbody>
+			</table>
 
 <div class="row">
 	<div class="col-lg-2">
