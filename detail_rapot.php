@@ -62,10 +62,12 @@ if ($result->num_rows > 0) {
 
 
 		<main>
+			<form method="POST" action="submit_detail_rapot.php" enctype="multipart/form-data">
 			<br>
 			<h4>Isi Detail Rapot <a href="index.php" class="btn btn-warning" style="float:right">Back</a></h4> 	
 			<br>
 			<h5>Nama Murid : <?php echo $list_hasil_array[0]['murid_nama']; ?></h5>
+			<input type="hidden" name="murid_id" readonly value="<?php echo $_GET['id']; ?>">
 			<br>
 			<br>
 			<h3>1. Profil Pelajar Pancasila</h3>
@@ -73,12 +75,20 @@ if ($result->num_rows > 0) {
 				<thead>
 					<tr>
 						<th style="width:25%">Project Profil Pelajar Pancasila</th>
-						<td><textarea name="pp" rows="5" style="width:100%" placeholder="Project Profil Peljar"></textarea></td>
+						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"></textarea></td>
 
 					</tr>
 					<tr>
 						<th style="width:25%">Foto Profil Pelajar Pancasila</th>
-						<td></td>
+						<td>Foto 1:
+	  					<input type="file" name="photo1" id="photo1">
+						</td>
+						<td>Foto 1:
+							<input type="file" name="photo2" id="photo2">
+						</td>
+						<td>Foto 1:
+							<input type="file" name="photo3" id="photo3">
+						</td>
 					</tr>
 				</thead>
 			</table>
@@ -103,9 +113,23 @@ if ($result->num_rows > 0) {
 					<tr>
 						<th style="width:5%">1</th>
 						<th style="width:25%">Komposisi Warna</th>
-						<td><input type="radio" id="bm" name="warna" value="0"><label for="bm" style="margin-left: 10px;"> Belum Muncul</label></td>
-						<td><input type="radio" id="mm" name="warna" value="1"><label for="mm" style="margin-left: 10px;"> Mulai Muncul</label></td>
-						<td><input type="radio" id="sm" name="warna" value="2"><label for="sm" style="margin-left: 10px;"> Sudah Muncul</label></td>
+						<td><input type="radio" id="bm1" name="mulok1" value="0" checked="checked"><label for="bm1" style="margin-left: 10px;"> Belum Muncul</label></td>
+						<td><input type="radio" id="mm1" name="mulok1" value="1"><label for="mm1" style="margin-left: 10px;"> Mulai Muncul</label></td>
+						<td><input type="radio" id="sm1" name="mulok1" value="2"><label for="sm1" style="margin-left: 10px;"> Sudah Muncul</label></td>
+					</tr>
+						<tr>
+						<th style="width:5%">1</th>
+						<th style="width:25%">K122</th>
+						<td><input type="radio" id="bm2" name="mulok2" value="0" checked="checked"><label for="bm2" style="margin-left: 10px;"> Belum Muncul</label></td>
+						<td><input type="radio" id="mm2" name="mulok2" value="1"><label for="mm2" style="margin-left: 10px;"> Mulai Muncul</label></td>
+						<td><input type="radio" id="sm2" name="mulok2" value="2"><label for="sm2" style="margin-left: 10px;"> Sudah Muncul</label></td>
+					</tr>
+						<tr>
+						<th style="width:5%">1</th>
+						<th style="width:25%">K33</th>
+						<td><input type="radio" id="bm3" name="mulok3" value="0" checked="checked"><label for="bm3" style="margin-left: 10px;"> Belum Muncul</label></td>
+						<td><input type="radio" id="mm3" name="mulok3" value="1"><label for="mm3" style="margin-left: 10px;"> Mulai Muncul</label></td>
+						<td><input type="radio" id="sm3" name="mulok3" value="2"><label for="sm3" style="margin-left: 10px;"> Sudah Muncul</label></td>
 					</tr>
 				</thead>
 			</table>
@@ -125,32 +149,32 @@ if ($result->num_rows > 0) {
 					<tr>
 						<th style="width:5%">1</th>
 						<th style="width:25%">Penglihatan (Mata)</th>
-						<th><input type="text" class="form-control" nama="mata" placeholder="Contoh: Rada Burem"></th>
+						<th><input type="text" class="form-control" name="mata" placeholder="Contoh: Rada Burem"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Pendengaran (Telinga)</th>
-						<th><input type="text" class="form-control" nama="telinga" placeholder="Contoh: Rada-rada Budi"></th>
+						<th><input type="text" class="form-control" name="telinga" placeholder="Contoh: Rada-rada Budi"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">3</th>
 						<th style="width:25%">Kesehatan Gigi & Mulut</th>
-						<th><input type="text" class="form-control" nama="mulut" placeholder="Contoh: Tidak Pernah sikat gigi"></th>
+						<th><input type="text" class="form-control" name="mulut" placeholder="Contoh: Tidak Pernah sikat gigi"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">4</th>
 						<th style="width:25%">Kerapian dalam berpakaian</th>
-						<th><input type="text" class="form-control" nama="pakaian" placeholder="Contoh: Sering tidak rapi"></th>
+						<th><input type="text" class="form-control" name="pakaian" placeholder="Contoh: Sering tidak rapi"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">5</th>
 						<th style="width:25%">Berat Badan</th>
-						<th><input type="number" class="form-control" nama="berat" placeholder="angka saja. Contoh:26"></th>
+						<th><input type="number" class="form-control" name="berat" placeholder="angka saja. Contoh:26"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">6</th>
 						<th style="width:25%">Tinggi Badan</th>
-						<th><input type="number" class="form-control" nama="tinggi" placeholder="angka saja. Contoh: 120"></th>
+						<th><input type="number" class="form-control" name="tinggi" placeholder="angka saja. Contoh: 120"></th>
 					</tr>
 
 				</thead>
@@ -171,17 +195,17 @@ if ($result->num_rows > 0) {
 					<tr>
 						<th style="width:5%">1</th>
 						<th style="width:25%">Sakit</th>
-						<th><input type="number" class="form-control" nama="sakit" placeholder="5"></th>
+						<th><input type="number" class="form-control" name="sakit" placeholder="5"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Ijin</th>
-						<th><input type="number" class="form-control" nama="ijin" placeholder="3"></th>
+						<th><input type="number" class="form-control" name="ijin" placeholder="3"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Alpha</th>
-						<th><input type="number" class="form-control" nama="alpha" placeholder="1"></th>
+						<th><input type="number" class="form-control" name="alpha" placeholder="1"></th>
 					</tr>
 
 				</thead>
@@ -198,14 +222,15 @@ if ($result->num_rows > 0) {
 						<th>Refleksi Guru</th>
 					</tr>
 					<tr>
-						<th><input type="text" class="form-control" nama="refleksi" placeholder="Isikan Refleksi"></th>
+						<th><textarea name="refleksi" placeholder="Isikan Refleksi dari guru" rows="5" class="form-control"></textarea></th>
 					</tr>
 
 				</thead>
 			</table>
 
-
-
+	<input class="btn btn-success" type="submit" id="submit_button">
+</form>
+</main>
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
