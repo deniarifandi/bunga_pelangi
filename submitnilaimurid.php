@@ -21,7 +21,7 @@ $amati_5 = $_POST['amati5'];
 $amati_6 = $_POST['amati6'];
 
  
-$nilai = "SELECT * FROM penilaian where hasil_id = ".$_POST['id_hasil'];
+$nilai = "SELECT * FROM penilaian where hasil_id = ".$_POST['id_hasil']."AND murid_id = ".$_POST['murid_id'];
 $resultmurid = $conn->query($nilai);
 
 if ($resultmurid->num_rows > 0) {
