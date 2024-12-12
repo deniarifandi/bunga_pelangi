@@ -77,9 +77,9 @@ if ($result->num_rows > 0) {
 						<th style="width:5%">No.</th>
 						<th style="width: 15%;">Kelompok</th>
 						<!-- <th style="width: 15%;">Nama Guru</th> -->
-						<th style="width: 55%;">Nama Murid</th>
+						<th style="width: 50%;">Nama Murid</th>
 						
-						<th colspan="2">Action</th>
+						<th colspan="3">Action</th>
 					</tr>
 				</thead>
 
@@ -94,6 +94,7 @@ if ($result->num_rows > 0) {
 							<!-- <td class="condensed"><?php echo $list_hasil_array[$i]['nama']; ?></td> -->
 							<td class="condensed"><?php echo $list_hasil_array[$i]['murid_nama']; ?></td>
 						<td class="condensed"><a href="detail_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-success">Isi Detail</a></td>
+						<td class="condensed"><a href="isi_foto.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-warning">Isi Foto Kegiatan</a></td>
 
 						<td class="condensed"><a href="print_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-primary" target="_blank">Print Rapot</a></td>
 

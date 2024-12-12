@@ -27,6 +27,26 @@ if ($result->num_rows > 0) {
 }
 
 
+$sql = "SELECT tabel_foto.*
+FROM tabel_foto
+where tabel_foto.murid_id = ".$_GET['id']."  
+
+"
+;
+
+// echo $sql;
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+
+	while( $row = $result->fetch_assoc()){
+		$list_foto[] = $row;
+	}
+} else {
+	echo "0 results";
+}
+
 // print_r($list_hasil_array);
 // echo json_encode($list_hasil_array);
 
@@ -148,7 +168,7 @@ if ($result->num_rows > 0) {
 
 				</tr>
 				<tr class="">
-					<td>
+					<td colspan="3">
 						<textarea style="white-space:nowrap; width: 100%;" rows="<?php echo count($list_hasil_array)+2 ?>" class="form-control">
 <?php for ($i=0; $i < count($list_hasil_array); $i++) { 
 echo $list_hasil_array[$i]['amati_1'];
@@ -158,7 +178,12 @@ echo $list_hasil_array[$i]['amati_2']."\n";
 					</td>
 				</tr>
 				<tr class="">
-					<td>FOTO KEGIATAN:</td>
+					<td colspan="3">FOTO KEGIATAN:</td>
+				</tr>
+				<tr class="">
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoagama1'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoagama2'] ?>" style="max-width:100%" alt="foto"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoagama3'] ?>" style="max-width:100%"></td>
 				</tr>
 
 			</table>
@@ -172,7 +197,7 @@ echo $list_hasil_array[$i]['amati_2']."\n";
 
 				</tr>
 				<tr class="">
-					<td>
+					<td colspan="3">
 
 						<textarea style="white-space:pre-wrap; width: 100%;" rows="5" class="form-control"><?php for ($i=0; $i < count($list_hasil_array); $i++) { 
 echo $list_hasil_array[$i]['amati_3'];
@@ -183,7 +208,12 @@ echo $list_hasil_array[$i]['amati_4']."\n";
 					</td>
 				</tr>
 				<tr class="">
-					<td>FOTO KEGIATAN:</td>
+					<td colspan="3">FOTO KEGIATAN:</td>
+				</tr>
+				<tr class="">
+					<td><img src="rapot/<?php echo $list_foto[0]['fotojati1'] ?>" style="max-width:90%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotojati2'] ?>" style="max-width:90%" alt="foto"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotojati3'] ?>" style="max-width:90%"></td>
 				</tr>
 
 			</table>
@@ -195,7 +225,7 @@ echo $list_hasil_array[$i]['amati_4']."\n";
 
 				</tr>
 				<tr class="">
-					<td>
+					<td colspan="3">
 						<textarea style="width:100%" class="form-control" rows="5"><?php for ($i=0; $i < count($list_hasil_array); $i++) { 
 echo $list_hasil_array[$i]['amati_5'];
 echo $list_hasil_array[$i]['amati_6']."\n";
@@ -204,7 +234,12 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 					</td>
 				</tr>
 				<tr class="">
-					<td>FOTO KEGIATAN:</td>
+					<td colspan="3">FOTO KEGIATAN:</td>
+				</tr>
+				<tr class="">
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoliterasi1'] ?>" style="max-width:90%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoliterasi2'] ?>" style="max-width:90%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotoliterasi3'] ?>" style="max-width:90%"></td>
 				</tr>
 
 			</table>
@@ -219,16 +254,22 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 
 				</tr>
 				<tr class="">
-					<td>
+					<td colspan="3">
 						<textarea style="width:100%" class="form-control" rows="5"><?php echo $list_hasil_array[0]['pp']; ?></textarea>
 					</td>
 				</tr>
 				<tr class="">
-					<td>FOTO KEGIATAN:</td>
+					<td colspan="3">FOTO KEGIATAN:</td>
+				</tr>
+				<tr class="">
+					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp1'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp2'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp3'] ?>" style="max-width:100%"></td>
 				</tr>
 
 			</table>
 		<br>
+		
 		<br>
 			<table class="" style="width: 100%; text-align: center;">
 				<tr class="">
@@ -289,6 +330,7 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 
 			</table>
 		<br>
+		
 		<table class="" style="width: 100%; text-align: center;">
 				<tr class="">
 					<th colspan="5" style="text-align: center; background-color: green; color: white;">Tumbuh Kembang</th>
@@ -330,7 +372,7 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 						<td><?php echo $list_hasil_array[0]['tinggi'];?></td>
 					</tr>
 			</table>
-
+			<div class="pagebreak"> </div>
 			<br>
 			<table class="" style="width: 100%; text-align: center;">
 				<tr class="">
@@ -361,90 +403,201 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 			</table>
 			<br>
 
-			<table class="" style="width:100%; text-align:center">
+			<table class="borderless" style="width:100%; text-align:center">
 				<thead>
 					<tr>
-						<th>Wali Kelas</th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<th class="borderless" style="width:20%"></th>
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:10%"></th>
 						
-						<th></th>
-						<th></th>
-						<th>Mengetahui</th>
+						
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width: 20%; text-align: left;">Malang, <?php echo date("d-M-Y");?></th>
+						<th class="borderless" style="width:10%"></th>
+					</tr>
+					<tr>
+					
+					<tr>
+						<th class="borderless">Orang Tua/Wali Murid</th>
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+						
+						<th class="borderless"></th>
+						<th class="borderless">Wali Kelas</th>
+						<th class="borderless"></th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
 					</tr>
 
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
 					</tr>
 					<tr>
-						<td><?php echo $list_hasil_array[0]['nama']?></td>
-						<td></td>
-						<td></td>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<td class="borderless">______________________</td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						
+						<td class="borderless"><?php echo $list_hasil_array[0]['nama'] ?></td>
+						<td class="borderless"></td>
 					</tr>
 				</tbody>
 			</table>
 
-<div class="row">
-	<div class="col-lg-2">
-		Mengetahui,&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Malang, <?php echo date("d-m-Y");?><br>
-		Kepala PP Bunga Pelangi&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Guru Kelompok
-		<br>
-		<br>
-		<br>
-		
-		Siti Maghfiroh, S.Kom&nbsp;&nbsp;&nbsp;&nbsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; <?php echo $list_hasil_array[0]['nama'] ?>
-	</div>
-	<div class="pagebreak"> </div>
-	<div class="col-lg-2">
+			<table class="borderless" style="width:100%; text-align:center">
+				<thead>
+					<tr>
+						<th class="borderless" style="width:20%"></th>
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:0%"></th>
+						<th class="borderless" style="width: 30%; text-align: left; padding-left: 20px;">Mengetahui</th>
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:10%"></th>
+					</tr>
+					<tr class="borderless">
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+						<th class="borderless">Kepala Sekolah PP Bunga Pelangi</th>
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+						<th class="borderless"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<th class="borderless"></th>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+					<tr>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless">Siti Maghfiroh, S.Kom</td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+						<td class="borderless"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<br>
+		<table style="width: 100%;">
+			<thead>
+				<tr>
+					<th class="borderless">Refleksi Guru</th>
+				</tr>
+				<tr>
+					<th class="">
+					<textarea style="width:100%" rows="10"><?php echo $list_hasil_array[0]['refleksi'] ?>
+					</textarea></th>	
+				</tr>
+				
+			</thead>
+			<tbody>
+				<tr>
+					<th class="borderless">Refleksi Orang Tua</th>
+				</tr>
+				<tr>
+					<td class="">
+						<textarea style="width:100%" rows="10">
+						
+					</textarea></th>	
+					</td>	
+				</tr>
+				
+			</tbody>
+		</table>
+
 			
 		</main>
 

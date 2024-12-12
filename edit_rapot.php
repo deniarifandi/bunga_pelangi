@@ -23,8 +23,7 @@ where detail_rapot.murid_id = ".$_GET['id'];
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-	header("Location: ./edit_rapot.php?id=".$_GET['id']);
-die();
+	$isiRapot[] = $row;
 } else {
 	
 }
