@@ -9,7 +9,7 @@ left join detail_rapot on detail_rapot.murid_id = murid.murid_id
 
 where murid.murid_id = ".$_GET['id']."  
 group by penilaian.penilaian_id
-order by murid.murid_nama
+order by detail_rapot.id asc
 "
 ;
 
@@ -17,20 +17,22 @@ order by murid.murid_nama
 
 $result = $conn->query($sql);
 
+// echo json_encode($result->fetch_assoc());
+
 if ($result->num_rows > 0) {
 
 	while( $row = $result->fetch_assoc()){
 		$list_hasil_array[] = $row;
 	}
 } else {
-	echo "0 results";
+	// echo "0 results";
 }
 
 
 $sql = "SELECT tabel_foto.*
 FROM tabel_foto
 where tabel_foto.murid_id = ".$_GET['id']."  
-
+order by tabel_foto.id desc
 "
 ;
 
@@ -44,7 +46,7 @@ if ($result->num_rows > 0) {
 		$list_foto[] = $row;
 	}
 } else {
-	echo "0 results";
+	// echo "0 results";
 }
 
 // print_r($list_hasil_array);
@@ -169,7 +171,7 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr class="">
 					<td colspan="3">
-						<textarea style="white-space:nowrap; width: 100%;" rows="<?php echo count($list_hasil_array)+2 ?>" class="form-control">
+						<textarea style="white-space:normal; width: 100%;" rows="<?php echo count($list_hasil_array)+2 ?>" class="form-control">
 <?php for ($i=0; $i < count($list_hasil_array); $i++) { 
 echo $list_hasil_array[$i]['amati_1'];
 echo $list_hasil_array[$i]['amati_2']."\n";
@@ -262,9 +264,9 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 					<td colspan="3">FOTO KEGIATAN:</td>
 				</tr>
 				<tr class="">
-					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp1'] ?>" style="max-width:100%"></td>
-					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp2'] ?>" style="max-width:100%"></td>
-					<td><img src="rapot/<?php echo $list_hasil_array[0]['potopp3'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotopp1'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotopp2'] ?>" style="max-width:100%"></td>
+					<td><img src="rapot/<?php echo $list_foto[0]['fotopp3'] ?>" style="max-width:100%"></td>
 				</tr>
 
 			</table>

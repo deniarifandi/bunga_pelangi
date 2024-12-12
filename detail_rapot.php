@@ -1,7 +1,9 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT * FROM murid ";
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM murid where murid_id = $id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -23,8 +25,8 @@ where detail_rapot.murid_id = ".$_GET['id'];
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-	header("Location: ./edit_rapot.php?id=".$_GET['id']);
-die();
+	// header("Location: ./edit_rapot.php?id=".$_GET['id']);
+// die();
 } else {
 	
 }
@@ -82,7 +84,7 @@ die();
 			<br>
 			<h4>Isi Detail Rapot <a href="index_rapot.php" class="btn btn-warning" style="float:right">Back</a></h4> 	
 			<br>
-			<h5>Nama Murid : <?php echo $list_hasil_array[0]['murid_nama']; ?></h5>
+			<h3>Nama Murid : <?php echo $list_hasil_array[0]['murid_nama']; ?></h3>
 			<input type="hidden" name="murid_id" readonly value="<?php echo $_GET['id']; ?>">
 			<br>
 			<br>
@@ -94,7 +96,7 @@ die();
 						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"></textarea></td>
 
 					</tr>
-					<tr>
+				<!-- 	<tr>
 						<th style="width:25%">Foto Profil Pelajar Pancasila</th>
 						<td>Foto 1:
 	  					<input type="file" name="photo1" id="photo1">
@@ -105,7 +107,7 @@ die();
 						<td>Foto 1:
 							<input type="file" name="photo3" id="photo3">
 						</td>
-					</tr>
+					</tr> -->
 				</thead>
 			</table>
 			<br>

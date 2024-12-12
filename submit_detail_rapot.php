@@ -1,120 +1,6 @@
 <?php
 include('connect.php');
 
-///////////////////PHHOOOTOOO
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Define the upload directory
-    $uploadDir = "rapot/";
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
-    }
-
-    // Get file details
-    $file = $_FILES['photo1'];
-    $originalFileName = basename($file['name']);
-    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
-
-    // Generate a randomized file name
-    $randomFileName1 = uniqid("photo_", true) . '.' . $fileType;
-    $targetFilePath = $uploadDir . $randomFileName1;
-
-    // Allowed file types
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-
-    // Validate file type
-    if (in_array($fileType, $allowedTypes)) {
-        // Attempt to move the uploaded file to the target directory
-        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileName1);
-        } else {
-            echo "Error: There was an error uploading your file.";
-        }
-    } else {
-        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
-    }
-} else {
-    echo "Error: Invalid request.";
-}
-
-
-//////////////UPLOAD PHOOTOOOO
-
-
-///////////////////PHHOOOTOOO
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Define the upload directory
-    $uploadDir = "rapot/";
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
-    }
-
-    // Get file details
-    $file = $_FILES['photo2'];
-    $originalFileName = basename($file['name']);
-    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
-
-    // Generate a randomized file name
-    $randomFileName2 = uniqid("photo_", true) . '.' . $fileType;
-    $targetFilePath = $uploadDir . $randomFileName2;
-
-    // Allowed file types
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-
-    // Validate file type
-    if (in_array($fileType, $allowedTypes)) {
-        // Attempt to move the uploaded file to the target directory
-        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileName2);
-        } else {
-            echo "Error: There was an error uploading your file.";
-        }
-    } else {
-        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
-    }
-} else {
-    echo "Error: Invalid request.";
-}
-
-
-//////////////UPLOAD PHOOTOOOO
-
-///////////////////PHHOOOTOOO
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Define the upload directory
-    $uploadDir = "rapot/";
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
-    }
-
-    // Get file details
-    $file = $_FILES['photo3'];
-    $originalFileName = basename($file['name']);
-    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
-
-    // Generate a randomized file name
-    $randomFileName3 = uniqid("photo_", true) . '.' . $fileType;
-    $targetFilePath = $uploadDir . $randomFileName3;
-
-    // Allowed file types
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-
-    // Validate file type
-    if (in_array($fileType, $allowedTypes)) {
-        // Attempt to move the uploaded file to the target directory
-        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileName3);
-        } else {
-            echo "Error: There was an error uploading your file.";
-        }
-    } else {
-        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
-    }
-} else {
-    echo "Error: Invalid request.";
-}
 
 
 //////////////UPLOAD PHOOTOOOO
@@ -139,9 +25,6 @@ $refleksi = $_POST['refleksi'];
  $sql = "INSERT INTO detail_rapot (
  	murid_id,
  	pp,
- 	potopp1,
- 	potopp2,
- 	potopp3,
  	mulok1,
  	mulok2,
  	mulok3,
@@ -159,9 +42,6 @@ $refleksi = $_POST['refleksi'];
  VALUES (
  	'$murid_id',
  	'$pp',
- 	'$randomFileName1',
- 	'$randomFileName2',
- 	'$randomFileName3',
  	'$mulok1',
  	'$mulok2',
  	'$mulok3',
@@ -175,7 +55,24 @@ $refleksi = $_POST['refleksi'];
  	'$ijin',
  	'$alpha',
  	'$refleksi'
- )";
+ ) ON DUPLICATE KEY UPDATE
+
+murid_id = '$murid_id',
+pp = '$pp',
+mulok1 = '$mulok1',
+mulok2 = '$mulok2',
+mulok3 = '$mulok3',
+mata = '$mata',
+telinga = '$telinga',
+mulut = '$mulut',
+pakaian = '$pakaian',
+berat = '$berat',
+tinggi = '$tinggi',
+sakit = '$sakit',
+ijin = '$ijin',
+alpha = '$alpha',
+refleksi = '$refleksi'
+ ";
 
  if ($conn->query($sql) === TRUE) {
   echo "DATA BERHASIL DISIMPAN";
