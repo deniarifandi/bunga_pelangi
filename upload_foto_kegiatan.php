@@ -11,6 +11,124 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Get file details
+    $file = $_FILES['pp1'];
+    $originalFileName = basename($file['name']);
+    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+    // Generate a randomized file name
+    $randomFileNamepp1 = uniqid("pp_", true) . '.' . $fileType;
+    $targetFilePath = $uploadDir . $randomFileNamepp1;
+
+    // Allowed file types
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+    // Validate file type
+    if (in_array($fileType, $allowedTypes)) {
+        // Attempt to move the uploaded file to the target directory
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileNamepp1);
+        } else {
+            echo "Error: There was an error uploading your file.";
+        }
+    } else {
+        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
+    }
+} else {
+    echo "Error: Invalid request.";
+}
+
+
+//////////////UPLOAD PHOOTOOOO
+
+
+///////////////////PHHOOOTOOO
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Define the upload directory
+    $uploadDir = "rapot/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
+    }
+
+    // Get file details
+    $file = $_FILES['pp2'];
+    $originalFileName = basename($file['name']);
+    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+    // Generate a randomized file name
+    $randomFileNamepp2 = uniqid("pp_", true) . '.' . $fileType;
+    $targetFilePath = $uploadDir . $randomFileNamepp2;
+
+    // Allowed file types
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+    // Validate file type
+    if (in_array($fileType, $allowedTypes)) {
+        // Attempt to move the uploaded file to the target directory
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileNamepp2);
+        } else {
+            echo "Error: There was an error uploading your file.";
+        }
+    } else {
+        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
+    }
+} else {
+    echo "Error: Invalid request.";
+}
+
+
+//////////////UPLOAD PHOOTOOOO
+
+///////////////////PHHOOOTOOO
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Define the upload directory
+    $uploadDir = "rapot/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
+    }
+
+    // Get file details
+    $file = $_FILES['pp3'];
+    $originalFileName = basename($file['name']);
+    $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+    // Generate a randomized file name
+    $randomFileNamepp3 = uniqid("pp_", true) . '.' . $fileType;
+    $targetFilePath = $uploadDir . $randomFileNamepp3;
+
+    // Allowed file types
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+    // Validate file type
+    if (in_array($fileType, $allowedTypes)) {
+        // Attempt to move the uploaded file to the target directory
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            echo "The file has been uploaded successfully with the name: " . htmlspecialchars($randomFileNamepp3);
+        } else {
+            echo "Error: There was an error uploading your file.";
+        }
+    } else {
+        echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
+    }
+} else {
+    echo "Error: Invalid request.";
+}
+
+
+//////////////UPLOAD PHOOTOOOO
+
+///////////////////PHHOOOTOOO
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Define the upload directory
+    $uploadDir = "rapot/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
+    }
+
+    // Get file details
     $file = $_FILES['photo1'];
     $originalFileName = basename($file['name']);
     $fileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
@@ -364,7 +482,10 @@ $murid_id = $_POST['murid_id'];
     fotojati3,
     fotoliterasi1,
     fotoliterasi2,
-    fotoliterasi3
+    fotoliterasi3,
+    fotopp1,
+    fotopp2,
+    fotopp3
 
  	)
  VALUES (
@@ -377,7 +498,10 @@ $murid_id = $_POST['murid_id'];
     '$randomFileName6',
     '$randomFileName7',
     '$randomFileName8',
-    '$randomFileName9'
+    '$randomFileName9',
+    '$randomFileNamepp1',
+    '$randomFileNamepp2',
+    '$randomFileNamepp3'
    
  )";
 

@@ -13,17 +13,20 @@ if ($result->num_rows > 0) {
   echo "0 results";
 }
 
-include('connect.php');
-
-$sql = "SELECT detail_rapot.* FROM detail_rapot
+$sql2 = "SELECT detail_rapot.* FROM detail_rapot
 where detail_rapot.murid_id = ".$_GET['id'];
 
 // echo $sql;
 
-$result = $conn->query($sql);
+$result2 = $conn->query($sql2);
 
-if ($result->num_rows > 0) {
-	$isiRapot[] = $row;
+// echo json_encode($result2->fetch_assoc());
+
+if ($result2->num_rows > 0) {
+
+	while( $row = $result2->fetch_assoc()){
+    $isiRapot[] = $row;
+}
 } else {
 	
 }
@@ -90,21 +93,10 @@ if ($result->num_rows > 0) {
 				<thead>
 					<tr>
 						<th style="width:25%">Project Profil Pelajar Pancasila</th>
-						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"></textarea></td>
+						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"><?php echo $isiRapot[0]['pp'] ?></textarea></td>
 
 					</tr>
-					<tr>
-						<th style="width:25%">Foto Profil Pelajar Pancasila</th>
-						<td>Foto 1:
-	  					<input type="file" name="photo1" id="photo1">
-						</td>
-						<td>Foto 1:
-							<input type="file" name="photo2" id="photo2">
-						</td>
-						<td>Foto 1:
-							<input type="file" name="photo3" id="photo3">
-						</td>
-					</tr>
+					
 				</thead>
 			</table>
 			<br>

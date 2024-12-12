@@ -54,8 +54,26 @@ include('connect.php');
 			<h4>Isi Detail Rapot <a href="index_rapot.php" class="btn btn-warning" style="float:right">Back</a></h4> 	
 			<br>
 
-			<input type="text" name="murid_id" value="<?php echo $_GET['id']; ?>" readonly>
+			<input type="hidden" name="murid_id" value="<?php echo $_GET['id']; ?>" readonly>
 			
+
+			<h3>0. Project Pelajar Pancasila</h3>
+			<table class="table table-bordered border-dark">
+				<thead>
+					<tr>
+						<td>Foto 1:
+	  					<input type="file" name="pp1" id="pp1">
+						</td>
+						<td>Foto 1:
+							<input type="file" name="pp2" id="pp2">
+						</td>
+						<td>Foto 1:
+							<input type="file" name="pp3" id="pp3">
+						</td>
+					</tr>
+				</thead>
+			</table>
+			<br>
 
 			<h3>1. Kegiatan Agama</h3>
 			<table class="table table-bordered border-dark">
