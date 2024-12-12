@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
 $sql = "SELECT tabel_foto.*
 FROM tabel_foto
 where tabel_foto.murid_id = ".$_GET['id']."  
-
+order by tabel_foto.id desc
 "
 ;
 
@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
 		$list_foto[] = $row;
 	}
 } else {
-	echo "0 results";
+	// echo "0 results";
 }
 
 // print_r($list_hasil_array);

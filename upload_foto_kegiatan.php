@@ -503,7 +503,7 @@ $murid_id = $_POST['murid_id'];
     '$randomFileNamepp2',
     '$randomFileNamepp3'
    
- )";
+ ) ";
 
  if ($conn->query($sql) === TRUE) {
   echo "DATA BERHASIL DISIMPAN";
