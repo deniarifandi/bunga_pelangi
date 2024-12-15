@@ -44,6 +44,27 @@ include('connect.php');
 <body>
 	
 
+<?php
+
+$sql2 = "SELECT tabel_foto.* FROM tabel_foto
+where tabel_foto.murid_id = ".$_GET['id'];
+
+// echo $sql;
+
+$result2 = $conn->query($sql2);
+
+// $hasil_rapot = $result2->fetch_assoc();
+
+// $result = $conn->query($sql);
+
+if ($result2->num_rows > 0) {
+	header("Location: ./edit_foto.php?id=".$_GET['id']);
+die();
+} else {
+	
+}
+
+ ?>
 
 <div class="col-lg-8 mx-auto p-4 py-md-5">
 
@@ -62,7 +83,7 @@ include('connect.php');
 				<thead>
 					<tr>
 						<td>Foto 1:
-	  					<input type="file" name="pp1" id="pp1">
+	  					<input type="file" name="pp1" id="pp1" value="">
 						</td>
 						<td>Foto 1:
 							<input type="file" name="pp2" id="pp2">

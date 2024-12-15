@@ -1,11 +1,12 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT * FROM murid 
+$sql = "SELECT detail_rapot.id as rapot_id, murid.*, kelompok.*, nama_guru.* FROM murid 
 join kelompok on murid.murid_kelompok = kelompok.id
 join nama_guru on kelompok.id = nama_guru.kelompok
+left join detail_rapot on murid.murid_id = detail_rapot.murid_id
 group by murid.murid_id
-order by murid.murid_kelompok";
+order by murid.murid_kelompok, murid.murid_nama";
 
 $result = $conn->query($sql);
 
@@ -93,7 +94,17 @@ if ($result->num_rows > 0) {
 							<td class="condensed"><?php echo $list_hasil_array[$i]['judul']; ?></td>
 							<!-- <td class="condensed"><?php echo $list_hasil_array[$i]['nama']; ?></td> -->
 							<td class="condensed"><?php echo $list_hasil_array[$i]['murid_nama']; ?></td>
-						<td class="condensed"><a href="detail_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-success">Isi Detail</a></td>
+						<td class="condensed">
+
+
+							<?php if(isset($list_hasil_array[$i]['rapot_id'])): ?>
+										<a href="detail_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-success"> Edit Detail</a>
+							<?php else : ?>
+									<a href="detail_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-danger"> Isi Detail</a>
+							<?php endif ?>
+					
+
+						</td>
 						<td class="condensed"><a href="isi_foto.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-warning">Isi Foto Kegiatan</a></td>
 
 						<td class="condensed"><a href="print_rapot.php?id=<?php echo $list_hasil_array[$i]['murid_id'];?>" class="btn btn-primary" target="_blank">Print Rapot</a></td>

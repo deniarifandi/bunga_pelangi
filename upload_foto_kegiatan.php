@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileNamepp1 = $_POST['pp1alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -71,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+         $randomFileNamepp2 = $_POST['pp2alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -110,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+         $randomFileNamepp3 = $_POST['pp3alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -149,6 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName1 = $_POST['photo1alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -189,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName2 = $_POST['photo2alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -228,6 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName3 = $_POST['photo3alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -267,6 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName4 = $_POST['photo4alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -306,6 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName5 = $_POST['photo5alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -345,6 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName6 = $_POST['photo6alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -383,6 +392,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName7 = $_POST['photo7alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -422,6 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName8 = $_POST['photo8alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -461,6 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Error: There was an error uploading your file.";
         }
     } else {
+        $randomFileName9 = $_POST['photo9alt'];
         echo "Error: Only JPG, JPEG, PNG, and GIF files are allowed.";
     }
 } else {
@@ -503,7 +515,21 @@ $murid_id = $_POST['murid_id'];
     '$randomFileNamepp2',
     '$randomFileNamepp3'
    
- ) ";
+ ) ON DUPLICATE KEY UPDATE
+    murid_id  = '$murid_id',
+    fotoagama1 = '$randomFileName1',
+    fotoagama2 = '$randomFileName2',
+    fotoagama3 = '$randomFileName3',
+    fotojati1 = '$randomFileName4',
+    fotojati2 = '$randomFileName5',
+    fotojati3 = '$randomFileName6',
+    fotoliterasi1 = '$randomFileName7',
+    fotoliterasi2 = '$randomFileName8',
+    fotoliterasi3 = '$randomFileName9',
+    fotopp1 = '$randomFileNamepp1',
+    fotopp2 = '$randomFileNamepp2',
+    fotopp3 = '$randomFileNamepp3'
+ ";
 
  if ($conn->query($sql) === TRUE) {
   echo "DATA BERHASIL DISIMPAN";

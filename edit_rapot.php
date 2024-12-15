@@ -13,23 +13,20 @@ if ($result->num_rows > 0) {
   echo "0 results";
 }
 
-$sql2 = "SELECT detail_rapot.* FROM detail_rapot
+$sql2 = "SELECT detail_rapot.id as rapot_id, detail_rapot.*, murid.*, kelompok.* FROM detail_rapot
+join murid on murid.murid_id = detail_rapot.murid_id
+join kelompok on kelompok.id = murid.murid_kelompok
 where detail_rapot.murid_id = ".$_GET['id'];
 
 // echo $sql;
 
 $result2 = $conn->query($sql2);
 
-// echo json_encode($result2->fetch_assoc());
+$hasil_rapot = $result2->fetch_assoc();
 
-if ($result2->num_rows > 0) {
+// echo json_encode($hasil_rapot);
 
-	while( $row = $result2->fetch_assoc()){
-    $isiRapot[] = $row;
-}
-} else {
-	
-}
+
 
 ?>
 <!doctype html>
@@ -82,18 +79,18 @@ if ($result2->num_rows > 0) {
 		<main>
 			<form method="POST" action="submit_detail_rapot.php" enctype="multipart/form-data">
 			<br>
-			<h4>Isi Detail Rapot <a href="index_rapot.php" class="btn btn-warning" style="float:right">Back</a></h4> 	
+			<h4>Edit Detail Rapot <a href="index_rapot.php" class="btn btn-warning" style="float:right">Back</a></h4> 	
 			<br>
-			<h5>Nama Murid : <?php echo $list_hasil_array[0]['murid_nama']; ?></h5>
-			<input type="hidden" name="murid_id" readonly value="<?php echo $_GET['id']; ?>">
-			<br>
-			<br>
+			<h5>Nama Murid : <?php echo $hasil_rapot['murid_nama']; ?></h5>
+			
+			
+			ID Murid : <input type="text" name="murid_id" value="<?php echo $hasil_rapot['murid_id'] ?>" readonly>	
 			<h3>1. Profil Pelajar Pancasila</h3>
 			<table class="table table-bordered border-dark">
 				<thead>
 					<tr>
 						<th style="width:25%">Project Profil Pelajar Pancasila</th>
-						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"><?php echo $isiRapot[0]['pp'] ?></textarea></td>
+						<td colspan="3"><textarea name="pp" rows="5" style="width:100%" class="form-control" placeholder="Project Profil Peljar"><?php echo $hasil_rapot['pp'] ?></textarea></td>
 
 					</tr>
 					
@@ -156,32 +153,32 @@ if ($result2->num_rows > 0) {
 					<tr>
 						<th style="width:5%">1</th>
 						<th style="width:25%">Penglihatan (Mata)</th>
-						<th><input type="text" class="form-control" name="mata" placeholder="Contoh: Rada Burem"></th>
+						<th><input type="text" class="form-control" name="mata" placeholder="Contoh: Rada Burem" value="<?php echo $hasil_rapot['mata'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Pendengaran (Telinga)</th>
-						<th><input type="text" class="form-control" name="telinga" placeholder="Contoh: Rada-rada Budi"></th>
+						<th><input type="text" class="form-control" name="telinga" placeholder="Contoh: Rada-rada Budi" value="<?php echo $hasil_rapot['telinga'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">3</th>
 						<th style="width:25%">Kesehatan Gigi & Mulut</th>
-						<th><input type="text" class="form-control" name="mulut" placeholder="Contoh: Tidak Pernah sikat gigi"></th>
+						<th><input type="text" class="form-control" name="mulut" placeholder="Contoh: Tidak Pernah sikat gigi" value="<?php echo $hasil_rapot['mulut'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">4</th>
 						<th style="width:25%">Kerapian dalam berpakaian</th>
-						<th><input type="text" class="form-control" name="pakaian" placeholder="Contoh: Sering tidak rapi"></th>
+						<th><input type="text" class="form-control" name="pakaian" placeholder="Contoh: Sering tidak rapi" value="<?php echo $hasil_rapot['pakaian'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">5</th>
 						<th style="width:25%">Berat Badan</th>
-						<th><input type="number" class="form-control" name="berat" placeholder="angka saja. Contoh:26"></th>
+						<th><input type="number" class="form-control" name="berat" placeholder="angka saja. Contoh:26" value="<?php echo $hasil_rapot['berat'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">6</th>
 						<th style="width:25%">Tinggi Badan</th>
-						<th><input type="number" class="form-control" name="tinggi" placeholder="angka saja. Contoh: 120"></th>
+						<th><input type="number" class="form-control" name="tinggi" placeholder="angka saja. Contoh: 120" value="<?php echo $hasil_rapot['tinggi'] ?>"></th>
 					</tr>
 
 				</thead>
@@ -202,17 +199,17 @@ if ($result2->num_rows > 0) {
 					<tr>
 						<th style="width:5%">1</th>
 						<th style="width:25%">Sakit</th>
-						<th><input type="number" class="form-control" name="sakit" placeholder="5"></th>
+						<th><input type="number" class="form-control" name="sakit" placeholder="5" value="<?php echo $hasil_rapot['sakit'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Ijin</th>
-						<th><input type="number" class="form-control" name="ijin" placeholder="3"></th>
+						<th><input type="number" class="form-control" name="ijin" placeholder="3" value="<?php echo $hasil_rapot['ijin'] ?>"></th>
 					</tr>
 					<tr>
 						<th style="width:5%">2</th>
 						<th style="width:25%">Alpha</th>
-						<th><input type="number" class="form-control" name="alpha" placeholder="1"></th>
+						<th><input type="number" class="form-control" name="alpha" placeholder="1" value="<?php echo $hasil_rapot['alpha'] ?>"></th>
 					</tr>
 
 				</thead>
@@ -229,7 +226,7 @@ if ($result2->num_rows > 0) {
 						<th>Refleksi Guru</th>
 					</tr>
 					<tr>
-						<th><textarea name="refleksi" placeholder="Isikan Refleksi dari guru" rows="5" class="form-control"></textarea></th>
+						<th><textarea name="refleksi" placeholder="Isikan Refleksi dari guru" rows="5" class="form-control" ><?php echo $hasil_rapot['refleksi'] ?></textarea></th>
 					</tr>
 
 				</thead>
@@ -243,3 +240,55 @@ if ($result2->num_rows > 0) {
 
 	</body>
 	</html>
+<script type="text/javascript">
+	
+	window.onload = function() {
+  console.log("Page has loaded!");
+
+
+   mulok1 = <?php echo $hasil_rapot['mulok1'] ?>;
+   mulok2 = <?php echo $hasil_rapot['mulok2'] ?>;
+   mulok3 = <?php echo $hasil_rapot['mulok3'] ?>;
+
+  if (mulok1 == 0) {
+  	const radioButton = document.getElementById('bm1');
+  	radioButton.checked = true;	
+  }else if(mulok1 == 1){
+  	const radioButton = document.getElementById('mm1');
+  	radioButton.checked = true;	
+  }else if(mulok1 == 2){
+  	const radioButton = document.getElementById('sm1');
+  	radioButton.checked = true;	
+  }
+
+   if (mulok2 == 0) {
+  	const radioButton = document.getElementById('bm2');
+  	radioButton.checked = true;	
+  }else if(mulok2 == 1){
+  	const radioButton = document.getElementById('mm2');
+  	radioButton.checked = true;	
+  }else if(mulok2 == 2){
+  	const radioButton = document.getElementById('sm2');
+  	radioButton.checked = true;	
+  }
+
+
+  if (mulok3 == 0) {
+  	const radioButton = document.getElementById('bm3');
+  	radioButton.checked = true;	
+  }else if(mulok3 == 1){
+  	const radioButton = document.getElementById('mm3');
+  	radioButton.checked = true;	
+  }else if(mulok3 == 2){
+  	const radioButton = document.getElementById('sm3');
+  	radioButton.checked = true;	
+  }
+  
+  
+  
+
+};
+
+
+
+</script>
