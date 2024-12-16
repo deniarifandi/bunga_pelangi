@@ -23,6 +23,7 @@ if ($result->num_rows > 0) {
 
 	while( $row = $result->fetch_assoc()){
 		$list_hasil_array[] = $row;
+
 	}
 } else {
 	// echo "0 results";
@@ -52,6 +53,15 @@ if ($result->num_rows > 0) {
 // print_r($list_hasil_array);
 // echo json_encode($list_hasil_array);
 
+for ($i=0; $i < count($list_hasil_array); $i++) { 
+	if ($list_hasil_array[$i]['kelompok'] == 1) {
+		$list_hasil_array[$i]['nama'] = "Erik Susanti, S.Pd AUD";
+	}else if($list_hasil_array[$i]['kelompok'] == 2){
+		$list_hasil_array[$i]['nama'] = "Tri Pudji Astutik";
+	}else if($list_hasil_array[$i]['kelompok'] == 3){
+		$list_hasil_array[$i]['nama'] = "Eny Dwi Astutiningsih, S.Pd";
+	}
+}
 
 
 ?>
@@ -155,6 +165,7 @@ if ($result->num_rows > 0) {
 				</tr>
 				<tr>
 					<th class="">Guru Kelas</th>
+
 					<th class=""><?php echo $list_hasil_array[0]['nama'] ?></th>
 					<th class="">BB</th>
 					<th></th>
