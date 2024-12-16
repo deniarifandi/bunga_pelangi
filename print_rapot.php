@@ -183,9 +183,9 @@ echo $list_hasil_array[$i]['amati_2']."\n";
 					<td colspan="3">FOTO KEGIATAN:</td>
 				</tr>
 				<tr class="">
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoagama1'] ?>" style="max-width:90%"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoagama2'] ?>" style="max-width:90%" alt="foto"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoagama3'] ?>" style="max-width:90%"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoagama1'] ?>" style="max-width:90%; max-height: 225px;"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoagama2'] ?>" style="max-width:90%; max-height: 225px;" alt="foto"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoagama3'] ?>" style="max-width:90%; max-height: 225px;"></td>
 				</tr>
 
 			</table>
@@ -213,9 +213,9 @@ echo $list_hasil_array[$i]['amati_4']."\n";
 					<td colspan="3">FOTO KEGIATAN:</td>
 				</tr>
 				<tr class="">
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotojati1'] ?>" style="max-width:90%"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotojati2'] ?>" style="max-width:90%" alt="foto"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotojati3'] ?>" style="max-width:90%" alt="foto"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotojati1'] ?>" style="max-width:90%; max-height: 225px;"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotojati2'] ?>" style="max-width:90%; max-height: 225px;" alt="foto"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotojati3'] ?>" style="max-width:90%; max-height: 225px;" alt="foto"></td>
 				</tr>
 
 			</table>
@@ -239,9 +239,9 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 					<td colspan="3">FOTO KEGIATAN:</td>
 				</tr>
 				<tr class="">
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoliterasi1'] ?>" style="max-width:90%"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoliterasi2'] ?>" style="max-width:90%"></td>
-					<td style="width:33%"><img src="rapot/<?php echo $list_foto[0]['fotoliterasi3'] ?>" style="max-width:90%"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoliterasi1'] ?>" style="max-width:90%; max-height: 225px;"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoliterasi2'] ?>" style="max-width:90%; max-height: 225px;"></td>
+					<td style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotoliterasi3'] ?>" style="max-width:90%; max-height: 225px;"></td>
 				</tr>
 
 			</table>
@@ -264,9 +264,9 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 					<td colspan="3">FOTO KEGIATAN:</td>
 				</tr>
 				<tr class="">
-					<td><img src="rapot/<?php echo $list_foto[0]['fotopp1'] ?>" style="max-width:100%"></td>
-					<td><img src="rapot/<?php echo $list_foto[0]['fotopp2'] ?>" style="max-width:100%"></td>
-					<td><img src="rapot/<?php echo $list_foto[0]['fotopp3'] ?>" style="max-width:100%"></td>
+					<td style="width:33%" ><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotopp1'] ?>" style="max-width:100%; max-height: 225px;"></td>
+					<td style="width:33%" ><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotopp2'] ?>" style="max-width:100%; max-height: 225px;"></td>
+					<td  style="width:33%"><img onerror="this.style.display='none'" src="rapot/<?php echo $list_foto[0]['fotopp3'] ?>" style="max-width:100%; max-height: 225px;"></td>
 				</tr>
 
 			</table>

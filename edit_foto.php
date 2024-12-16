@@ -56,6 +56,8 @@ $result2 = $conn->query($sql2);
 
 $hasil_rapot = $result2->fetch_assoc();
 
+echo json_encode($hasil_rapot);
+
 // // $result = $conn->query($sql);
 
 // if ($result2->num_rows > 0) {
@@ -114,7 +116,7 @@ $hasil_rapot = $result2->fetch_assoc();
 			<table class="table table-bordered border-dark">
 				<thead>
 					<tr>
-						<td>Foto 1:
+						<td>Foto 1: <?php echo $hasil_rapot['fotoagama1'] ?>
 							<img src="rapot/<?php echo $hasil_rapot['fotoagama1'] ?>" style="max-width:50%">
 	  					<input type="file" name="photo1" id="photo1">
 	  					<input type="hidden" name="photo1alt" value="<?php echo $hasil_rapot['fotoagama1']; ?>">
