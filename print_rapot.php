@@ -190,7 +190,7 @@ echo $list_hasil_array[$i]['amati_2']."\n";
 
 			</table>
 
-			 <div class="pagebreak"> </div>
+			 <div > </div>
 			<br>
 			<br>
 			<table class="" style="width: 100%;">
@@ -247,7 +247,7 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 			</table>
 		
 		<br>
-		 <div class="pagebreak"> </div>
+		 <div > </div>
 
 		<br>
 			<table class="" style="width: 100%;">
@@ -374,7 +374,7 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 						<td><?php echo $list_hasil_array[0]['tinggi'];?></td>
 					</tr>
 			</table>
-			<div class="pagebreak"> </div>
+			<div > </div>
 			<br>
 			<table class="" style="width: 100%; text-align: center;">
 				<tr class="">
