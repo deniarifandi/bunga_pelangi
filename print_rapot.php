@@ -52,13 +52,16 @@ if ($result->num_rows > 0) {
 
 // print_r($list_hasil_array);
 // echo json_encode($list_hasil_array);
-
+$tanggalrapot = "";
 for ($i=0; $i < count($list_hasil_array); $i++) { 
 	if ($list_hasil_array[$i]['kelompok'] == 1) {
+		$tanggalrapot = "2 Juni 2025";
 		$list_hasil_array[$i]['nama'] = "Erik Susanti, S.Pd AUD";
 	}else if($list_hasil_array[$i]['kelompok'] == 2){
+		$tanggalrapot = "20 Juni 2025";
 		$list_hasil_array[$i]['nama'] = "Tri Pudji Astutik";
 	}else if($list_hasil_array[$i]['kelompok'] == 3){
+		$tanggalrapot = "2 Juni 2025";
 		$list_hasil_array[$i]['nama'] = "Eny Dwi Astutiningsih, S.Pd";
 	}
 }
@@ -426,7 +429,9 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 						
 						
 						<th class="borderless" style="width:10%"></th>
-						<th class="borderless" style="width: 20%; text-align: left;">Malang, <?php echo date("d-M-Y");?></th>
+
+						<th class="borderless" style="width: 20%; text-align: left;">Malang, <?php echo $tanggalrapot ?></th>
+
 						<th class="borderless" style="width:10%"></th>
 					</tr>
 					<tr>
