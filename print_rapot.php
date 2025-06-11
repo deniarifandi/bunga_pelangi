@@ -428,9 +428,9 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 						<th class="borderless" style="width:10%"></th>
 						
 						
-						<th class="borderless" style="width:10%"></th>
+						<th class="borderless" style="width:5%"></th>
 
-						<th class="borderless" style="width: 20%; text-align: right;">Malang, <?php echo $tanggalrapot ?></th>
+						<th class="borderless" style="width: 25%; text-align: right;">Malang, <?php echo $tanggalrapot ?></th>
 
 						<th class="borderless" style="width:10%"></th>
 					</tr>
