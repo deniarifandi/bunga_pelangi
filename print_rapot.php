@@ -8,6 +8,7 @@ left join nama_guru On nama_guru.kelompok = murid.murid_kelompok
 left join detail_rapot on detail_rapot.murid_id = murid.murid_id
 
 where murid.murid_id = ".$_GET['id']."  
+where penilaian.hasil_id > 80
 group by penilaian.penilaian_id
 order by detail_rapot.id asc
 "
@@ -162,7 +163,7 @@ for ($i=0; $i < count($list_hasil_array); $i++) {
 				</tr>
 				<tr>
 					<th class="">Semester</th>
-					<th class="">1</th>
+					<th class="">2</th>
 					<th class="">TB</th>
 					<th></th>
 				</tr>
@@ -426,7 +427,6 @@ echo $list_hasil_array[$i]['amati_6']."\n";
 						<th class="borderless" style="width:10%"></th>
 						<th class="borderless" style="width:10%"></th>
 						<th class="borderless" style="width:10%"></th>
-						
 						
 						<th class="borderless" style="width:5%"></th>
 
