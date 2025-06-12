@@ -1,19 +1,17 @@
 <?php
 include('connect.php');
 
-$sql = "SELECT nama_guru.*, murid.*, penilaian.*, kelompok.*, detail_rapot.* FROM murid
-left join kelompok on kelompok.id = murid.murid_kelompok
-left join penilaian on penilaian.murid_id = murid.murid_id
-left join nama_guru On nama_guru.kelompok = murid.murid_kelompok
-left join detail_rapot on detail_rapot.murid_id = murid.murid_id
-
-where murid.murid_id = ".$_GET['id']."  
-where penilaian.hasil_id > 80
-group by penilaian.penilaian_id
-order by detail_rapot.id asc
-"
-;
-
+$sql = "
+SELECT nama_guru.*, murid.*, penilaian.*, kelompok.*, detail_rapot.*
+FROM murid
+LEFT JOIN kelompok ON kelompok.id = murid.murid_kelompok
+LEFT JOIN penilaian ON penilaian.murid_id = murid.murid_id
+LEFT JOIN nama_guru ON nama_guru.kelompok = murid.murid_kelompok
+LEFT JOIN detail_rapot ON detail_rapot.murid_id = murid.murid_id
+WHERE murid.murid_id = ".$_GET['id']." AND penilaian.hasil_id > 80
+GROUP BY penilaian.penilaian_id
+ORDER BY detail_rapot.id ASC
+";
 // echo $sql;
 
 $result = $conn->query($sql);
