@@ -48,7 +48,7 @@
           <?= card('Jabatan', 'Kelola Jabatan', 'Jabatan', 'bi-shield-lock', '#fdd835') ?>
           <?= card('Divisi Karyawan', 'Kelola Divisi', 'Gurudivisi', 'bi-diagram-3', '#aed581') ?>
           <?= card('Jabatan Karyawan', 'Kelola Jabatan', 'Gurujabatan', 'bi-person-lines-fill', '#90caf9') ?>
-          <?= card('Form Absensi', '', 'showform', 'bi-journal-text', '#edab86') ?>
+       
           <?= card('Daftar Absensi', '', 'Presensidata', 'bi-geo-alt', '#d6d9dd') ?>    
         </div>
         
@@ -59,8 +59,7 @@
       <div class="row">
         <?= card('Kelas', 'Kelola Kelas', 'Kelompok', 'bi-people', '#fdfe9c') ?>
         <?= card('Murid', 'Kelola Murid', 'Murid', 'bi-mortarboard', '#c5f1dc') ?>
-        <?= card('Subjek', 'Kelola Subjek', 'Subjek', 'bi-folder', '#adfbcf') ?>
-        <?= card('Tipe Aktifitas Harian', 'Kelola Aktifitas', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
+        
       </div>
       <?php endif ?>
       <!-- Section: Class Management -->
@@ -74,8 +73,10 @@
       <div class="row">
         <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#a9b9f1') ?>
         <?= card('Sub-Topik', 'Kelola Subtopik', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
+        <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
         <?= card('Tujuan Pembelajaran', 'Kelola Tujuan', 'Tujuan', 'bi-flag', '#6de9b2') ?>
-        <?= card('Aktifitas Harian', 'Kelola Aktifitas Harian', 'Aktifitas', 'bi-calendar-check', '#a2e4fb') ?>
+        <?= card('Tipe Aktifitas Harian', 'Kelola Aktifitas', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
+        <?= card('Modul Pembelajaran', 'Buat Modul', 'Aktifitas', 'bi-calendar-check', '#a2e4fb') ?>
       </div>
 
     </div>

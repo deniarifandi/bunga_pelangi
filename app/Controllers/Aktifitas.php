@@ -11,11 +11,11 @@ class Aktifitas extends MyResourceController
 {
 
     public $table = "Aktifitas";
-    public $title = "Kegiatan Harian";
+    public $title = "Modul Pembelajaran";
     public $primaryKey = "aktifitas_id";
     public $fieldList = [
         
-        ['subjek_nama','Subjek'],
+        ['subjek_nama','Capaian Pembelajaran'],
         ['unit_nama','Topik'],
         ['subunit_nama','Sub-Topik'],
         ['tipeaktifitas_nama','Jenis Aktifitas'],
@@ -59,10 +59,10 @@ class Aktifitas extends MyResourceController
 ];
 
 public $fieldName = [
-        'Lesson Objective',
-        'Activity Type',
-        'Activity Name',
-        'Activity Date'
+        'Tujuan Pembelajaran',
+        'Tipe Aktifitas',
+        'Judul Kegiatan',
+        'Tanggal'
         
     ];
 
