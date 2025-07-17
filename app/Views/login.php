@@ -61,7 +61,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('<?php echo base_url(); ?>assets/img/bg.png');
+      background-image: url('<?php echo base_url(); ?>assets/img/ed1.png');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
