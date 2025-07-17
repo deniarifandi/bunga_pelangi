@@ -12,7 +12,7 @@
             /><br>
             <br>
             <span class="brand-text fw-light" style="font-size:20px">Sinarumi v3.0
-              <h6 style="font-size:14px">Pos Paud Bunga Pelangi</h6>
+              <h6 style="font-size:14px">Main App</h6>
             </span>
             
             <!--end::Brand Text-->
