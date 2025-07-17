@@ -14,7 +14,7 @@ class absensi extends BaseController
     }
 
     public function index(){
-        $user =  session()->get('user_id');
+        $user =  session()->get('guru_id');
         $builder = Database::connect()->table('Murid');
         $builder->select('absensi.*, Murid.*, Kelompok.*');
         $builder->join('absensi','Murid.murid_id = absensi.murid_id');
@@ -31,7 +31,7 @@ class absensi extends BaseController
     }
 
     public function addAbsensi(){
-        $user =  session()->get('user_id');
+        $user =  session()->get('guru_id');
         $builder = Database::connect()->table('Murid');
         $builder->select('Murid.*, Kelompok.*');
         $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left');
@@ -44,7 +44,7 @@ class absensi extends BaseController
 
     public function editAbsensi($date)
     {
-        $user =  session()->get('user_id');
+        $user =  session()->get('guru_id');
 
         $db = \Config\Database::connect();
         $builder = $db->table('absensi');
@@ -65,7 +65,7 @@ class absensi extends BaseController
 
     public function delete($tanggal)
     {
-          $user = session()->get('user_id');
+          $user = session()->get('guru_id');
 
             $db = \Config\Database::connect();
 
