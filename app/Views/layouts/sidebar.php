@@ -1,18 +1,18 @@
       <!--begin::Sidebar-->
-      <aside class="app-sidebar shadow" data-bs-theme="dark" style="background-color:#383e3e">
+      <aside class="app-sidebar shadow" data-bs-theme="dark" style="background-color:#7a0404">
         <!--begin::Sidebar Brand-->
         <div class="sidebar-brand" style="height:7rem">
           <!--begin::Brand Link-->
           <a href="<?= base_url(); ?>" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="<?php echo base_url(); ?>assets/img/aba.png"
+              src="<?php echo base_url(); ?>assets/img/logoppbp.PNG"
               alt="AdminLTE Logo"
               class="brand-image" style="max-height:65px; width: 65px; height: 65px;"
             /><br>
             <br>
             <span class="brand-text fw-light" style="font-size:20px">Sinarumi v3.0
-              <h6 style="font-size:14px">ABA 15</h6>
+              <h6 style="font-size:14px">Main App</h6>
             </span>
             
             <!--end::Brand Text-->
