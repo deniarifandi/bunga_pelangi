@@ -1,5 +1,5 @@
       <!--begin::Sidebar-->
-      <aside class="app-sidebar shadow" data-bs-theme="dark" style="background-color:#7a0404">
+      <aside class="app-sidebar shadow" data-bs-theme="dark" style="background-color:#383e3e">
         <!--begin::Sidebar Brand-->
         <div class="sidebar-brand" style="height:7rem">
           <!--begin::Brand Link-->
