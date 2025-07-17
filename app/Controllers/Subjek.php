@@ -11,11 +11,11 @@ class Subjek extends MyResourceController
 {
 
     public $table = "Subjek";
-    public $title = "Subject";
+    public $title = "Subjek";
     public $primaryKey = "subjek_id";
 
     public $fieldList = [
-        ['subjek_nama','Subject']
+        ['subjek_nama','Subjek']
     ];
 
 
@@ -39,8 +39,8 @@ class Subjek extends MyResourceController
 ];
 
 public $fieldName = [
-        'Subject',
-        'Grade'
+        'Subjek',
+        'Tingkat'
     ];
 
 public $fieldOption = [

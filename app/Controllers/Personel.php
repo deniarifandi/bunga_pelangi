@@ -11,11 +11,11 @@ class Personel extends MyResourceController
 {
 
     public $table = "Personel";
-    public $title = "Personel";
+    public $title = "Karyawan";
     public $primaryKey = "guru_id";
 
     public $fieldList = [
-        ['guru_nama','Name'],
+        ['guru_nama','Nama'],
         // ['divisi_nama','Divison'],
         // ['guru_jabatan','Position']
 // ['guru_password','Password']

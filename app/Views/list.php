@@ -11,7 +11,7 @@
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
-              <div class="col-sm-6"><h3 class="mb-0"><?= $title ?>s</h3></div>
+              <div class="col-sm-6"><h3 class="mb-0"><?= $title ?></h3></div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
@@ -31,7 +31,7 @@
 
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><?= $title ?>s list</h3>
+                  <h3 class="card-title"><?= $title ?> list</h3>
                   <div class="card-tools">
                     <a href="<?= $table ?>/new" class="btn btn-primary">Add <?= $title ?></a>
                   </div>

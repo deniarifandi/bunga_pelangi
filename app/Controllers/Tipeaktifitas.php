@@ -11,7 +11,7 @@ class Tipeaktifitas extends MyResourceController
 {
 
     public $table = "Tipeaktifitas";
-    public $title = "Activity Type";
+    public $title = "Jenis Aktifitas Harian";
     public $primaryKey = "tipeaktifitas_id";
     public $fieldList = [
         ['tipeaktifitas_nama','Activity Name']
@@ -37,7 +37,7 @@ class Tipeaktifitas extends MyResourceController
 ];
 
 public $fieldName = [
-        'Activity Type'
+        'Tipe Aktifitas Harian'
         
     ];
 

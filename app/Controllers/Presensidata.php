@@ -11,12 +11,12 @@ class Presensidata extends MyResourceController
 {
 
     public $table = "Presensidata";
-    public $title = "Attendance Data";
+    public $title = "Data Presensi";
     public $primaryKey = "presensidata_id";
 
     public $fieldList = [
-        ['guru_nama','Teacher`s Name'],
-        ['presensidata_tanggal','Date'],
+        ['guru_nama','Nama Guru'],
+        ['presensidata_tanggal','Tanggal'],
         ['presensistatus_nama','Status']
 
     ];

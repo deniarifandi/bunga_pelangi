@@ -11,13 +11,13 @@ class Tujuan extends MyResourceController
 {
 
     public $table = "Tujuan";
-    public $title = "Objective";
+    public $title = "Tujuan Pembelajaran";
     public $primaryKey = "tujuan_id";
     public $fieldList = [
-        ['tujuan_nama','Objective'],
+        ['tujuan_nama','Tujuan Pembelajaran'],
     // ['tujuan_date','Date'],
-        ['subunit_nama','Sub-Chapter'],
-        ['unit_nama','Chapter']
+        ['subunit_nama','Sub-Topik'],
+        ['unit_nama','Topik']
 
     ];
 
@@ -55,8 +55,8 @@ class Tujuan extends MyResourceController
 ];
 
 public $fieldName = [
-        'Chapter',
-        'Objective',
+        'Topik',
+        'Tujuan Pembelajaran',
         // 'Date'
     ];
 

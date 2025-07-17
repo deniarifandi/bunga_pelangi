@@ -8,14 +8,14 @@ class Kelompok extends MyResourceController
 {
 
     public $table = "Kelompok";
-    public $title = "Class";
+    public $title = "Kelompok";
     public $primaryKey = "kelompok_id";
     
     public $fieldList = [
-         ['kelompok_nama', 'Class'],
+         ['kelompok_nama', 'Kelompok'],
          // ['guru_id','Guru'],
-         ['tingkat_nama','Grade'],
-         ['guru_nama','Class Teacher']
+         ['tingkat_nama','Tingkat'],
+         ['guru_nama','Guru Kelas']
          
     ];
 
@@ -50,9 +50,9 @@ class Kelompok extends MyResourceController
 
     public $fieldName = [
         'Nama Kelas', 
-        'Class Teacher',
-        'Description',
-        'Grade'
+        'Guru Kelas',
+        'Deskripsi',
+        'Tingkat'
     ];
 
     public $fieldOption = [

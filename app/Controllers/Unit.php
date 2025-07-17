@@ -11,13 +11,13 @@ class Unit extends MyResourceController
 {
 
     public $table = "Unit";
-    public $title = "Chapter";
+    public $title = "Topik";
     public $primaryKey = "unit_id";
     public $fieldList = [
-        ['subjek_nama','Subject'],
-        ['tingkat_nama','Grade'],
-        ['unit_nama','Chapter'],
-        ['unit_jp','Hours'],
+        ['subjek_nama','Subjek'],
+        ['tingkat_nama','Tingkat'],
+        ['unit_nama','Nama Topik'],
+        ['unit_jp','JP'],
         // ['Unit_password','Password']
     ];
 
@@ -60,10 +60,10 @@ class Unit extends MyResourceController
 ];
 
 public $fieldName = [
-        'Subject',
-        'Grade',
-        'Chapter',
-        'Hours'
+        'Subjek',
+        'Tingkat',
+        'Topik',
+        'JP'
         
     ];
 

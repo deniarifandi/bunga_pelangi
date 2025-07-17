@@ -11,15 +11,15 @@ class Aktifitas extends MyResourceController
 {
 
     public $table = "Aktifitas";
-    public $title = "Daily Activity";
+    public $title = "Kegiatan Harian";
     public $primaryKey = "aktifitas_id";
     public $fieldList = [
         
-        ['subjek_nama','Subject'],
-        ['unit_nama','Chapter'],
-        ['subunit_nama','Sub-Chapter'],
-        ['tipeaktifitas_nama','Activity Type'],
-        ['aktifitas_date','Date'],
+        ['subjek_nama','Subjek'],
+        ['unit_nama','Topik'],
+        ['subunit_nama','Sub-Topik'],
+        ['tipeaktifitas_nama','Jenis Aktifitas'],
+        ['aktifitas_date','Tanggal'],
         // ['Aktifitas_password','Password']
     ];
 

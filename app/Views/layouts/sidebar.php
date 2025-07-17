@@ -43,7 +43,7 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-easel"></i>
                   <p>
-                    School Management
+                    Manajemen Sekolah
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
@@ -52,7 +52,7 @@
                     <a href="<?= base_url(); ?>Divisi" class="nav-link">
                       <i class="nav-icon bi bi-home"></i>
                       <p>                       
-                        Division
+                        Divisi
                       </p>
                     </a>
                   </li>                 
@@ -62,7 +62,7 @@
                     <a href="<?= base_url(); ?>Personel" class="nav-link">
                       <i class="nav-icon bi bi-home"></i>
                       <p>                       
-                        Personel
+                        Karyawan
                       </p>
                     </a>
                   </li>                 
@@ -82,7 +82,7 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-person-gear"></i>
                   <p>
-                    User Management
+                    Manajemen Karyawan
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>

@@ -25,8 +25,8 @@
 
         <?php if ($presence < 1): ?>
         <div class="alert alert-danger mt-3" role="alert">
-          You haven’t submitted your attendance yet. 
-          <a href="<?= base_url() ?>showstatus?id=<?= $nama ?>">Click to submit now</a>
+          Anda Belum Absen Hari ini. 
+          <a href="<?= base_url() ?>showstatus?id=<?= $nama ?>">Klik disini untuk absen sekarang</a>
         </div>
         <?php endif; ?>
       </div>
@@ -39,39 +39,43 @@
     <div class="container-fluid">
 
       <!-- Section: Human Resource -->
-      <div class="mb-3"><h4>📁 Human Resource</h4></div>
-      <div class="row">
-        <?= card('Personel', 'Personel Manager', 'Personel', 'bi-person-badge', '#82adf3') ?>
-        <?= card('Division', 'Division Manager', 'Divisi', 'bi-diagram-3', '#b2dfdb') ?>
-        <?= card('Role', 'Role Manager', 'Jabatan', 'bi-shield-lock', '#fdd835') ?>
-        <?= card('Personel Division', '', 'Gurudivisi', 'bi-diagram-3', '#aed581') ?>
-        <?= card('Personel Role', '', 'Gurujabatan', 'bi-person-lines-fill', '#90caf9') ?>
-        <?= card('Attendance Form', '', 'showform', 'bi-journal-text', '#edab86') ?>
-        <?= card('Attendance List', '', 'Presensidata', 'bi-geo-alt', '#d6d9dd') ?>
-      </div>
+          
+        <?php if (session()->get('guru_id') <= 1): ?>
+        <div class="mb-3"><h4>📁 Human Resource</h4></div>
+        <div class="row">
+          <?= card('Karyawan', 'Kelola Karyawan', 'Personel', 'bi-person-badge', '#82adf3') ?>
+          <?= card('Divisi/Cabang', 'Kelola Divisi', 'Divisi', 'bi-diagram-3', '#b2dfdb') ?>
+          <?= card('Jabatan', 'Kelola Jabatan', 'Jabatan', 'bi-shield-lock', '#fdd835') ?>
+          <?= card('Divisi Karyawan', 'Kelola Divisi', 'Gurudivisi', 'bi-diagram-3', '#aed581') ?>
+          <?= card('Jabatan Karyawan', 'Kelola Jabatan', 'Gurujabatan', 'bi-person-lines-fill', '#90caf9') ?>
+          <?= card('Form Absensi', '', 'showform', 'bi-journal-text', '#edab86') ?>
+          <?= card('Daftar Absensi', '', 'Presensidata', 'bi-geo-alt', '#d6d9dd') ?>    
+        </div>
+        
+      
 
       <!-- Section: School Management -->
-      <div class="mt-5 mb-3"><h4>🏫 School Management</h4></div>
+      <div class="mt-5 mb-3"><h4>🏫 Kelola Sekolah</h4></div>
       <div class="row">
-        <?= card('Class', 'Class Manager', 'Kelompok', 'bi-people', '#fdfe9c') ?>
-        <?= card('Student', 'Student Manager', 'Murid', 'bi-mortarboard', '#c5f1dc') ?>
-        <?= card('Subject', 'Manage Subject', 'Subjek', 'bi-folder', '#adfbcf') ?>
-        <?= card('Activity Type', 'Manage Activity', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
+        <?= card('Kelas', 'Kelola Kelas', 'Kelompok', 'bi-people', '#fdfe9c') ?>
+        <?= card('Murid', 'Kelola Murid', 'Murid', 'bi-mortarboard', '#c5f1dc') ?>
+        <?= card('Subjek', 'Kelola Subjek', 'Subjek', 'bi-folder', '#adfbcf') ?>
+        <?= card('Tipe Aktifitas Harian', 'Kelola Aktifitas', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
       </div>
-
+      <?php endif ?>
       <!-- Section: Class Management -->
-      <div class="mt-5 mb-3"><h4>🧑‍🏫 Class Management</h4></div>
+      <div class="mt-5 mb-3"><h4>🧑‍🏫 Kelola Kelas</h4></div>
       <div class="row">
         <?= card('Absensi', 'Student Absence List', 'absensi', 'bi-person-check', '#ffc5e5') ?>
       </div>
 
       <!-- Section: Subject Management -->
-      <div class="mt-5 mb-3"><h4>📖 Subject Management</h4></div>
+      <div class="mt-5 mb-3"><h4>📖 Kelola Subjek</h4></div>
       <div class="row">
-        <?= card('Chapter', 'Manage Chapter', 'Unit', 'bi-file-earmark-text', '#a9b9f1') ?>
-        <?= card('Sub-Chapter', 'Manage Sub-Chapter', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
-        <?= card('Lesson Objective', 'Manage LO', 'Tujuan', 'bi-flag', '#6de9b2') ?>
-        <?= card('Daily Activity', 'Manage LO', 'Aktifitas', 'bi-calendar-check', '#a2e4fb') ?>
+        <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#a9b9f1') ?>
+        <?= card('Sub-Topik', 'Kelola Subtopik', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
+        <?= card('Tujuan Pembelajaran', 'Kelola Tujuan', 'Tujuan', 'bi-flag', '#6de9b2') ?>
+        <?= card('Aktifitas Harian', 'Kelola Aktifitas Harian', 'Aktifitas', 'bi-calendar-check', '#a2e4fb') ?>
       </div>
 
     </div>

@@ -8,18 +8,18 @@ class Murid extends MyResourceController
 {
 
     public $table = "Murid";
-    public $title = "Students";
+    public $title = "Murid";
     public $primaryKey = "murid_id";
 
     //List Parameter
     public $fieldList = [
-        ['murid_nama','Student`s Name'], 
+        ['murid_nama','Nama Murid'], 
         ['murid_jk', 'Gender'],
-        ['murid_agama','Religion'],
+        ['murid_agama','Agama'],
         ['nis','NIS'],
-        ['kelompok_nama','Class'],
-        ['guru_nama','Class Teacher'],
-        ['deskripsi','Description']
+        ['kelompok_nama','Kelompok'],
+        ['guru_nama','Guru Kelas'],
+        ['deskripsi','Deskripsi']
     ];
 
       public $selectList= [
@@ -55,8 +55,8 @@ class Murid extends MyResourceController
     ];
 
     public $fieldName = [
-        'Student`s Name', 
-        'Class',
+        'Nama Murid', 
+        'Kelas',
         'NIS'
     ];
 

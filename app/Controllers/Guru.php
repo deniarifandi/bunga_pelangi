@@ -11,11 +11,11 @@ class Guru extends MyResourceController
 {
 
     public $table = "Guru";
-    public $title = "Personel";
+    public $title = "Karyawan";
     public $primaryKey = "guru_id";
 
     public $fieldList = [
-        ['guru_nama','Personel`s Name'],
+        ['guru_nama','Nama Karyawan'],
         // ['guru_username','Username'],
         // ['divisi_nama','Divison'],
         // ['guru_password','Password']
@@ -54,7 +54,7 @@ class Guru extends MyResourceController
 
 
 public $fieldName = [
-        'Name',
+        'Nama',
         // 'Division',
         'Username',
         'Password'

@@ -11,10 +11,10 @@ class Tingkat extends MyResourceController
 {
 
     public $table = "Tingkat";
-    public $title = "Grade";
+    public $title = "Tingkat";
     public $primaryKey = "tingkat_id";
     public $fieldList = [
-        ['tingkat_nama','Grade']
+        ['tingkat_nama','Tingkat']
         // ['tingkat_password','Password']
     ];
 
@@ -38,7 +38,7 @@ class Tingkat extends MyResourceController
 ];
 
 public $fieldName = [
-        'Grade'
+        'Tingkat'
     ];
 
 public $fieldOption = [

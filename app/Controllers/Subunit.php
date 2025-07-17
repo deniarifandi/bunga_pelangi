@@ -11,13 +11,13 @@ class Subunit extends MyResourceController
 {
 
     public $table = "Subunit";
-    public $title = "Sub-Chapter";
+    public $title = "Sub-Topik";
     public $primaryKey = "subunit_id";
     public $fieldList = [
-        ['subjek_nama','Subject'],
-        ['unit_nama','Chapter'],
-        ['subunit_nama','Sub-Chapter'],
-        ['subunit_jp','Hours']
+        ['subjek_nama','Subjek'],
+        ['unit_nama','Topik'],
+        ['subunit_nama','Sub-Topik'],
+        ['subunit_jp','JP']
         // ['Unit_password','Password']
     ];
 
@@ -50,9 +50,9 @@ class Subunit extends MyResourceController
 ];
 
 public $fieldName = [
-        'Chapter',
-        'Sub-Chapter',
-        'Hours'
+        'Topik',
+        'Sub-Topik',
+        'JP'
     ];
 
 public $fieldOption = [

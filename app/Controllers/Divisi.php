@@ -14,7 +14,7 @@ class Divisi extends MyResourceController
     public $title = "Divisi";
     public $primaryKey = "divisi_id";
     public $fieldList = [
-        ['divisi_nama','Division Name']
+        ['divisi_nama','Nama Divisi/Cabang']
     ];
 
     public $selectList= [
@@ -41,7 +41,7 @@ class Divisi extends MyResourceController
 ];
 
 public $fieldName = [
-        'Division Name'
+        'Nama Divisi/Cabang'
         
     ];
 
