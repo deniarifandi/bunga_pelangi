@@ -6,7 +6,7 @@
           <a href="<?= base_url(); ?>" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="<?php echo base_url(); ?>assets/img/logoppbp.PNG"
+              src="<?php echo base_url(); ?>assets/img/logoaba.png"
               alt="AdminLTE Logo"
               class="brand-image" style="max-height:65px; width: 65px; height: 65px;"
             /><br>
