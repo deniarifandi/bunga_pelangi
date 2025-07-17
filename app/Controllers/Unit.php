@@ -14,30 +14,30 @@ class Unit extends MyResourceController
     public $title = "Topik";
     public $primaryKey = "unit_id";
     public $fieldList = [
-        ['subjek_nama','Subjek'],
-        ['tingkat_nama','Tingkat'],
+        // ['subjek_nama','Subjek'],
+        // ['tingkat_nama','Tingkat'],
         ['unit_nama','Nama Topik'],
-        ['unit_jp','JP'],
+        // ['unit_jp','JP'],
         // ['Unit_password','Password']
     ];
 
     public $selectList= [
             'Unit.unit_id',
             'Unit.unit_nama',
-            'Unit.unit_jp',
-            'Subjek.subjek_nama',
-            'Tingkat.tingkat_nama',
-            'Subunit.subunit_nama',
-            'Subunit.subunit_jp',
-            'Tujuan.tujuan_nama'
+            // 'Unit.unit_jp',
+            // 'Subjek.subjek_nama',
+            // 'Tingkat.tingkat_nama',
+            // 'Subunit.subunit_nama',
+            // 'Subunit.subunit_jp',
+            // 'Tujuan.tujuan_nama'
     ];
 
     public $joinTable = [
-        ['Subjek', 'Unit.subjek_id = Subjek.subjek_id','left'],
-        ['Tingkat','Tingkat.tingkat_id = Unit.tingkat_id','left'],
-        ['Subunit','Subunit.unit_id = Unit.unit_id','left'],
-        ['Tujuan','Tujuan.subunit_id = Subunit.subunit_id','left'],
-        ['Aktifitas','Aktifitas.tujuan_id = Tujuan.tujuan_id','left']
+        // ['Subjek', 'Unit.subjek_id = Subjek.subjek_id','left'],
+        // ['Tingkat','Tingkat.tingkat_id = Unit.tingkat_id','left'],
+        // ['Subunit','Subunit.unit_id = Unit.unit_id','left'],
+        // ['Tujuan','Tujuan.subunit_id = Subunit.subunit_id','left'],
+        // ['Aktifitas','Aktifitas.tujuan_id = Tujuan.tujuan_id','left']
         // ['Aktifitas','Aktifitas.tujuan_id']
     ];
 
@@ -53,17 +53,17 @@ class Unit extends MyResourceController
 
 
     public $field = [
-        ['select','subjek_id'],
-        ['select','tingkat_id'],
+        // ['select','subjek_id'],
+        // ['select','tingkat_id'],
         ['text','unit_nama'],
-        ['text','unit_jp']
+        // ['text','unit_jp']
 ];
 
 public $fieldName = [
-        'Subjek',
-        'Tingkat',
+        // 'Subjek',
+        // 'Tingkat',
         'Topik',
-        'JP'
+        // 'JP'
         
     ];
 
@@ -84,8 +84,8 @@ public $groupBy = 'Unit.unit_nama';
     public function __construct()
     {
         $this->model = new UnitModel();
-        $this->fieldOption[0] = $this->getdata('Subjek'); 
-        $this->fieldOption[1] = $this->getdata('Tingkat'); 
+        // $this->fieldOption[0] = $this->getdata('Subjek'); 
+        // $this->fieldOption[0] = $this->getdata('Tingkat'); 
         $this->dataToShow = $this->prepareDataToShow();
     }
 

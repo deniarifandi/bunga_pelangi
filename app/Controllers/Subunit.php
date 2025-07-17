@@ -14,22 +14,22 @@ class Subunit extends MyResourceController
     public $title = "Sub-Topik";
     public $primaryKey = "subunit_id";
     public $fieldList = [
-        ['subjek_nama','Subjek'],
+        // ['subjek_nama','Subjek'],
         ['unit_nama','Topik'],
         ['subunit_nama','Sub-Topik'],
-        ['subunit_jp','JP']
+        // ['subunit_jp','JP']
         // ['Unit_password','Password']
     ];
 
     public $selectList= [
             'Unit.*',
-            'Subjek.*',
+            // 'Subjek.*',
             'Subunit.*'
     ];
 
     public $joinTable = [
         ['Unit','Unit.unit_id = Subunit.unit_id','left'],
-        ['Subjek', 'Unit.subjek_id = Subjek.subjek_id','left']
+        // ['Subjek', 'Unit.subjek_id = Subjek.subjek_id','left']
         
     ];
 
@@ -46,13 +46,13 @@ class Subunit extends MyResourceController
     public $field = [
         ['select','unit_id'],
         ['text','subunit_nama'],
-        ['text','subunit_jp']
+        // ['text','subunit_jp']
 ];
 
 public $fieldName = [
         'Topik',
         'Sub-Topik',
-        'JP'
+        // 'JP'
     ];
 
 public $fieldOption = [
