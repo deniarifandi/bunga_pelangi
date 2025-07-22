@@ -16,7 +16,7 @@ class Guru extends MyResourceController
 
     public $fieldList = [
         ['guru_nama','Nama Karyawan'],
-        // ['guru_username','Username'],
+        // ['assguru_id','Asisten Guru'],
         // ['divisi_nama','Divison'],
         // ['guru_password','Password']
     ];

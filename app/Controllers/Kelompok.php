@@ -15,14 +15,16 @@ class Kelompok extends MyResourceController
          ['kelompok_nama', 'Kelompok'],
          // ['guru_id','Guru'],
          ['tingkat_nama','Tingkat'],
-         ['guru_nama','Guru Kelas']
+         ['guru_nama','Guru Kelas'],
+         // ['assguru_nama','Ast. Guru'],
          
     ];
 
 
     public $selectList= [
             'Kelompok.*',
-            'Guru.*',
+            'Guru.guru_nama',
+            // 'Guru.guru_nama',
             'Tingkat.*'
         ];
 
@@ -44,6 +46,7 @@ class Kelompok extends MyResourceController
    public $field = [
         ['text','kelompok_nama'], 
         ['select','guru_id'],
+        ['select','assguru_id'],
         ['text','deskripsi'],
         ['select','tingkat_id']
     ];
@@ -51,6 +54,7 @@ class Kelompok extends MyResourceController
     public $fieldName = [
         'Nama Kelas', 
         'Guru Kelas',
+        'Ast. Guru Kelas',
         'Deskripsi',
         'Tingkat'
     ];
@@ -59,7 +63,9 @@ class Kelompok extends MyResourceController
         ['noOption'], 
         ['noOption'],
         ['noOption'],
+        ['noOption'],
         ['noOption']
+
     ];
 
     public $dataToShow = [];
@@ -67,6 +73,7 @@ class Kelompok extends MyResourceController
     public function __construct()
     {
         $this->fieldOption[1] = $this->getdata('Guru'); 
+        $this->fieldOption[2] = $this->getdata('Guru'); 
         $this->fieldOption[3] = $this->getdata('Tingkat'); 
         $this->model = new KelompokModel();
         $this->dataToShow = $this->prepareDataToShow();

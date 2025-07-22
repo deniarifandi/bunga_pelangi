@@ -36,7 +36,10 @@ class absensi extends BaseController
         $builder->select('Murid.*, Kelompok.*');
         $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left');
         $builder->join('Guru','Guru.guru_id = Kelompok.guru_id','left');
+        // $builder->join('Guru G','Guru.guru_id = Kelompok.assguru_id','left');
         $builder->where('Guru.guru_id',$user);
+        $builder->orWhere('Kelompok.assguru_id',$user);
+    
         // print_r($builder->get()->getResult());
         $data = $builder->get()->getResult();
         return view('mli/addAbsensi',['data' => $data]);
