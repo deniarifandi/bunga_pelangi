@@ -36,6 +36,8 @@
 </head>
 <body>
 
+    <img src="<?php echo base_url() ?>/assets/img/kop.jpg" style="max-width: 100%;">
+
   <h2 style="text-align:center;">Buku Induk : Data Anak</h2>
 
   <table>
