@@ -43,6 +43,13 @@
     <form action="<?= base_url('bukuinduk/save') ?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="anak_id" value="<?= $exist['anak_id'] ?? '' ?>">
 
+    <div class="row">
+    <div class="col-md-6">  
+    
+    <div class="mb-2 mt-4">
+      <h6><b>A. Identitas Anak</b></h6>
+    </div>
+
     <div class="mb-3">
         <label>NIS</label>
         <input type="text" class="form-control" name="anak_nis" required value="<?= $data[0]['murid_id'] ?? '' ?>" readonly>
@@ -133,6 +140,11 @@
         <textarea class="form-control" name="anak_alamat"><?= $exist['anak_alamat'] ?? '' ?></textarea>
     </div>
 
+    </div>
+    <div class="col-md-6">  
+       <div class="mb-2 mt-4">
+      <h6><b>B. Data Orang Tua / Wali</b></h6>
+    </div>
     <div class="mb-3">
         <label>Pendidikan Ayah</label>
         <select class="form-control" name="anak_ayahsekolah">
@@ -225,18 +237,29 @@
         <label>No. HP Orang Tua</label>
         <input type="text" class="form-control" name="anak_hportu" value="<?= $exist['anak_hportu'] ?? '' ?>">
     </div>
+  </div>
+  <!-- end col md -->
+  </div>
+  <!-- col row -->
+  <div class="row">
+    <div class="col-md-6">
 
-   <div class="mb-3">
-    <label>Golongan Darah</label>
-    <select class="form-control" name="anak_darah">
-        <option value="">-- Pilih --</option>
-        <option value="A" <?= ($exist['anak_darah'] ?? '') == 'A' ? 'selected' : '' ?>>A</option>
-        <option value="B" <?= ($exist['anak_darah'] ?? '') == 'B' ? 'selected' : '' ?>>B</option>
-        <option value="AB" <?= ($exist['anak_darah'] ?? '') == 'AB' ? 'selected' : '' ?>>AB</option>
-        <option value="O" <?= ($exist['anak_darah'] ?? '') == 'O' ? 'selected' : '' ?>>O</option>
-        <option value="Tidak Tahu" <?= ($exist['anak_darah'] ?? '') == 'Tidak Tahu' ? 'selected' : '' ?>>Tidak Tahu</option>
-    </select>
-</div>
+      <div class="mb-2 mt-4">
+        <h6><b>C. Kesehatan dan Perkembangan
+      </b></h6>
+      </div>
+
+       <div class="mb-3">
+        <label>Golongan Darah</label>
+        <select class="form-control" name="anak_darah">
+            <option value="">-- Pilih --</option>
+            <option value="A" <?= ($exist['anak_darah'] ?? '') == 'A' ? 'selected' : '' ?>>A</option>
+            <option value="B" <?= ($exist['anak_darah'] ?? '') == 'B' ? 'selected' : '' ?>>B</option>
+            <option value="AB" <?= ($exist['anak_darah'] ?? '') == 'AB' ? 'selected' : '' ?>>AB</option>
+            <option value="O" <?= ($exist['anak_darah'] ?? '') == 'O' ? 'selected' : '' ?>>O</option>
+            <option value="Tidak Tahu" <?= ($exist['anak_darah'] ?? '') == 'Tidak Tahu' ? 'selected' : '' ?>>Tidak Tahu</option>
+        </select>
+    </div>
 
     <div class="mb-3">
         <label>Berat Badan</label>
@@ -272,7 +295,15 @@
         <option value="Speech Delay" <?= ($exist['anak_kondisi'] ?? '') == 'Speech Delay' ? 'selected' : '' ?>>Speech Delay</option>
         <option value="Lainnya" <?= ($exist['anak_kondisi'] ?? '') == 'Lainnya' ? 'selected' : '' ?>>Lainnya</option>
     </select>
+  </div>
 </div>
+<!-- end md left -->
+<div class="col-md-6">
+  <!-- begin md right -->
+    <div class="mb-2 mt-4">
+        <h6><b>D. Data Masuk & Keluar
+      </b></h6>
+      </div>
 
     <div class="mb-3">
         <label>Tanggal Masuk</label>
@@ -304,9 +335,15 @@
         <input type="text" class="form-control" name="anak_melanjutkan" value="<?= $exist['anak_melanjutkan'] ?? '' ?>">
     </div>
 
+  </div>
+</div>
+    <div class="mb-2 mt-4">
+        <h6><b>E. Catatan Khusus
+      </b></h6>
+      </div>
     <div class="mb-3">
         <label>Prestasi</label>
-        <input type="text" class="form-control" name="anak_prestasi" value="<?= $exist['anak_prestasi'] ?? '' ?>">
+        <textarea class="form-control" name="anak_prestasi" value="<?= $exist['anak_prestasi'] ?? '' ?>"></textarea>
     </div>
 
     <div class="mb-3">
@@ -327,7 +364,10 @@
         <input type="file" name="anak_foto" accept="image/*">
     </div>
 
+    </div>
+    <!-- //row kanan -->
     <button type="submit" class="btn btn-success">Submit</button>
+    </div>
 </form>
                   
                 </div>

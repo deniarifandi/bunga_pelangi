@@ -110,3 +110,4 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('/bukuinduk/edit/(:any)','bukuinduk::edit/$1');
 
 	$routes->post('/bukuinduk/save','bukuinduk::save');
+	$routes->get('/bukuinduk/print/(:num)', 'bukuinduk::print/$1');

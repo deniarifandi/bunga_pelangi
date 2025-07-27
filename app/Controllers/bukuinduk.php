@@ -127,5 +127,28 @@ class bukuinduk extends BaseController
     return redirect()->to('/bukuinduk');
 }
 
+public function print($id)
+{
+
+        $db1 = \Config\Database::connect();
+        $builder1 = $db1->table('Murid');
+        $builder1->where('murid_id',$id);
+        $query1 = $builder1->get();
+    
+        $data1 = $query1->getResultArray();
+
+    $db = \Config\Database::connect();
+    $builder = $db->table('Identitasanak');
+    $data['Identitasanak'] = $builder->where('anak_nis', $id)->get()->getRow();
+
+    if (!$data['Identitasanak']) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+
+    // print_r($data);
+
+    return view('bukuinduk/print', ['anak' => $data['Identitasanak'], 'data' => $data1]);
+}
+
 
 }

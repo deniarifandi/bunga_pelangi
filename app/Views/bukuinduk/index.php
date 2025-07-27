@@ -101,6 +101,7 @@
                 "render": function(data, type, row) {
                     return `
                         <a href="<?= base_url('bukuinduk/edit/') ?>${row.murid_id}" class="btn btn-sm btn-warning">Identitas Anak</a>
+                        <a href="<?= base_url('bukuinduk/print/') ?>${row.murid_id}" class="btn btn-sm btn-success">Print</a>
                       
                     `;
                 }
