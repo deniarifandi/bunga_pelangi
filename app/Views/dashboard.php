@@ -59,6 +59,7 @@
       <div class="row">
         <?= card('Kelas', 'Kelola Kelas', 'Kelompok', 'bi-people', '#fdfe9c') ?>
         <?= card('Murid', 'Kelola Murid', 'Murid', 'bi-mortarboard', '#c5f1dc') ?>
+        <?= card('Buku Induk', 'Kelola Buku Induk', 'bukuinduk', 'bi-file-earmark-text', '#ffb8b8') ?>
         
       </div>
       <?php endif ?>

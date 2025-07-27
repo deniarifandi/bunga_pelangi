@@ -100,3 +100,13 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('/Gurujabatan/(:any)/edit','Gurujabatan::edit/$1');
 	$routes->post('/Gurujabatan/submit','Gurujabatan::submit');
 	$routes->post('/Gurujabatan/toggle', 'Gurujabatan::toggle');
+
+
+	//Buku INduk
+
+	$routes->get('/bukuinduk','bukuinduk::index');
+	$routes->get('/bukuinduk/getdata','bukuinduk::data');
+
+	$routes->get('/bukuinduk/edit/(:any)','bukuinduk::edit/$1');
+
+	$routes->post('/bukuinduk/save','bukuinduk::save');
