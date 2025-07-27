@@ -141,10 +141,9 @@ public function print($id)
     $builder = $db->table('Identitasanak');
     $data['Identitasanak'] = $builder->where('anak_nis', $id)->get()->getRow();
 
-    if (!$data['Identitasanak']) {
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    }
-
+   if (empty($data['Identitasanak'])) {
+    throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Data anak tidak ditemukan.");
+}
     // print_r($data);
 
     return view('bukuinduk/print', ['anak' => $data['Identitasanak'], 'data' => $data1]);
