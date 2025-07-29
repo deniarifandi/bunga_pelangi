@@ -25,6 +25,11 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('absensi/add','absensi::addAbsensi');
 	$routes->get('absensi/edit/(:segment)', 'absensi::editAbsensi/$1');
 	$routes->get('absensi/delete/(:segment)', 'absensi::delete/$1');
+	//AbsensiGuru
+	$routes->get('absensiguru','absensiguru::index');
+	$routes->get('absensiguru/add','absensiguru::addAbsensi');
+	$routes->get('absensiguru/edit/(:segment)', 'absensiguru::editAbsensi/$1');
+	$routes->get('absensiguru/delete/(:segment)', 'absensiguru::delete/$1');
 	
 	//Resource
 	$routes->resource('Murid');
@@ -57,7 +62,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 });
 //Datatables
 	$routes->post('absensi','absensi::saveAbsensi');
+	$routes->post('absensiguru','absensiguru::saveAbsensi');
 	$routes->post('/absensi/data', 'absensi::data');
+	$routes->post('/absensiguru/data', 'absensiguru::data');
 	$routes->post('/hari/data', 'hari::data');
 	$routes->post('/modul/data', 'modul::data');
 	$routes->post('/petakonsep/data', 'petakonsep::data');

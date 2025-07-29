@@ -67,6 +67,7 @@
       <div class="mt-5 mb-3"><h4>🧑‍🏫 Kelola Kelas</h4></div>
       <div class="row">
         <?= card('Absensi', 'Absensi Murid', 'absensi', 'bi-person-check', '#ffc5e5') ?>
+         <?= card('Absensi Guru', 'Absensi Guru', 'absensiguru', 'bi-person-check', '#ffc5e5') ?>
       </div>
 
       <!-- Section: Subject Management -->
