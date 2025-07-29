@@ -25,7 +25,7 @@ class absensiguru extends BaseController
 
         // print_r($builder->get()->getResult());
         $data = $builder->get()->getResult();
-        return view('mli/listAbsensiguru',['data' => $data]);
+        return view('mli/listAbsensiGuru',['data' => $data]);
     }
 
     public function addAbsensi(){
