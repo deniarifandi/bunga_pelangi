@@ -46,7 +46,8 @@
     <tr><td class="label">2. Nama Lengkap:</td><td><?= $data[0]['murid_nama']?></td></tr>
     <tr><td class="label">3. Nama Panggilan:</td><td><?= $anak->anak_panggilan ?></td></tr>
     <tr><td class="label">4. Jenis Kelamin:</td><td><?= $anak->anak_jk ?></td></tr>
-    <tr><td class="label">5. Tempat, Tanggal Lahir:</td><td><?= $anak->anak_ttl ?></td></tr>
+    <tr><td class="label">5a. Tempat Lahir:</td><td><?= $anak->anak_tempat ?></td></tr>
+    <tr><td class="label">5b. Tanggal Lahir:</td><td><?= $anak->anak_ttl ?></td></tr>
     <tr><td class="label">6. Agama:</td><td><?= $anak->anak_agama ?></td></tr>
     <tr><td class="label">7. Kewarganegaraan:</td><td><?= $anak->anak_kewarganegaraan ?></td></tr>
     <tr><td class="label">8. Anak ke (dari berapa bersaudara):</td><td><?= $anak->anak_ke ?></td></tr>
@@ -68,7 +69,8 @@
 
     <tr><td colspan="2" class="section-title">C. Kesehatan dan Perkembangan</td></tr>
     <tr><td class="label">1. Golongan Darah:</td><td><?= $anak->anak_darah ?></td></tr>
-    <tr><td class="label">2. Berat dan Tinggi saat masuk PAUD:</td><td><?= $anak->anak_berat ?></td></tr>
+    <tr><td class="label">2. Berat saat masuk PAUD:</td><td><?= $anak->anak_berat ?></td></tr>
+     <tr><td class="label">2. Tinggi saat masuk PAUD:</td><td><?= $anak->anak_tinggi ?></td></tr>
     <tr><td class="label">3. Riwayat kesehatan:</td><td><?= $anak->anak_rawayat ?></td></tr>
     <tr><td class="label">4. Status imunisasi:</td><td><?= $anak->anak_imunisasi ?></td></tr>
     <tr><td class="label">5. Perkembangan bicara dan motorik:</td><td><?= $anak->anak_bicara ?></td></tr>

@@ -41,7 +41,7 @@
                 <div class="card-body">
 
     <form action="<?= base_url('bukuinduk/save') ?>" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="anak_id" value="<?= $exist['anak_id'] ?? '' ?>">
+    <input type="hidden" name="anak_id" value="<?= $data[0]['murid_id'] ?? '' ?>">
 
     <div class="row">
     <div class="col-md-6">  
@@ -52,7 +52,7 @@
 
     <div class="mb-3">
         <label>NIS</label>
-        <input type="text" class="form-control" name="anak_nis" required value="<?= $data[0]['murid_id'] ?? '' ?>" readonly>
+        <input type="text" class="form-control" name="anak_nis" required value="<?= $exist['anak_nis'] ?? '' ?>">
     </div>
 
     <div class="mb-3">
@@ -75,7 +75,12 @@
     </div>
 
     <div class="mb-3">
-        <label>Tempat, Tanggal Lahir</label>
+        <label>Tempat Lahir</label>
+        <input type="text" class="form-control" name="anak_tempat" value="<?= $exist['anak_tempat'] ?? '' ?>">
+    </div>
+
+    <div class="mb-3">
+        <label>Tanggal Lahir</label>
         <input type="date" class="form-control" name="anak_ttl" value="<?= $exist['anak_ttl'] ?? '' ?>">
     </div>
 
@@ -144,6 +149,10 @@
     <div class="col-md-6">  
        <div class="mb-2 mt-4">
       <h6><b>B. Data Orang Tua / Wali</b></h6>
+    </div>
+    <div class="mb-3">
+        <label>Nama Ayah</label>
+        <input type="text" class="form-control" name="anak_ayahnama" value="<?= $exist['anak_ayahnama'] ?? '' ?>">
     </div>
     <div class="mb-3">
         <label>Pendidikan Ayah</label>
@@ -264,6 +273,11 @@
     <div class="mb-3">
         <label>Berat Badan</label>
         <input type="text" class="form-control" name="anak_berat" value="<?= $exist['anak_berat'] ?? '' ?>">
+    </div>
+
+     <div class="mb-3">
+        <label>Tinggi Badan</label>
+        <input type="text" class="form-control" name="anak_tinggi" value="<?= $exist['anak_tinggi'] ?? '' ?>">
     </div>
 
     <div class="mb-3">

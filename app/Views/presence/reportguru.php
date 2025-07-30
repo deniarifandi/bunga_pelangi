@@ -1,4 +1,4 @@
-<h2 style="text-align: center;">Monthly Attendance Report</h2>
+<h2 style="text-align: center;">Laporan Absensi Bulanan</h2>
 <h4 style="margin-bottom:3px; text-align:right">Division: <?= $division ?></h4>
 <br>
 

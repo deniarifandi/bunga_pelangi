@@ -76,18 +76,14 @@ class absensi extends BaseController
         $today = new DateTime();
 
         // Get 21st of previous month
-        $startDate = (clone $today)->modify('first day of last month')->setDate(
+        $startDate = (clone $today)->setDate(
             $today->format('Y'),
-            (clone $today)->modify('first day of last month')->format('m'),
-            21
+            $today->format('m'),
+            1
         );
 
         // Get 20th of *this* month
-        $endDate = (clone $today)->setDate(
-            $today->format('Y'),
-            $today->format('m'),
-            20
-        );
+       $endDate = (clone $today)->modify('last day of this month');
 
         // Format for input date
         $startDateStr = $startDate->format('Y-m-d');

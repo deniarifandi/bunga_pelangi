@@ -43,7 +43,7 @@ class bukuinduk extends BaseController
     
         $data = $query->getResultArray();
 
-        $exist = $db->table('Identitasanak')->where('anak_nis', $murid_id)->get()->getRowArray();
+        $exist = $db->table('Identitasanak')->where('murid_id', $murid_id)->get()->getRowArray();
 
         // print_r($exist);
         return view('bukuinduk/edit',['data'=>$data,'exist' => $exist]);
@@ -54,14 +54,16 @@ class bukuinduk extends BaseController
     $db = \Config\Database::connect();
     $builder = $db->table('Identitasanak');
 
-    $id = $this->request->getPost('anak_nis'); // used for checking existence
+    $id = $this->request->getPost('anak_id'); // used for checking existence
 
     // Build data array
     $data = [
-        'anak_nis'               => $id,
+        'murid_id'               => $this->request->getPost('anak_id'),
+        'anak_nis'               => $this->request->getPost('anak_nis'),
         'anak_nama'              => $this->request->getPost('anak_nama'),
         'anak_panggilan'         => $this->request->getPost('anak_panggilan'),
         'anak_jk'                => $this->request->getPost('anak_jk'),
+        'anak_tempat'                => $this->request->getPost('anak_tempat'),
         'anak_ttl'               => $this->request->getPost('anak_ttl'),
         'anak_agama'             => $this->request->getPost('anak_agama'),
         'anak_kewarganegaraan'   => $this->request->getPost('anak_kewarganegaraan'),
@@ -81,6 +83,7 @@ class bukuinduk extends BaseController
         'anak_hportu'            => $this->request->getPost('anak_hportu'),
         'anak_darah'             => $this->request->getPost('anak_darah'),
         'anak_berat'             => $this->request->getPost('anak_berat'),
+        'anak_tinggi'             => $this->request->getPost('anak_tinggi'),
         'anak_rawayat'           => $this->request->getPost('anak_rawayat'),
         'anak_imunisasi'         => $this->request->getPost('anak_imunisasi'),
         'anak_bicara'            => $this->request->getPost('anak_bicara'),
@@ -113,10 +116,10 @@ class bukuinduk extends BaseController
     }
 
     // Check if record exists
-    $exists = $builder->where('anak_nis', $id)->get()->getRowArray();
+    $exists = $builder->where('murid_id', $id)->get()->getRowArray();
 
     if ($exists) {
-        $success = $builder->where('anak_nis', $id)->update($data);
+        $success = $builder->where('murid_id', $id)->update($data);
         $message = $success ? 'Data updated successfully!' : 'Failed to update data.';
     } else {
         $success = $builder->insert($data);
@@ -139,7 +142,7 @@ public function print($id)
 
     $db = \Config\Database::connect();
     $builder = $db->table('Identitasanak');
-    $data['Identitasanak'] = $builder->where('anak_nis', $id)->get()->getRow();
+    $data['Identitasanak'] = $builder->where('murid_id', $id)->get()->getRow();
 
    if (empty($data['Identitasanak'])) {
     throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Data anak tidak ditemukan.");
