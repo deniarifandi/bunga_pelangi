@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Config\Database;
+use \DateTime;
 
 class absensiguru extends BaseController
 {
@@ -26,6 +27,111 @@ class absensiguru extends BaseController
         // print_r($builder->get()->getResult());
         $data = $builder->get()->getResult();
         return view('mli/listAbsensiGuru',['data' => $data]);
+    }
+
+    public function frontGuru(){
+
+      $today = new DateTime();
+
+        // Get 21st of previous month
+        $startDate = (clone $today)->modify('first day of last month')->setDate(
+            $today->format('Y'),
+            (clone $today)->modify('first day of last month')->format('m'),
+            21
+        );
+
+        // Get 20th of *this* month
+        $endDate = (clone $today)->setDate(
+            $today->format('Y'),
+            $today->format('m'),
+            20
+        );
+
+        // Format for input date
+        $startDateStr = $startDate->format('Y-m-d');
+        $endDateStr = $endDate->format('Y-m-d');
+
+        
+
+        $this->db = \Config\Database::connect(); 
+        $builder = $this->db->table('Divisi');
+        $builder->select('Divisi.divisi_id, Divisi.divisi_nama');
+        $result = $builder->get()->getResult();
+
+        // print_r($result);
+        return view('/presence/frontguru',['divisis' => $result,'start' => $startDateStr, 'end'=> $endDateStr]);
+    }
+
+    public function result(){
+        // Get inputs
+    $startDate = $this->request->getGet('start');
+    $endDate = $this->request->getGet('end');
+    $divisi_id = $this->request->getGet('division');
+
+    // Format dates
+    $startDateObj = new DateTime($startDate);
+    $endDateObj = new DateTime($endDate);
+    $startMonthName = $startDateObj->format('F');
+    $endMonthName = $endDateObj->format('F');
+
+    // Generate dynamic columns
+    $dates = [];
+    $columns = [];
+    $period = new \DatePeriod(
+        new \DateTime($startDate),
+        new \DateInterval('P1D'),
+        (new \DateTime($endDate))->modify('+1 day')
+    );
+
+    foreach ($period as $date) {
+        $label = $date->format('M d');
+        $dateString = $date->format('Y-m-d');
+        $dates[] = $label;
+        $columns[] = "
+            MAX(
+                CASE 
+                    WHEN DATE(p.tanggal) = '$dateString' THEN p.status 
+                    ELSE NULL 
+                END
+            ) AS `$label`";
+    }
+
+    // Build query
+    $db = \Config\Database::connect();
+    $sql = "
+    SELECT 
+        g.guru_nama,
+        j.jabatan_nama,
+        d.divisi_nama,
+        " . implode(",\n", $columns) . "
+    FROM Guru g
+    JOIN Gurudivisi gd ON gd.guru_id = g.guru_id
+    JOIN Divisi d ON d.divisi_id = gd.divisi_id
+    LEFT JOIN Gurujabatan gj ON gj.guru_id = g.guru_id
+    LEFT JOIN Jabatan j ON j.jabatan_id = gj.jabatan_id
+    LEFT JOIN absensiguru p 
+        ON p.guru_id = g.guru_id 
+        AND DATE(p.tanggal) BETWEEN '$startDate' AND '$endDate'
+    WHERE d.divisi_id = '$divisi_id'
+    GROUP BY g.guru_id
+    ORDER BY g.guru_nama
+    ";
+
+    $query = $db->query($sql);
+    $results = $query->getResult();
+
+    if (count($results) < 1) {
+        return view('presence/reportguru'); // fallback
+    }
+
+    // print_r($results);
+    return view('presence/reportguru', [
+        'results' => $results,
+        'dates' => $dates,
+        'startMonth' => $startMonthName,
+        'endMonth' => $endMonthName,
+        'division' => $results[0]->divisi_nama,
+    ]);
     }
 
     public function addAbsensi(){

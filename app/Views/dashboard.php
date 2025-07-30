@@ -66,14 +66,17 @@
       <!-- Section: Class Management -->
       <div class="mt-5 mb-3"><h4>🧑‍🏫 Kelola Kelas</h4></div>
       <div class="row">
-        <?= card('Absensi', 'Absensi Murid', 'absensi', 'bi-person-check', '#ffc5e5') ?>
+        <?= card('Absensi Murid', 'Absensi Murid', 'absensi', 'bi-person-check', '#ffc5e5') ?>
          <?= card('Absensi Guru', 'Absensi Guru', 'absensiguru', 'bi-person-check', '#ffc5e5') ?>
+
+         <?= card('Laporan Absensi Murid', 'Absensi Murid', 'absensi/front', 'bi-file-earmark-text', '#a9b9f1') ?>
+          <?= card('Laporan Absensi Guru', 'Absensi Guru', 'absensiguru/frontguru', 'bi-file-earmark-text', '#90caf9') ?>
       </div>
 
       <!-- Section: Subject Management -->
       <div class="mt-5 mb-3"><h4>📖 Kelola Subjek</h4></div>
       <div class="row">
-        <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#a9b9f1') ?>
+        <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#6de9b2') ?>
         <?= card('Sub-Topik', 'Kelola Subtopik', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
         <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
         <?= card('Tujuan Pembelajaran', 'Kelola Tujuan', 'Tujuan', 'bi-flag', '#6de9b2') ?>

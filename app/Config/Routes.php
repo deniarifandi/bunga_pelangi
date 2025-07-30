@@ -25,11 +25,16 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('absensi/add','absensi::addAbsensi');
 	$routes->get('absensi/edit/(:segment)', 'absensi::editAbsensi/$1');
 	$routes->get('absensi/delete/(:segment)', 'absensi::delete/$1');
+	$routes->get('absensi/front','absensi::front');
+	$routes->get('absensi/result','absensi::result');
+
 	//AbsensiGuru
 	$routes->get('absensiguru','absensiguru::index');
 	$routes->get('absensiguru/add','absensiguru::addAbsensi');
 	$routes->get('absensiguru/edit/(:segment)', 'absensiguru::editAbsensi/$1');
 	$routes->get('absensiguru/delete/(:segment)', 'absensiguru::delete/$1');
+	$routes->get('absensiguru/frontguru','absensiguru::frontGuru');
+	$routes->get('absensiguru/result','absensiguru::result');
 	
 	//Resource
 	$routes->resource('Murid');
