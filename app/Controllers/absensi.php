@@ -148,7 +148,7 @@ class absensi extends BaseController
         " . implode(",\n", $columns) . "
     FROM Murid m
     LEFT JOIN Kelompok k ON k.kelompok_id = m.kelompok_id
-    LEFT JOIN Absensi a ON m.murid_id = a.murid_id 
+    LEFT JOIN absensi a ON m.murid_id = a.murid_id 
         -- AND DATE(a.created_at) BETWEEN '$startDate' AND '$endDate'
     WHERE k.kelompok_id = '$kelompok_id'
     GROUP BY m.murid_id
