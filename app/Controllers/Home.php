@@ -57,13 +57,20 @@ class Home extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        $user = $model->where('guru_username', $username)->first();
+       $user = $model->select('Guru.*, Gurudivisi.*, Divisi.*')
+        ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id', 'left')
+        ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id', 'left')
+        ->where('Guru.guru_username', $username)
+        ->first();
 
         if ($user && password_verify($password, $user['guru_password'])) {
             $this->session->set([
                 'guru_id' => $user['guru_id'], 
                 'nama' => $user['guru_nama'], 
                 'username' => $user['guru_username'], 
+                'divisi_id' => $user['divisi_id'],
+                'divisi_nama' => $user['divisi_nama'],
+                'divisi_logo'=> $user['divisi_logo'],
                 'logged_in' => true]);
             return redirect()->to('/');
         } else {
