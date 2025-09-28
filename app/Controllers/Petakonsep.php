@@ -44,8 +44,6 @@ public $fieldName = [
     ];
 
 public $fieldOption = [
-  ['noOption'], 
-  ['noOption']
 ];
 
     public $dataToShow = [];

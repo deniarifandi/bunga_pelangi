@@ -59,11 +59,6 @@ class Personel extends MyResourceController
     ];
 
     public $fieldOption = [
-        ['noOption'],
-        ['noOption'],
-        ['noOption'],
-        ['noOption'],
-
     ];
 
     public $dataToShow = [];

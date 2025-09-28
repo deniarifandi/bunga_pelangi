@@ -60,11 +60,7 @@ class Kelompok extends MyResourceController
     ];
 
     public $fieldOption = [
-        ['noOption'], 
-        ['noOption'],
-        ['noOption'],
-        ['noOption'],
-        ['noOption']
+   
 
     ];
 
@@ -72,9 +68,10 @@ class Kelompok extends MyResourceController
 
     public function __construct()
     {
+        $this->fieldOption[0] = "test";
         $this->fieldOption[1] = $this->getdata('Guru'); 
         $this->fieldOption[2] = $this->getdata('Guru'); 
-        $this->fieldOption[3] = $this->getdata('Tingkat'); 
+        $this->fieldOption[4] = $this->getdata('Tingkat'); 
         $this->model = new KelompokModel();
         $this->dataToShow = $this->prepareDataToShow();
     }

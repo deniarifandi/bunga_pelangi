@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Sinarumi | My Little Island</title>
+    <title>Sinarumi | <?= $data[0]->divisi_nama ?></title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="AdminLTE | Dashboard v2" />
@@ -74,7 +74,7 @@
     <div class="login-box" style="width: 600px;">
       <div class="login-logo">
         <b style="font-size:20px">Sistem Informasi Sekolah</b> <br>
-          Pos Paud Bunga Pelangi
+          <?= $data[0]->divisi_nama ?>
         <br> <h5>SinaRumi v.3.0.0</h5>
       </div>
       <!-- /.login-logo -->

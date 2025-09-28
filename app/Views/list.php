@@ -107,16 +107,26 @@
                 ?>
                 { 
                  data: '',
-                 render: (data,type,row) => {
-                   return `<a class="btn btn-warning btn-sm" href='<?= $table ?>/${row.<?= $primaryKey ?>}/edit'>Edit</a>
-                   <form action='<?= $table ?>/${row.<?= $primaryKey ?>}' method="post" style="display:inline" onsubmit="return confirm('Are you sure you want to delete this item?');">
-        <?= csrf_field() ?>
-        <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-      </form>
+                 render: (data, type, row) => {
+    let html = `
+        <a class="btn btn-warning btn-sm" href='<?= $table ?>/${row.<?= $primaryKey ?>}/edit'>Edit</a>
+        <form action='<?= $table ?>/${row.<?= $primaryKey ?>}' method="post" style="display:inline" 
+              onsubmit="return confirm('Are you sure you want to delete this item?');">
+            <?= csrf_field() ?>
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    `;
 
-                 `;
-                 }
+    <?php if ($table == 'Hasil2') : ?>
+        html += `
+            <a class="btn btn-info btn-sm" target="_blank" href='<?= $table ?>/${row.<?= $primaryKey ?>}/print'>Print</a>
+        `;
+    <?php endif; ?>
+
+    return html;
+}
+
               }
 
             ]

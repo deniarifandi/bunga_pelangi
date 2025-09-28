@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\GuruModel;
+use App\Models\DivisiModel;
 use Config\Database;
 
 
@@ -45,8 +46,16 @@ class Home extends BaseController
         return view('blank.php');
     }
 
-    public function login(){
-        return view('login.php');
+    public function login(){ 
+       
+        $builder = Database::connect()->table('Divisi');
+        $builder->select('*');
+        $builder->where('divisi_id', env('app.divisi'));
+        $query = $builder->get();
+        $resultsPresensi = $query->getResult();
+        
+         //print_r($resultsPresensi[0]->divisi_nama);
+        return view('login.php',['data' => $resultsPresensi]);
     }
 
     public function loginAuth()
@@ -71,6 +80,7 @@ class Home extends BaseController
                 'divisi_id' => $user['divisi_id'],
                 'divisi_nama' => $user['divisi_nama'],
                 'divisi_logo'=> $user['divisi_logo'],
+                'guru_role'=> $user['guru_role'],
                 'logged_in' => true]);
             return redirect()->to('/');
         } else {

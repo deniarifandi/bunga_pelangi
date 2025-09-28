@@ -85,6 +85,14 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/Unit/data', 'Unit::data');
 	$routes->post('/Subunit/data', 'Subunit::data');
 	$routes->post('/Aktifitas/data', 'Aktifitas::data');
+	$routes->post('/Aktifitas/create', 'Aktifitas::store');
+	$routes->get('/Hasil2/(:any)/edit','Aktifitas::edit/$1');
+	$routes->post('/Hasil2/update/(:any)','Aktifitas::update/$1');
+	$routes->get('Hasil2/(:num)/print', 'Aktifitas::print/$1');
+	$routes->post('/Hasil2/data','Aktifitas::data');
+
+
+
 	$routes->post('/Tipeaktifitas/data', 'Tipeaktifitas::data');
 	$routes->post('/Divisi/data', 'Divisi::data');
 	$routes->post('/Jabatan/data', 'Jabatan::data');
