@@ -76,7 +76,7 @@
       <!-- Section: Subject Management -->
       <div class="mt-5 mb-3"><h4>📖 Kelola Subjek</h4></div>
       <div class="row">
-        <?= card('Peta Konsep', 'Kelola Peta Konsep', 'petakonsep', 'bi-diagram-3', '#f7c46c') ?>
+        <?= card('Peta Konsep', 'Kelola Peta Konsep', 'Petakonsep', 'bi-diagram-3', '#f7c46c') ?>
         <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#6de9b2') ?>
         <?= card('Sub-Topik', 'Kelola Subtopik', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
         <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
