@@ -97,14 +97,23 @@
             <th>Pilihan</th>
         </tr>
         <tr>
-            <td>Nilai Agama</td>
-            <td><?= $agama[0]->tujuan_nama ?? '-' ?> (ID: <?= esc($hasil->nilai_agama_1) ?>)<br>
-            <?= $agama[0]->tujuan_nama ?? '-' ?> (ID: <?= esc($hasil->nilai_agama_2) ?>)</td>
+            <td>Agama</td>
+            <td>
+                <?php foreach($agama as $a): ?>
+                    <?= $a->tujuan_nama ?> <br>
+                <?php endforeach; ?>
+                 <?php foreach($agama2 as $a): ?>
+                    <?= $a->tujuan_nama ?> <br>
+                <?php endforeach; ?>
+            </td>
         </tr>
         <tr>
             <td>Jati Diri</td>
             <td>
                 <?php foreach($jati as $j): ?>
+                    <?= $j->tujuan_nama ?> <br>
+                <?php endforeach; ?>
+                <?php foreach($jati2 as $j): ?>
                     <?= $j->tujuan_nama ?> <br>
                 <?php endforeach; ?>
             </td>
@@ -113,6 +122,9 @@
             <td>Literasi</td>
             <td>
                 <?php foreach($literasi as $l): ?>
+                    <?= $l->tujuan_nama ?> <br>
+                <?php endforeach; ?>
+                  <?php foreach($literasi2 as $l): ?>
                     <?= $l->tujuan_nama ?> <br>
                 <?php endforeach; ?>
             </td>

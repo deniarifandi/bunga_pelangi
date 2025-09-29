@@ -90,28 +90,31 @@ public $fieldName = [
         return $query->getResult();
     }
 
-    public function getAgama(){
+    public function getAgama($id = null){
         $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',5);
+        $builder->where('Tujuan.tujuan_id',$id);
         $query = $builder->get();
         return $query->getResult();
     }
 
-     public function getJati(){
+     public function getJati($id = null){
         $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',4);
+        $builder->where('Tujuan.tujuan_id',$id);
         $query = $builder->get();
         return $query->getResult();
     }
-    public function getLiterasi(){
+    public function getLiterasi($id = null){
         $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',6);
+        $builder->where('Tujuan.tujuan_id',$id);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -279,9 +282,12 @@ public function print($id)
 
     $data = [
         'hasil' => $hasil,
-        'agama' => $this->getAgama(),
-        'jati' => $this->getJati(),
-        'literasi' => $this->getLiterasi(),
+        'agama' => $this->getAgama($hasil->nilai_agama_1),
+        'jati' => $this->getJati($hasil->jati_diri_1),
+        'literasi' => $this->getLiterasi($hasil->literasi_1),
+        'agama2' => $this->getAgama($hasil->nilai_agama_2),
+        'jati2' => $this->getJati($hasil->jati_diri_2),
+        'literasi2' => $this->getLiterasi($hasil->literasi_2),
         'unit' => $this->getUnit(),
         'subunit' => $this->getSubunit(),
     ];
