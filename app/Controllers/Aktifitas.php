@@ -153,7 +153,7 @@ public $fieldName = [
       public function edit($id = null)
 {
     $db = \Config\Database::connect();
-    $builder = $db->table('hasil2');
+    $builder = $db->table('Hasil2');
     $hasil = $builder->where('hasil_id', $id)->get()->getRow();
 
     if (!$hasil) {
@@ -181,7 +181,7 @@ public $fieldName = [
    public function store()
 {
     $db = \Config\Database::connect();
-    $builder = $db->table('hasil2');
+    $builder = $db->table('Hasil2');
 
     // handle upload peta_konsep
     $petaKonsepFile = $this->request->getFile('peta_konsep');
@@ -227,7 +227,7 @@ public $fieldName = [
 public function update($id = null)
 {
     $db = \Config\Database::connect();
-    $builder = $db->table('hasil2');
+    $builder = $db->table('Hasil2');
 
     $data = [
         'kelompok'        => $this->request->getPost('kelompok'),
