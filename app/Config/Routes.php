@@ -72,7 +72,7 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/absensiguru/data', 'absensiguru::data');
 	$routes->post('/hari/data', 'hari::data');
 	$routes->post('/modul/data', 'modul::data');
-	$routes->post('/Petakonsep/data', 'petakonsep::data');
+	$routes->post('/Petakonsep/data', 'Petakonsep::data');
 	$routes->post('/Subjek/data', 'Subjek::data');
 	$routes->post('/setting/data', 'setting::data');
 	$routes->post('/Tujuan/data', 'Tujuan::data');
