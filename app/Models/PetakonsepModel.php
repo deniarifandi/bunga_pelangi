@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class PetakonsepModel extends Model
 {
     // isi PostModel Class    
-    protected $table      = 'petakonsep';
+    protected $table      = 'Petakonsep';
     protected $primaryKey = 'petakonsep_id';
     
     protected $protectFields = false;
