@@ -42,7 +42,7 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->resource('students');
 	$routes->resource('hari');
 	$routes->resource('modul');
-	$routes->resource('petakonsep');
+	$routes->resource('Petakonsep');
 	$routes->resource('Subjek');
 	$routes->resource('setting');
 	$routes->resource('Tujuan');
