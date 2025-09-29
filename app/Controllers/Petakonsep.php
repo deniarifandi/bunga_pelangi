@@ -10,7 +10,7 @@ use Config\Database;
 class Petakonsep extends MyResourceController
 {
 
-    public $table = "petakonsep";
+    public $table = "Petakonsep";
     public $title = "Petakonsep";
     public $primaryKey = "petakonsep_id";
     public $fieldList = [
@@ -24,7 +24,7 @@ class Petakonsep extends MyResourceController
 
 
     public $selectList= [
-            'petakonsep.*',
+            'Petakonsep.*',
         ];
 
     public $toSearch = 
