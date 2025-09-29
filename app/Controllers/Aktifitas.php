@@ -94,7 +94,7 @@ public $fieldName = [
         $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
-        $builder->where('subjek_id',4);
+        $builder->where('subjek_id',5);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -103,7 +103,7 @@ public $fieldName = [
         $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
-        $builder->where('subjek_id',5);
+        $builder->where('subjek_id',4);
         $query = $builder->get();
         return $query->getResult();
     }
