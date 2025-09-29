@@ -136,17 +136,18 @@
     <h3>Rencana Harian</h3>
     <table class="data">
         <tr><th>Kegiatan</th><th>Deskripsi</th></tr>
-        <tr><td>Pembiasaan</td><td><?= esc($hasil->pembiasaan) ?></td></tr>
-        <tr><td>Pembuka</td><td><?= esc($hasil->pembuka) ?></td></tr>
-        <tr><td>Senin</td><td><?= esc($hasil->senin) ?></td></tr>
-        <tr><td>Selasa</td><td><?= esc($hasil->selasa) ?></td></tr>
-        <tr><td>Rabu</td><td><?= esc($hasil->rabu) ?></td></tr>
-        <tr><td>Kamis</td><td><?= esc($hasil->kamis) ?></td></tr>
-        <tr><td>Jumat</td><td><?= esc($hasil->jumat) ?></td></tr>
-        <tr><td>Istirahat</td><td><?= esc($hasil->istirahat) ?></td></tr>
-        <tr><td>Penutup</td><td><?= esc($hasil->penutup) ?></td></tr>
+        <tr><td>Pembiasaan</td><td><?= nl2br(esc($hasil->pembiasaan)) ?></td></tr>
+        <tr><td>Pembuka</td><td><?= nl2br(esc($hasil->pembuka)) ?></td></tr>
+        <tr><td>Senin</td><td><?= nl2br(esc($hasil->senin)) ?></td></tr>
+        <tr><td>Selasa</td><td><?= nl2br(esc($hasil->selasa)) ?></td></tr>
+        <tr><td>Rabu</td><td><?= nl2br(esc($hasil->rabu)) ?></td></tr>
+        <tr><td>Kamis</td><td><?= nl2br(esc($hasil->kamis)) ?></td></tr>
+        <tr><td>Jumat</td><td><?= nl2br(esc($hasil->jumat)) ?></td></tr>
+        <tr><td>Istirahat</td><td><?= nl2br(esc($hasil->istirahat)) ?></td></tr>
+        <tr><td>Penutup</td><td><?= nl2br(esc($hasil->penutup)) ?></td></tr>
     </table>
 </div>
+
 
 <div class="section">
     <h3>Assessment</h3>
