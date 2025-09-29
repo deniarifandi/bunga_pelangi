@@ -36,6 +36,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('absensiguru/frontguru','absensiguru::frontGuru');
 	$routes->get('absensiguru/result','absensiguru::result');
 	
+	$routes->delete('/Hasil2/(:num)', 'Aktifitas::delete/$1');
+	$routes->get('hasil','Aktifitas::index');
+	$routes->get('Hasil2','Aktifitas::index');
 	//Resource
 	$routes->resource('Murid');
 	$routes->resource('assignments');
@@ -86,10 +89,13 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/Subunit/data', 'Subunit::data');
 	$routes->post('/Aktifitas/data', 'Aktifitas::data');
 	$routes->post('/Aktifitas/create', 'Aktifitas::store');
+	
 	$routes->get('/Hasil2/(:any)/edit','Aktifitas::edit/$1');
 	$routes->post('/Hasil2/update/(:any)','Aktifitas::update/$1');
 	$routes->get('Hasil2/(:num)/print', 'Aktifitas::print/$1');
 	$routes->post('/Hasil2/data','Aktifitas::data');
+	$routes->post('/Hasil2/data','Aktifitas::data');
+	$routes->get('/Hasil2/new','Aktifitas::new');
 
 
 

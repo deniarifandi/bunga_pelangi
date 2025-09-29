@@ -31,7 +31,7 @@ class Aktifitas extends MyResourceController
     ];
 
      public $where = [
-      
+      'Hasil2.deleted_at' => null
     ];
 
     public $joinTable = [

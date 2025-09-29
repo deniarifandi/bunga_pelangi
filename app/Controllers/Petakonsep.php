@@ -67,4 +67,24 @@ public $fieldOption = [
     //     ]);
     // }
 
+     public function delete($id = null)
+    {
+
+        echo "test";
+        // $model = new Hasil2Model();
+
+        // if (! $model->find($id)) {
+        //     return $this->failNotFound("Record with ID $id not found.");
+        // }
+
+        // if ($model->delete($id)) {
+        //     return $this->respondDeleted([
+        //         'status'  => true,
+        //         'message' => "Record with ID $id deleted successfully."
+        //     ]);
+        // }
+
+        // return $this->fail("Failed to delete record with ID $id.");
+    }
+
 }

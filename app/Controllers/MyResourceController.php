@@ -156,6 +156,8 @@ public function update($id = null)
 }
 public function delete($id = null)
 {
+
+    // echo "test real";
     if (!$this->model->delete($id)) {
         return redirect()->back()->with('errors', ['Failed to delete data.']);
     }

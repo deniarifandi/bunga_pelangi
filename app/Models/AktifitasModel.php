@@ -7,8 +7,8 @@ use CodeIgniter\Model;
 class AktifitasModel extends Model
 {
     // isi PostModel Class    
-    protected $table      = 'Aktifitas';
-    protected $primaryKey = 'aktifitas_id';
+    protected $table      = 'Hasil2';
+    protected $primaryKey = 'hasil_id';
     
     protected $protectFields = false;
 

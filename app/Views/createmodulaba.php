@@ -201,13 +201,18 @@ $table = "hasil";
     <!-- Pembiasaan Pagi -->
     <div class="mb-3">
         <label for="pembiasaan" class="form-label">Pembiasaan Pagi</label>
-        <textarea class="form-control" id="pembiasaan" name="pembiasaan"><?= old('pembiasaan') ?></textarea>
+        <textarea rows="7" class="form-control" id="pembiasaan" name="pembiasaan"><?= old('pembiasaan') ?? '- SOP Penyambutan Kedatangan Anak
+- Bermain Bersama
+- Upacara Pembukaan MPLS
+- Senam Bersama
+- Pembiasaan Minum Air Putih
+                        '?></textarea>
     </div>
 
     <!-- Kegiatan Pembuka -->
     <div class="mb-3">
         <label for="pembuka" class="form-label">Kegiatan Pembuka</label>
-        <textarea class="form-control" id="pembuka" name="pembuka"><?= old('pembuka') ?></textarea>
+        <textarea class="form-control" id="pembuka" name="pembuka"><?= old('pembuka') ?? '-Masuk Kelas , Berdoa, membuat kesepakatan bersama  '?></textarea>
     </div>
 
     <!-- Kegiatan Inti per Hari -->
@@ -216,26 +221,29 @@ $table = "hasil";
         foreach ($hari as $h): ?>
         <div class="mb-3">
             <label for="<?= $h ?>" class="form-label">Kegiatan <?= ucfirst($h) ?></label>
-            <textarea class="form-control" id="<?= $h ?>" name="<?= $h ?>"><?= old($h) ?></textarea>
+            <textarea class="form-control" id="<?= $h ?>" name="<?= $h ?>"><?= old($h) ?? ''?></textarea>
         </div>
     <?php endforeach; ?>
 
     <!-- Istirahat -->
     <div class="mb-3">
         <label for="istirahat" class="form-label">Istirahat</label>
-        <textarea class="form-control" id="istirahat" name="istirahat"><?= old('istirahat') ?></textarea>
+        <textarea class="form-control" id="istirahat" name="istirahat"><?= old('istirahat') ?? '- Pembiasaan Cuci Tangan Sebelum dan Sesudah Makan
+- Makan Bekal Bersama
+- Bermain   '?></textarea>
     </div>
 
     <!-- Penutup -->
     <div class="mb-3">
         <label for="penutup" class="form-label">Kegiatan Penutup</label>
-        <textarea class="form-control" id="penutup" name="penutup"><?= old('penutup') ?></textarea>
+        <textarea class="form-control" id="penutup" name="penutup"><?= old('penutup') ?? '- Recalling
+- Doa, salam, pulang  ' ?></textarea>
     </div>
 
     <!-- Assessment -->
     <div class="mb-3">
         <label for="assessment" class="form-label">Assessment</label>
-        <textarea class="form-control" id="assessment" name="assessment"><?= old('assessment') ?></textarea>
+        <textarea class="form-control" id="assessment" name="assessment"><?= old('assessment') ?? 'Ceklis, Foto Berseri' ?></textarea>
     </div>
 
     <a href="<?= site_url($table) ?>" class="btn btn-danger">Cancel</a>
