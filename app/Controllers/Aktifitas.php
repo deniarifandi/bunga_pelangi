@@ -95,7 +95,10 @@ public $fieldName = [
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',5);
-        $builder->where('Tujuan.tujuan_id',$id);
+        if ($id == null) {
+            $builder->where('Tujuan.tujuan_id',$id);
+        }
+        
         $query = $builder->get();
         return $query->getResult();
     }
@@ -105,7 +108,9 @@ public $fieldName = [
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',4);
-        $builder->where('Tujuan.tujuan_id',$id);
+        if ($id == null) {
+            $builder->where('Tujuan.tujuan_id',$id);
+        }
         $query = $builder->get();
         return $query->getResult();
     }
@@ -114,7 +119,9 @@ public $fieldName = [
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
         $builder->where('subjek_id',6);
-        $builder->where('Tujuan.tujuan_id',$id);
+         if ($id == null) {
+            $builder->where('Tujuan.tujuan_id',$id);
+        }
         $query = $builder->get();
         return $query->getResult();
     }
