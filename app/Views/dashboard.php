@@ -24,12 +24,7 @@
           </ol>
         </div>
 
-        <?php if ($presence < 1): ?>
-        <div class="alert alert-danger mt-3" role="alert">
-          Anda Belum Absen Hari ini.
-          <a href="<?= base_url() ?>showstatus?id=<?= $nama ?>">Klik <b>disini</b> untuk absen sekarang</a>
-        </div>
-        <?php endif; ?>
+      
       </div>
     </div>
   </div>
