@@ -162,6 +162,19 @@
       </table>
     </div>
 
+      <div class="info">
+     <table class="data" style="width:100%;">
+      <tr>
+        <th><b>Peta Konsep</b></th>
+      </tr>
+      <tr>
+        <td style="text-align: center;">
+          <img src="<?= base_url('uploads/'.$petakonsep[0]->url) ?>" style="max-width: 200px;">
+        </td>
+      </tr>
+    </table>
+    </div>
+
     <div class="section">
       <h3>Nilai & Tujuan</h3>
       <table class="data">

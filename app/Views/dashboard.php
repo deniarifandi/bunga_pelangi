@@ -89,6 +89,8 @@
           <?= card('Laporan Absensi Guru', 'Absensi Guru', 'absensiguru/frontguru', 'bi-file-earmark-text', '#90caf9') ?>
       </div>  
       <div class="mt-2 mb-3"><h4>📖 Kelola Subjek</h4></div>
+
+        <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
         <?php endif ?>
 
       <!-- Section: Subject Management -->
@@ -97,7 +99,7 @@
         <?= card('Peta Konsep', 'Kelola Peta Konsep', 'Petakonsep', 'bi-diagram-3', '#f7c46c') ?>
         <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#6de9b2') ?>
         <?= card('Sub-Topik', 'Kelola Subtopik', 'Subunit', 'bi-file-earmark-text', '#ffb8b8') ?>
-        <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
+      
         <?= card('Tujuan Pembelajaran', 'Kelola Tujuan', 'Tujuan', 'bi-flag', '#6de9b2') ?>
         <?= card('Tipe Aktifitas Harian', 'Kelola Aktifitas', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
       

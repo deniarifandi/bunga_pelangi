@@ -105,10 +105,14 @@ public $fieldName = [
         return $query->getResult();
     }
 
-    public function getPetakonsep(){
+    public function getPetakonsep($id = null){
          $db = \Config\Database::connect();
         $builder = $db->table('Petakonsep');
         $builder->select('Petakonsep.*');
+        if ($id != null) {
+            $builder->where('petakonsep_id',$id);
+        }
+        
         $builder->where('deleted_at',null);
         
         $query = $builder->get();
@@ -320,6 +324,7 @@ public function print($id)
         'literasi2' => $this->getLiterasi($hasil->literasi_2),
         'unit' => $this->getUnit(),
         'subunit' => $this->getSubunit(),
+        'petakonsep' => $this->getPetakonsep($hasil->peta_konsep),
     ];
 
     // print_r($data);
