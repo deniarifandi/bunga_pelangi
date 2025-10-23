@@ -116,14 +116,17 @@ public $fieldName = [
     }
 
      public function getJati($id = null){
-        $db = \Config\Database::connect();
+       $db = \Config\Database::connect();
         $builder = $db->table('Tujuan');
         $builder->select('Tujuan.*');
-        $builder->where('subjek_id',4);
-        if ($id != null) {
-            $builder->where('Tujuan.tujuan_id',$id);
+        $builder->whereIn('subjek_id', [4, 7]);
+
+        if ($id !== null) {
+            $builder->where('Tujuan.tujuan_id', $id);
         }
-          $builder->where('deleted_at',null);
+
+        $builder->where('deleted_at', null);
+
         $query = $builder->get();
         return $query->getResult();
     }
@@ -225,7 +228,7 @@ public $fieldName = [
     $data = [
         'guru_nama'      => $this->request->getPost('guru_nama'),
         'kelompok'       => $this->request->getPost('kelompok'),
-        'peta_konsep'    => $petaKonsepName,
+        'peta_konsep'    => $this->request->getPost('petakonsep'),
         'nilai_agama_1'  => $this->request->getPost('nilai_agama_1'),
         'nilai_agama_2'  => $this->request->getPost('nilai_agama_2'),
         'jati_diri_1'    => $this->request->getPost('jati_diri_1'),
@@ -261,7 +264,7 @@ public function update($id = null)
 
     $data = [
         'kelompok'        => $this->request->getPost('kelompok'),
-        'peta_konsep'     => $this->request->getFile('peta_konsep')->getName(),
+        'peta_konsep'     => $this->request->getPost('petakonsep'),
         'nilai_agama_1'   => $this->request->getPost('nilai_agama_1'),
         'nilai_agama_2'   => $this->request->getPost('nilai_agama_2'),
         'jati_diri_1'     => $this->request->getPost('jati_diri_1'),

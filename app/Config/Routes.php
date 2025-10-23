@@ -94,7 +94,6 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/Hasil2/update/(:any)','Aktifitas::update/$1');
 	$routes->get('Hasil2/(:num)/print', 'Aktifitas::print/$1');
 	$routes->post('/Hasil2/data','Aktifitas::data');
-	$routes->post('/Hasil2/data','Aktifitas::data');
 	$routes->get('/Hasil2/new','Aktifitas::new');
 
 

@@ -106,25 +106,30 @@ $table = "hasil";
   
 
      <div class="row">
-       <div class="col-md-12 mb-3">
-         <label for="guru_nama" class="form-label">Peta Konsep</label>
-        <div class=" custom-select" style="max-width:100%">
-          <div class="selected">
-            Pilih Peta Konsep
-          </div>
-          <div class="option-list">
+    <div class="col-md-12 mb-3">
+      <label for="guru_nama" class="form-label">Peta Konsep</label>
 
-              <?php foreach ($data['petakonsep'] as $row): ?>
-                <div class="option" data-value="<?= $row->petakonsep_id ?>"><img src="<?= base_url() ?>uploads/<?= $row->url ?>  " alt="petakonsep" style="max-width: 100px;"> <?= $row->judul ?></div>            
-              <?php endforeach; ?>
-            
-          </div>
+      <div class="custom-select" style="max-width:100%; position:relative;">
+        <div class="selected" style="border:1px solid #ccc; padding:10px; cursor:pointer;">
+          Pilih Peta Konsep
         </div>
-
+        <div class="option-list" style="display:none; border:1px solid #ccc; position:absolute; background:white; width:100%; max-height:200px; overflow-y:auto; z-index:10;">
+          <?php foreach ($data['petakonsep'] as $row): ?>
+            <div class="option" 
+                 data-value="<?= $row->petakonsep_id ?>" 
+                 style="padding:5px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+              <img src="<?= base_url('uploads/'.$row->url) ?>" alt="petakonsep" style="max-width:80px; border:1px solid #ddd;"> 
+              <?= esc($row->judul) ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
       </div>
-    </div>
 
-<input type="hidden" name="animal" id="selectedValue">
+    </div>
+    <input type="hidden" name="petakonsep" id="selectedValue">
+  </div>
+
+
 
     <!-- Nilai Agama Moral dan Budi Pekerti -->
     <div class="row">

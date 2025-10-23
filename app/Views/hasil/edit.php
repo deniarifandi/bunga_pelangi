@@ -7,6 +7,44 @@ $table = "hasil";
 $hasil = $data['hasil']; // shortcut
 ?>
 
+<style>
+.custom-select {
+  position: relative;
+ 
+}
+.selected {
+  border: 1px solid #ccc;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.option-list {
+  display: none;
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  background: white;
+  z-index: 10;
+}
+.option {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.option:hover {
+  background: #f0f0f0;
+}
+.option img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+</style> 
+
 <!--begin::App Main-->
 <main class="app-main">
   <!--begin::App Content Header-->
@@ -45,7 +83,7 @@ $hasil = $data['hasil']; // shortcut
               </div>
             <?php endif; ?>
 
-            <form action="<?= base_url('Aktifitas/update/' . esc($hasil->hasil_id)) ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('Hasil2/update/' . esc($hasil->hasil_id)) ?>" method="post" enctype="multipart/form-data">
               <?= csrf_field() ?>
 
               <!-- Nama Guru -->
@@ -61,6 +99,35 @@ $hasil = $data['hasil']; // shortcut
                 <input type="text" class="form-control bg-light" id="kelompok" 
                        name="kelompok" value="<?= esc($data['kelompok'][0]->kelompok_nama ?? '') ?>" readonly>
               </div>
+
+              <!-- peta konsep -->
+
+              <div class="row">
+  <div class="col-md-12 mb-3">
+    <label class="form-label">Peta Konsep</label>
+
+    <div class="custom-select" style="max-width:100%; position:relative;">
+      <div class="selected" style="border:1px solid #ccc; padding:10px; cursor:pointer;">
+        Pilih Peta Konsep
+      </div>
+      <div class="option-list" style="display:none; border:1px solid #ccc; position:absolute; background:white; width:100%; max-height:200px; overflow-y:auto; z-index:10;">
+        <?php foreach ($data['petakonsep'] as $row): ?>
+          <div class="option" 
+               data-value="<?= $row->petakonsep_id ?>" 
+               data-url="<?= base_url('uploads/'.$row->url) ?>"
+               style="padding:5px; cursor:pointer; display:flex; align-items:center; gap:10px;">
+            <img src="<?= base_url('uploads/'.$row->url) ?>" alt="petakonsep" style="max-width:80px; border:1px solid #ddd;"> 
+            <?= esc($row->judul) ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden input (for form submission) -->
+  <input type="hidden" name="petakonsep" id="selectedValue" 
+         value="<?= esc($data['hasil']->peta_konsep ?? '') ?>">
+</div>
 
               <!-- Nilai Agama Moral dan Budi Pekerti -->
               <div class="row">
@@ -255,4 +322,51 @@ $hasil = $data['hasil']; // shortcut
   topikEl.addEventListener('change', () => populateFor(topikEl.value));
   if (topikEl.value) populateFor(topikEl.value);
 })();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const select = document.querySelector('.custom-select');
+  const selected = select.querySelector('.selected');
+  const optionList = select.querySelector('.option-list');
+  const options = select.querySelectorAll('.option');
+  const hiddenInput = document.getElementById('selectedValue');
+  const currentValue = hiddenInput.value; // current selection (from edit data)
+
+  // ✅ Preselect the saved item when editing
+  if (currentValue) {
+    const preSelected = Array.from(options).find(opt => opt.dataset.value === currentValue);
+    if (preSelected) {
+      const imgUrl = preSelected.dataset.url;
+      const text = preSelected.textContent.trim();
+      selected.innerHTML = `<img src="${imgUrl}" style="max-width:60px; margin-right:8px;"> ${text}`;
+    }
+  }
+
+  // Toggle dropdown
+  selected.addEventListener('click', () => {
+    optionList.style.display = optionList.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Handle option click
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      const value = option.getAttribute('data-value');
+      const imgUrl = option.dataset.url;
+      const text = option.textContent.trim();
+
+      // Update display + hidden field
+      selected.innerHTML = `<img src="${imgUrl}" style="max-width:60px; margin-right:8px;"> ${text}`;
+      hiddenInput.value = value;
+      optionList.style.display = 'none';
+    });
+  });
+
+  // Close dropdown if clicked outside
+  document.addEventListener('click', (e) => {
+    if (!select.contains(e.target)) {
+      optionList.style.display = 'none';
+    }
+  });
+});
 </script>
