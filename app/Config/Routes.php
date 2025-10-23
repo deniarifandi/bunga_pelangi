@@ -136,3 +136,7 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 
 	$routes->post('/bukuinduk/save','bukuinduk::save');
 	$routes->get('/bukuinduk/print/(:num)', 'bukuinduk::print/$1');
+
+	//Penilaian
+	$routes->get('/listpenilaian','Aktifitas::listpenilaian');
+	$routes->get('/newpenilaian','Aktifitas::newpenilaian');

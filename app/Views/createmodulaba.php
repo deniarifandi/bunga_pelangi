@@ -104,7 +104,8 @@ $table = "hasil";
 
     <!-- Peta Konsep -->
   
-
+ <hr>
+     <label for="" class="form-label"><h4>A. Peta Konsep</h4></label>
      <div class="row">
     <div class="col-md-12 mb-3">
       <label for="guru_nama" class="form-label">Peta Konsep</label>
@@ -129,7 +130,8 @@ $table = "hasil";
     <input type="hidden" name="petakonsep" id="selectedValue">
   </div>
 
-
+    <hr>
+     <label for="" class="form-label"><h4>B. Capaian & Tujuan Belajar</h4></label>
 
     <!-- Nilai Agama Moral dan Budi Pekerti -->
     <div class="row">

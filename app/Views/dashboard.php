@@ -59,7 +59,7 @@
         
       </div>
       <?php endif ?>
-
+      <div class="row">
          <div class="col-md-6 mb-4">
           <a href="<?= base_url('Aktifitas') ?>" class="text-decoration-none">
             <div class="info-box">
@@ -73,6 +73,25 @@
             </div>
           </a>
         </div>
+
+         <div class="col-md-6 mb-4">
+          <a href="<?= base_url('listpenilaian') ?>" class="text-decoration-none">
+            <div class="info-box">
+              <span class="info-box-icon shadow-sm" style="background-color:#c9f7a5 !important">
+                <i class="bi-journal-text" style="color: black;"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Penilaian </span>
+                <span class="info-box-number"><small>Isi Penilaian </small></span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+        <hr>
+
       <!-- Section: Class Management -->
         <?php if (session()->get('guru_id') == 0): ?>
       <div class="" style="margin-top:40px"><h4>🧑‍🏫 Kelola Kelas</h4></div>

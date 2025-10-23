@@ -332,6 +332,14 @@ public function print($id)
     return view('hasil/print', $data);
 }
 
+public function listpenilaian(){
+    return view('hasil/listpenilaian');
+}
+
+public function newpenilaian(){
+    return view('hasil/createpenilaian');
+}
+
 
 
 
