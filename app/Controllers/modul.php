@@ -65,27 +65,6 @@ class modul extends MyResourceController
         $this->dataToShow = $this->prepareDataToShow();
     }
 
-    // public function index(){
-    //     return view('ppbp/modul_list', $this->dataToShow);
-    // }
-
-    // public function new()
-    // {
-    //     return view('ppbp/modul_add', $this->dataToShow);
-    // }
-
-    // public function edit($id = null)
-    // {
-    //     $row = $this->model->find($id);
-    //     if (!$row) {
-    //         throw new \CodeIgniter\Exceptions\PageNotFoundException("Data not found: $id");
-    //     }
-
-    //     $data = $this->prepareDataToShow();
-    //     $data['data'] = $row;
-    //     return view('ppbp/modul_edit_ppbp', $data);
-    // }
-
     public function data(){
         $builder = Database::connect()->table($this->table)
         ->select('modul.*')

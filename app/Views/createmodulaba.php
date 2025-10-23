@@ -6,6 +6,44 @@ $title = "modul ajar";
 $table = "hasil";
 ?>
 
+<style>
+.custom-select {
+  position: relative;
+ 
+}
+.selected {
+  border: 1px solid #ccc;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.option-list {
+  display: none;
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  background: white;
+  z-index: 10;
+}
+.option {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.option:hover {
+  background: #f0f0f0;
+}
+.option img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+</style>
+
 
 <!--begin::App Main-->
 <main class="app-main">
@@ -65,10 +103,28 @@ $table = "hasil";
     </div>
 
     <!-- Peta Konsep -->
-   <!--  <div class="mb-3">
-        <label for="peta_konsep" class="form-label">Peta Konsep (Gambar)</label>
-        <input type="file" class="form-control" id="peta_konsep" name="peta_konsep" accept="image/*">
-    </div> -->
+  
+
+     <div class="row">
+       <div class="col-md-12 mb-3">
+         <label for="guru_nama" class="form-label">Peta Konsep</label>
+        <div class=" custom-select" style="max-width:100%">
+          <div class="selected">
+            Pilih Peta Konsep
+          </div>
+          <div class="option-list">
+
+              <?php foreach ($data['petakonsep'] as $row): ?>
+                <div class="option" data-value="<?= $row->petakonsep_id ?>"><img src="<?= base_url() ?>uploads/<?= $row->url ?>  " alt="petakonsep" style="max-width: 100px;"> <?= $row->judul ?></div>            
+              <?php endforeach; ?>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<input type="hidden" name="animal" id="selectedValue">
 
     <!-- Nilai Agama Moral dan Budi Pekerti -->
     <div class="row">
@@ -171,32 +227,36 @@ $table = "hasil";
     </div>
 
     <!-- Topik & Sub Topik -->
-    <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="topik" class="form-label">Topik</label>
-          <select class="form-control" id="topik" name="topik">
-              <option value="">-- Pilih --</option>
-              <?php foreach ($data['topik'] as $row): ?>
-                  <option value="<?= esc($row->unit_id) ?>" 
-                      <?= old('topik') == $row->unit_id ? 'selected' : '' ?>>
-                      <?= esc($row->unit_nama) ?>
-                  </option>
-              <?php endforeach; ?>
-          </select>
-      </div>
-         <div class="col-md-6 mb-3">
-          <label for="subtopik" class="form-label">Subtopik</label>
-          <select class="form-control" id="subtopik" name="subtopik">
-              <option value="">-- Pilih --</option>
-              <?php foreach ($data['subtopik'] as $row): ?>
-                  <option value="<?= esc($row->subunit_id) ?>" 
-                      <?= old('subtopik') == $row->subunit_id ? 'selected' : '' ?>>
-                      <?= esc($row->subunit_nama) ?>
-                  </option>
-              <?php endforeach; ?>
-          </select>
-      </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="topik" class="form-label">Topik</label>
+        <select class="form-control" id="topik" name="topik">
+            <option value="">-- Pilih --</option>
+            <?php foreach ($data['topik'] as $row): ?>
+                <option value="<?= esc($row->unit_id) ?>" 
+                    <?= old('topik') == $row->unit_id ? 'selected' : '' ?>>
+                    <?= esc($row->unit_nama) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
+
+    <div class="col-md-6 mb-3">
+        <label for="subtopik" class="form-label">Subtopik</label>
+        <select class="form-control" id="subtopik" name="subtopik" disabled>
+            <option value=""><?= old('topik') ? '-- Pilih --' : '-- Pilih Topik Terlebih Dahulu --' ?></option>
+
+            <?php foreach ($data['subtopik'] as $row): ?>
+                <!-- data-topik links subtopik to topik -->
+                <option value="<?= esc($row->subunit_id) ?>" data-topik="<?= esc($row->unit_id) ?>"
+                    <?= old('subtopik') == $row->subunit_id ? 'selected' : '' ?>>
+                    <?= esc($row->subunit_nama) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+
 
     <!-- Pembiasaan Pagi -->
     <div class="mb-3">
@@ -258,6 +318,111 @@ $table = "hasil";
     </div>
   </div>
 </main>
+
+
+<script>
+(function () {
+    const topikEl = document.getElementById('topik');
+    const subtopikEl = document.getElementById('subtopik');
+
+    // Build a map of topikId => [{value,text,selected}, ...]
+    const map = {};
+    Array.from(subtopikEl.querySelectorAll('option[data-topik]')).forEach(opt => {
+        const topikId = opt.dataset.topik;
+        if (!map[topikId]) map[topikId] = [];
+        map[topikId].push({
+            value: opt.value,
+            text: opt.textContent.trim(),
+            // note which one was pre-selected on server-side (old value)
+            selected: opt.hasAttribute('selected')
+        });
+    });
+
+    // Remove all actual subtopic option nodes; we'll rebuild on demand
+    subtopikEl.innerHTML = '';
+    // Add initial placeholder
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '-- Pilih Topik Terlebih Dahulu --';
+    subtopikEl.appendChild(placeholder);
+    subtopikEl.disabled = true;
+
+    function populateFor(topikId) {
+        // clear, leave placeholder
+        subtopikEl.innerHTML = '';
+        const first = document.createElement('option');
+        first.value = '';
+        first.textContent = '-- Pilih --';
+        subtopikEl.appendChild(first);
+
+        if (!topikId) {
+            // no topik selected -> disable and show instruction
+            subtopikEl.innerHTML = '';
+            const instruct = document.createElement('option');
+            instruct.value = '';
+            instruct.textContent = '-- Pilih Topik Terlebih Dahulu --';
+            subtopikEl.appendChild(instruct);
+            subtopikEl.disabled = true;
+            return;
+        }
+
+        const list = map[topikId] || [];
+        if (list.length === 0) {
+            subtopikEl.innerHTML = '';
+            const noOpt = document.createElement('option');
+            noOpt.value = '';
+            noOpt.textContent = '-- Tidak Ada Subtopik --';
+            subtopikEl.appendChild(noOpt);
+            subtopikEl.disabled = true;
+            return;
+        }
+
+        // create option elements (new nodes) so we don't move original nodes
+        list.forEach(item => {
+            const o = document.createElement('option');
+            o.value = item.value;
+            o.textContent = item.text;
+            if (item.selected) o.selected = true; // preserve server-side 'old' selection
+            subtopikEl.appendChild(o);
+        });
+        subtopikEl.disabled = false;
+    }
+
+    // On change: populate
+    topikEl.addEventListener('change', () => {
+        populateFor(topikEl.value);
+    });
+
+    // If page loaded with an already-selected topik (form repopulation)
+    // then populate subtopik accordingly
+    if (topikEl.value) {
+        populateFor(topikEl.value);
+    }
+})();
+</script>
+
+<script>
+const select = document.querySelector('.custom-select');
+const selected = select.querySelector('.selected');
+const options = select.querySelector('.option-list');
+const input = document.querySelector('#selectedValue');
+
+selected.addEventListener('click', () => {
+  options.style.display = options.style.display === 'block' ? 'none' : 'block';
+});
+
+options.querySelectorAll('.option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    selected.innerHTML = opt.innerHTML;
+    input.value = opt.dataset.value;
+    options.style.display = 'none';
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!select.contains(e.target)) options.style.display = 'none';
+});
+</script>
 
 <?php 
 echo view('layouts/footer.php');

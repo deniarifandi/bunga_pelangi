@@ -86,6 +86,7 @@ public $fieldName = [
         $builder->select('Kelompok.*');
         $builder->join('Kelompok','Kelompok.guru_id = Guru.guru_id','left');
         $builder->where('Guru.guru_id',session()->get('nama'));
+
         $query = $builder->get();
         return $query->getResult();
     }
@@ -98,6 +99,17 @@ public $fieldName = [
         if ($id != null) {
             $builder->where('Tujuan.tujuan_id',$id);
         }
+          $builder->where('deleted_at',null);
+        
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
+    public function getPetakonsep(){
+         $db = \Config\Database::connect();
+        $builder = $db->table('Petakonsep');
+        $builder->select('Petakonsep.*');
+        $builder->where('deleted_at',null);
         
         $query = $builder->get();
         return $query->getResult();
@@ -111,6 +123,7 @@ public $fieldName = [
         if ($id != null) {
             $builder->where('Tujuan.tujuan_id',$id);
         }
+          $builder->where('deleted_at',null);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -122,6 +135,7 @@ public $fieldName = [
          if ($id != null) {
             $builder->where('Tujuan.tujuan_id',$id);
         }
+          $builder->where('deleted_at',null);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -130,6 +144,7 @@ public $fieldName = [
         $db = \Config\Database::connect();
         $builder = $db->table('Unit');
         $builder->select('Unit.*');
+          $builder->where('deleted_at',null);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -138,6 +153,7 @@ public $fieldName = [
         $db = \Config\Database::connect();
         $builder = $db->table('Subunit');
         $builder->select('Subunit.*');
+        $builder->where('deleted_at',null);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -157,49 +173,53 @@ public $fieldName = [
         $data['agama'] = $this->getAgama();
         $data['jati'] = $this->getJati();
         $data['literasi'] = $this->getLiterasi();
+         $data['petakonsep']    = $this->getPetakonsep();
+
         return view('/createmodulaba',['data' => $data]);
     }
 
+
+
       public function edit($id = null)
-{
-    $db = \Config\Database::connect();
-    $builder = $db->table('Hasil2');
-    $hasil = $builder->where('hasil_id', $id)->get()->getRow();
+    {
+        // 1️⃣ Connect to the database
+        $db = \Config\Database::connect();
+        $builder = $db->table('Hasil2');
 
-    if (!$hasil) {
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Data dengan ID $id tidak ditemukan");
+        // 2️⃣ Get the record by ID
+        $hasil = $builder->where('hasil_id', $id)->get()->getRow();
+
+        // 3️⃣ Check if data exists
+        if (!$hasil) {
+            throw PageNotFoundException::forPageNotFound("Data dengan ID $id tidak ditemukan");
+        }
+
+        // 4️⃣ Get related dropdown / helper data
+        $data['guru_nama']     = session()->get('nama');
+        $data['guru_id']       = session()->get('guru_id');
+        $data['tujuan']        = $this->getdata('Tujuan'); 
+        $data['tipeaktifitas'] = $this->getdata('Tipeaktifitas'); 
+        $data['kelompok']      = $this->getClass();
+        $data['topik']         = $this->getUnit();
+        $data['subtopik']      = $this->getSubunit();
+        $data['agama']         = $this->getAgama();
+        $data['jati']          = $this->getJati();
+        $data['literasi']      = $this->getLiterasi();
+        $data['petakonsep']    = $this->getPetakonsep();
+
+        // 5️⃣ Store the main record (for edit form)
+        $data['hasil']         = $hasil;
+
+        // 6️⃣ Load the view and pass data
+        return view('hasil/edit', ['data' => $data]);
     }
-
-    $data['guru_nama']   = session()->get('nama');
-    $data['guru_id']     = session()->get('guru_id');
-    $data['tujuan']      = $this->getdata('Tujuan'); 
-    $data['tipeaktifitas'] = $this->getdata('Tipeaktifitas'); 
-    $data['kelompok']    = $this->getClass();
-
-    $data['topik']       = $this->getUnit();
-    $data['subtopik']    = $this->getSubunit();
-
-    $data['agama']       = $this->getAgama();
-    $data['jati']        = $this->getJati();
-    $data['literasi']    = $this->getLiterasi();
-
-    $data['hasil']       = $hasil; // data lama untuk form edit
-
-    return view('/hasil/edit', $data);
-}
 
    public function store()
 {
     $db = \Config\Database::connect();
     $builder = $db->table('Hasil2');
 
-    // handle upload peta_konsep
-    $petaKonsepFile = $this->request->getFile('peta_konsep');
-    $petaKonsepName = null;
-    if ($petaKonsepFile && $petaKonsepFile->isValid() && !$petaKonsepFile->hasMoved()) {
-        $petaKonsepName = $petaKonsepFile->getRandomName();
-        $petaKonsepFile->move(FCPATH . 'uploads', $petaKonsepName);
-    }
+    
 
     // ambil semua post
     $data = [

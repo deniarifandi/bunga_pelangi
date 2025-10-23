@@ -14,6 +14,7 @@
           <h3 class="mb-0">
             <img src="<?= base_url() ?>assets/img/class.svg" style="max-width: 35px;"> 
             Dashboard <?= $data->kelompok_nama ?>
+
           </h3>
         </div>
         <div class="col-sm-6">
@@ -39,8 +40,8 @@
     <div class="container-fluid">
 
       <!-- Section: Human Resource -->
-          
-        <?php if (session()->get('guru_role') <= 0): ?>
+       
+        <?php if (session()->get('guru_id') == 0): ?>
         <div class="mb-3"><h4>📁 Human Resource</h4></div>
         <div class="row">
           <?= card('Karyawan', 'Kelola Karyawan', 'Personel', 'bi-person-badge', '#82adf3') ?>
@@ -63,18 +64,35 @@
         
       </div>
       <?php endif ?>
+
+         <div class="col-md-6 mb-4">
+          <a href="<?= base_url('Aktifitas') ?>" class="text-decoration-none">
+            <div class="info-box">
+              <span class="info-box-icon shadow-sm" style="background-color:#a2e4fb !important">
+                <i class="bi-calendar-check" style="color: black;"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">Modul Pembelajaran</span>
+                <span class="info-box-number"><small>Buat Modul</small></span>
+              </div>
+            </div>
+          </a>
+        </div>
       <!-- Section: Class Management -->
-      <div class="mt-5 mb-3"><h4>🧑‍🏫 Kelola Kelas</h4></div>
+        <?php if (session()->get('guru_id') == 0): ?>
+      <div class="" style="margin-top:40px"><h4>🧑‍🏫 Kelola Kelas</h4></div>
       <div class="row">
         <?= card('Absensi Murid', 'Absensi Murid', 'absensi', 'bi-person-check', '#ffc5e5') ?>
          <?= card('Absensi Guru', 'Absensi Guru', 'absensiguru', 'bi-person-check', '#ffc5e5') ?>
 
          <?= card('Laporan Absensi Murid', 'Absensi Murid', 'absensi/front', 'bi-file-earmark-text', '#a9b9f1') ?>
           <?= card('Laporan Absensi Guru', 'Absensi Guru', 'absensiguru/frontguru', 'bi-file-earmark-text', '#90caf9') ?>
-      </div>
+      </div>  
+      <div class="mt-2 mb-3"><h4>📖 Kelola Subjek</h4></div>
+        <?php endif ?>
 
       <!-- Section: Subject Management -->
-      <div class="mt-5 mb-3"><h4>📖 Kelola Subjek</h4></div>
+    
       <div class="row">
         <?= card('Peta Konsep', 'Kelola Peta Konsep', 'Petakonsep', 'bi-diagram-3', '#f7c46c') ?>
         <?= card('Topik', 'Kelola Topik', 'Unit', 'bi-file-earmark-text', '#6de9b2') ?>
@@ -82,7 +100,7 @@
         <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
         <?= card('Tujuan Pembelajaran', 'Kelola Tujuan', 'Tujuan', 'bi-flag', '#6de9b2') ?>
         <?= card('Tipe Aktifitas Harian', 'Kelola Aktifitas', 'Tipeaktifitas', 'bi-check-circle', '#e9b5fb') ?>
-        <?= card('Modul Pembelajaran', 'Buat Modul', 'Aktifitas', 'bi-calendar-check', '#a2e4fb') ?>
+      
       </div>
 
     </div>
