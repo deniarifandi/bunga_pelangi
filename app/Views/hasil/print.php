@@ -162,18 +162,22 @@
       </table>
     </div>
 
-      <div class="info">
-     <table class="data" style="width:100%;">
-      <tr>
-        <th><b>Peta Konsep</b></th>
-      </tr>
-      <tr>
-        <td style="text-align: center;">
+    <div class="info">
+  <table class="data" style="width:100%;">
+    <tr>
+      <th><b>Peta Konsep</b></th>
+    </tr>
+    <tr>
+      <td style="text-align: center;">
+        <?php if (!empty($petakonsep) && !empty($petakonsep[0]->url)): ?>
           <img src="<?= base_url('uploads/'.$petakonsep[0]->url) ?>" style="max-width: 200px;">
-        </td>
-      </tr>
-    </table>
-    </div>
+        <?php else: ?>
+          <span style="color: #888;">No image available</span>
+        <?php endif; ?>
+      </td>
+    </tr>
+  </table>
+</div>
 
     <div class="section">
       <h3>Nilai & Tujuan</h3>

@@ -105,19 +105,28 @@ public $fieldName = [
         return $query->getResult();
     }
 
-    public function getPetakonsep($id = null){
-         $db = \Config\Database::connect();
-        $builder = $db->table('Petakonsep');
-        $builder->select('Petakonsep.*');
-        if ($id != null) {
-            $builder->where('petakonsep_id',$id);
-        }
-        
-        $builder->where('deleted_at',null);
-        
-        $query = $builder->get();
-        return $query->getResult();
+    public function getPetakonsep($id = null)
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('Petakonsep');
+    $builder->select('Petakonsep.*');
+
+    if ($id !== null) {
+        $builder->where('petakonsep_id', $id);
     }
+
+    $builder->where('deleted_at', null);
+    $query = $builder->get();
+    $result = $query->getResult();
+
+    // Ensure it always returns an array (even if empty)
+    if (empty($result)) {
+        return []; // empty array = safe for view check
+    }
+
+    return $result;
+}
+
 
      public function getJati($id = null){
        $db = \Config\Database::connect();
@@ -329,6 +338,8 @@ public function print($id)
 
     // print_r($data);
     // echo json_encode($data);
+
+    // exit();
     return view('hasil/print', $data);
 }
 

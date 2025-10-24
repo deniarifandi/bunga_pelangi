@@ -148,3 +148,5 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/Penilaian/data','Aktifitas::penilaiandata');
 
 	$routes->get('/Penilaian/printnilai/(:any)','Aktifitas::print_nilai/$1');
+
+	$routes->get('/getpetakonsep/(:any)','Aktifitas::getPetaKonsep/$1');
