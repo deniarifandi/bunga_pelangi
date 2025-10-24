@@ -336,9 +336,138 @@ public function listpenilaian(){
     return view('hasil/listpenilaian');
 }
 
-public function newpenilaian(){
-    return view('hasil/createpenilaian');
+public function newpenilaian($aktifitas_id){
+
+    $db = \Config\Database::connect();
+    $builder = $db->table('Murid');
+    $builder->select('Murid.*');
+    $builder->where('Murid.deleted_at',null);
+    $builder->orderBy('Murid.murid_nama');
+    $data = $builder->get()->getResult();
+
+    $builder2 = $db->table('Aktifitas');
+    $builder2->select('Aktifitas.*');
+    $builder2->where('Aktifitas.aktifitas_id',$aktifitas_id);
+    $builder2->where('Aktifitas.deleted_at',null);
+    $data2 = $builder2->get()->getResult();
+
+    return view('hasil/createpenilaian',['data' => $data, 'aktifitas' => $data2]);
 }
+
+public function edit_nilai($aktifitas_id)
+{
+    $db = \Config\Database::connect();
+
+    // Get all students and their existing nilai for this activity
+    $nilaiData = $db->table('Penilaian')
+        ->select('Penilaian.*, Murid.murid_nama')
+        ->join('Murid', 'Penilaian.murid_id = Murid.murid_id')
+        ->where('Penilaian.aktifitas_id', $aktifitas_id)
+        ->orderBy('Murid.murid_nama', 'ASC')
+        ->get()
+        ->getResult();
+
+    // Check if there is data
+    if (empty($nilaiData)) {
+        return redirect()->back()->with('error', 'Data penilaian tidak ditemukan.');
+    }
+
+    // Get the related activity info
+    $aktifitas = $db->table('Aktifitas')
+        ->select('Aktifitas.*')
+        ->where('Aktifitas.aktifitas_id', $aktifitas_id)
+        ->where('Aktifitas.deleted_at', null)
+        ->get()
+        ->getResult();
+
+    // Pass data to view
+    return view('hasil/nilai_edit', [
+        'data' => $nilaiData,   // <-- FIXED (use nilaiData)
+        'aktifitas' => $aktifitas
+    ]);
+}
+
+
+public function simpan_nilai()
+{
+     $db = \Config\Database::connect();
+    // Get all POSTed values
+    $nilai = $this->request->getPost('nilai');
+    $aktifitas_id = $this->request->getPost('aktifitas_id');
+
+    if ($nilai && is_array($nilai)) {
+        foreach ($nilai as $murid_id => $grade) {
+            // Example: save to database
+            $db->table('Penilaian')
+                     ->replace([
+                         'murid_id'     => $murid_id,
+                         'hasil_id'     => $grade,
+                         'aktifitas_id' => $aktifitas_id
+                     ]);
+        }
+
+        return redirect()->to(site_url('listpenilaian'))->with('success', 'Data berhasil disimpan!');
+    }
+
+    return redirect()->back()->with('msg', 'Tidak ada data untuk disimpan.');
+}
+
+
+public function penilaiandata(){
+
+    $builder = Database::connect()->table('Aktifitas')
+        ->select('Aktifitas.*, Penilaian.penilaian_id')
+        ->join('Penilaian','Aktifitas.aktifitas_id = Penilaian.aktifitas_id','left')
+        ->groupBy('aktifitas_id');
+
+    // print_r($builder->get()->getResult());
+    // exit();
+
+
+    $datatable = new Datatable();
+
+    return $datatable->generate($builder, 'Aktifitas.aktifitas_id',[
+        'Aktifitas.aktifitas_nama'
+    ]);
+}
+
+public function update_nilai()
+{
+    $db = \Config\Database::connect();
+    $nilai = $this->request->getPost('nilai');
+    $aktifitas_id = $this->request->getPost('aktifitas_id');
+
+    if ($nilai && $aktifitas_id) {
+        foreach ($nilai as $murid_id => $hasil_id) {
+            // Check if record already exists
+            $existing = $db->table('Penilaian')
+                ->where('murid_id', $murid_id)
+                ->where('aktifitas_id', $aktifitas_id)
+                ->get()
+                ->getRow();
+
+            if ($existing) {
+                // Update existing record
+                $db->table('Penilaian')
+                    ->where('murid_id', $murid_id)
+                    ->where('aktifitas_id', $aktifitas_id)
+                    ->update(['hasil_id' => $hasil_id]);
+            } else {
+                // Insert new record
+                $db->table('Penilaian')->insert([
+                    'murid_id'     => $murid_id,
+                    'aktifitas_id' => $aktifitas_id,
+                    'hasil_id'     => $hasil_id
+                ]);
+            }
+        }
+
+         return redirect()->to(site_url('listpenilaian'))->with('success', 'Data berhasil disimpan!');
+    } else {
+         return redirect()->back()->with('Error', 'Data Tidak berhasil disimpan!');
+    }
+}
+
 
 
 

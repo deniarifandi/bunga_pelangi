@@ -268,11 +268,11 @@ $table = "hasil";
     <!-- Pembiasaan Pagi -->
     <div class="mb-3">
         <label for="pembiasaan" class="form-label">Pembiasaan Pagi</label>
-        <textarea rows="7" class="form-control" id="pembiasaan" name="pembiasaan"><?= old('pembiasaan') ?? '- SOP Penyambutan Kedatangan Anak
-- Bermain Bersama
-- Upacara Pembukaan MPLS
-- Senam Bersama
-- Pembiasaan Minum Air Putih
+        <textarea rows="7" class="form-control" id="pembiasaan" name="pembiasaan"><?= old('pembiasaan') ?? '
+        - SOP Penyambutan Kedatangan Anak
+        - Bermain Bersama
+        - Senam Bersama
+        - Pembiasaan Minum Air Putih
                         '?></textarea>
     </div>
 

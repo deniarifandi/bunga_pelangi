@@ -34,7 +34,7 @@ $table = "Penilaian";
                 <div class="card-header">
                   <h3 class="card-title"><?= $title ?> list</h3>
                   <div class="card-tools">
-                    <a href="<?= $table ?>/new" class="btn btn-primary">Add <?= $title ?></a>
+                   
                   </div>
                   <!-- /.card-tools -->
                 </div>
@@ -52,8 +52,8 @@ $table = "Penilaian";
                   <thead>
                       <tr>
                           <th>ID</th>
-                          <th>penilaian_id</th>
-                          <th>action</th>
+                          <th>Aktifitas</th>
+                          <th>Nilai</th>
                       </tr>
                   </thead>
               </table>
@@ -81,6 +81,9 @@ $table = "Penilaian";
       </main>
 
 
+     <?php 
+        echo view('layouts/footer.php');
+      ?>
 
       <script>
     $(document).ready(function () {
@@ -88,40 +91,36 @@ $table = "Penilaian";
             processing: true,
             serverSide: true,
             ajax: {
-                url: "<?= base_url($table.'/data') ?>",
+                url: "<?= base_url('Penilaian/data') ?>",
                 type: "POST"
             },
             columns: [
-                { data: '<?= $primaryKey ?>' },
-                <?php 
-                  for($i=0; $i < count($fieldList); $i++){
-                    ?>
-                    { data: '<?= $fieldList[$i][0] ?>' },
-                    <?php
+                { data: 'aktifitas_id' },
+                { data: 'aktifitas_nama' },
+                {
+                data: null,
+                render: function(data, type, row) {
+                  // Check if penilaian_id exists
+                  if (row.penilaian_id && row.penilaian_id !== null && row.penilaian_id !== '') {
+                    // Show EDIT button
+                    return `
+                      <a href="<?= base_url() ?>Penilaian/edit_nilai/${row.aktifitas_id}" 
+                         class="btn btn-sm btn-warning edit-btn" data-id="${row.aktifitas_id}">
+                        <i class="bi bi-pencil"></i> Edit
+                      </a>
+                    `;
+                  } else {
+                    // Show ADD button
+                    return `
+                      <a href="<?= base_url() ?>Penilaian/newpenilaian/${row.aktifitas_id}" 
+                         class="btn btn-sm btn-primary add-btn" data-id="${row.aktifitas_id}">
+                        <i class="bi bi-plus"></i> Add
+                      </a>
+                    `;
                   }
-                ?>
-                { 
-                 data: '',
-                 render: (data, type, row) => {
-    let html = `
-        <a class="btn btn-warning btn-sm" href='<?= $table ?>/${row.<?= $primaryKey ?>}/edit'>Edit</a>
-        <form action='<?= $table ?>/${row.<?= $primaryKey ?>}' method="post" style="display:inline" 
-              onsubmit="return confirm('Are you sure you want to delete this item?');">
-            <?= csrf_field() ?>
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-        </form>
-    `;
-
-    <?php if ($table == 'Hasil2') : ?>
-        html += `
-            <a class="btn btn-info btn-sm" target="_blank" href='<?= $table ?>/${row.<?= $primaryKey ?>}/print'>Print</a>
-        `;
-    <?php endif; ?>
-
-    return html;
-}
-
+                },
+                orderable: false,
+                searchable: false
               }
 
             ]
@@ -130,3 +129,4 @@ $table = "Penilaian";
      
     });
     </script>
+

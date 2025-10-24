@@ -139,4 +139,10 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 
 	//Penilaian
 	$routes->get('/listpenilaian','Aktifitas::listpenilaian');
-	$routes->get('/newpenilaian','Aktifitas::newpenilaian');
+	$routes->get('/Penilaian/newpenilaian/(:any)','Aktifitas::newpenilaian/$1');
+	$routes->get('/Penilaian/edit_nilai/(:any)','Aktifitas::edit_nilai/$1');
+	
+	$routes->post('/Penilaian/simpan_nilai','Aktifitas::simpan_nilai');
+	$routes->post('/Penilaian/update_nilai','Aktifitas::update_nilai');
+
+	$routes->post('/Penilaian/data','Aktifitas::penilaiandata');
