@@ -146,3 +146,5 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->post('/Penilaian/update_nilai','Aktifitas::update_nilai');
 
 	$routes->post('/Penilaian/data','Aktifitas::penilaiandata');
+
+	$routes->get('/Penilaian/printnilai/(:any)','Aktifitas::print_nilai/$1');

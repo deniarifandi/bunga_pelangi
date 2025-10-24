@@ -469,6 +469,33 @@ public function update_nilai()
 }
 
 
+public function print_nilai($aktifitas_id)
+{
+    $db = \Config\Database::connect();
+
+    // Get student scores
+    $nilaiData = $db->table('Penilaian')
+        ->select('Penilaian.*, Murid.murid_nama')
+        ->join('Murid', 'Penilaian.murid_id = Murid.murid_id')
+        ->where('Penilaian.aktifitas_id', $aktifitas_id)
+        ->orderBy('Murid.murid_nama', 'ASC')
+        ->get()
+        ->getResult();
+
+    // Get the related activity info
+    $aktifitas = $db->table('Aktifitas')
+        ->where('aktifitas_id', $aktifitas_id)
+        ->get()
+        ->getRow();
+
+    return view('hasil/nilai_print', [
+        'data' => $nilaiData,
+        'aktifitas' => $aktifitas
+    ]);
+}
+
+
+
 
 
 
