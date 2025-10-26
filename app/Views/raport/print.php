@@ -146,6 +146,36 @@
 }
 </style>
 
+<style>
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* keep it square */
+    background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
+    background-size: contain;
+    opacity: 0.3; /* watermark transparency */
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* Make sure it prints too */
+@media print {
+    body::before {
+        background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
+        background-size: contain;
+        opacity: 0.3;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+</style>
+
+
+
 </head>
 <body>
 
