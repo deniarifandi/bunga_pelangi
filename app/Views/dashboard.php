@@ -89,6 +89,22 @@
         </div>
 
       </div>
+    <div class="row">
+  <div class="col-md-12 mb-4">
+    <a href="<?= base_url('Raport') ?>" class="text-decoration-none">
+      <div class="info-box">
+        <span class="info-box-icon shadow-sm" style="background-color:#ffe5b4 !important;">
+          <i class="bi-journal-bookmark" style="color: black;"></i>
+        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Raport</span>
+          <span class="info-box-number"><small>Isi dan Cetak Raport</small></span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
 
         <hr>
 

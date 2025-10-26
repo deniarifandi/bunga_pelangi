@@ -105,6 +105,15 @@ public $fieldName = [
         return $query->getResult();
     }
 
+    public function getAktifitas($id = null){
+        $db = \Config\Database::connect();
+        $builder = $db->table('Aktifitas');
+        $builder->select('Aktifitas.*');
+        
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
     public function getPetakonsep($id = null)
 {
     $db = \Config\Database::connect();
@@ -182,7 +191,8 @@ public $fieldName = [
         $data['tujuan'] = $this->getdata('Tujuan'); 
         $data['tipeaktifitas'] = $this->getdata('Tipeaktifitas'); 
         $data['kelompok'] = $this->getClass();
-
+        // print_r($data['tipeaktifitas']);
+        // exit();
         $data['topik'] = $this->getUnit();
         $data['subtopik'] = $this->getSubunit();
 
@@ -202,6 +212,8 @@ public $fieldName = [
         $db = \Config\Database::connect();
         $builder = $db->table('Hasil2');
 
+        
+
         // 2️⃣ Get the record by ID
         $hasil = $builder->where('hasil_id', $id)->get()->getRow();
 
@@ -209,6 +221,9 @@ public $fieldName = [
         if (!$hasil) {
             throw PageNotFoundException::forPageNotFound("Data dengan ID $id tidak ditemukan");
         }
+
+        // print_r($hasil);
+        // exit();
 
         // 4️⃣ Get related dropdown / helper data
         $data['guru_nama']     = session()->get('nama');
@@ -318,10 +333,24 @@ public function print($id)
 {
     $db = \Config\Database::connect();
     $builder = $db->table('Hasil2 a');
-    $builder->select('a.*');
-    // $builder->join('Guru g', 'g.guru_id = a.guru_id', 'left');
+    $builder->select('a.*, 
+        b.aktifitas_nama as senin, 
+        c.aktifitas_nama as selasa,
+        d.aktifitas_nama as rabu,
+        e.aktifitas_nama as kamis,
+        f.aktifitas_nama as jumat
+        ');
+    $builder->join('Aktifitas b', 'b.aktifitas_id = a.senin','left');
+    $builder->join('Aktifitas c', 'c.aktifitas_id = a.selasa','left');
+    $builder->join('Aktifitas d', 'd.aktifitas_id = a.rabu','left');
+    $builder->join('Aktifitas e', 'e.aktifitas_id = a.kamis','left');
+    $builder->join('Aktifitas f', 'f.aktifitas_id = a.jumat','left');
     $builder->where('a.hasil_id', $id);
     $hasil = $builder->get()->getRow();
+
+     echo json_encode($hasil);
+
+    exit();
 
     $data = [
         'hasil' => $hasil,
@@ -337,9 +366,7 @@ public function print($id)
     ];
 
     // print_r($data);
-    // echo json_encode($data);
-
-    // exit();
+   
     return view('hasil/print', $data);
 }
 

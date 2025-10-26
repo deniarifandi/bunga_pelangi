@@ -258,16 +258,33 @@ $hasil = $data['hasil']; // shortcut
                 </div>
               </div>
 
+     <?php 
+$hari = ['senin','selasa','rabu','kamis','jumat'];
+foreach ($hari as $h): ?>
+
+  <div class="mb-3">
+    <label for="<?= $h ?>" class="form-label">Kegiatan <?= ucfirst($h) ?></label>
+
+    <select class="form-control" id="<?= $h ?>" name="<?= $h ?>">
+      <option value="">-- Pilih Kegiatan --</option>
+      <?php foreach ($data['tipeaktifitas'] as $row): 
+        // get previously saved value or old input
+        $selected_value = old($h) ?? ($data['hasil']->$h ?? ''); 
+      ?>
+        <option value="<?= $row[0]; ?>" <?= $selected_value == $row[0] ? 'selected' : ''; ?>>
+           <?= esc($row[1]) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+   
+  </div>
+<?php endforeach; ?>
+
               <!-- Dynamic Textareas -->
               <?php
               $textareas = [
                 'pembiasaan' => 'Pembiasaan Pagi',
                 'pembuka' => 'Kegiatan Pembuka',
-                'senin' => 'Kegiatan Senin',
-                'selasa' => 'Kegiatan Selasa',
-                'rabu' => 'Kegiatan Rabu',
-                'kamis' => 'Kegiatan Kamis',
-                'jumat' => 'Kegiatan Jumat',
                 'istirahat' => 'Istirahat',
                 'penutup' => 'Kegiatan Penutup',
                 'assessment' => 'Assessment'

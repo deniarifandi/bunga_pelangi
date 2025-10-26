@@ -288,7 +288,19 @@ $table = "hasil";
         foreach ($hari as $h): ?>
         <div class="mb-3">
             <label for="<?= $h ?>" class="form-label">Kegiatan <?= ucfirst($h) ?></label>
-            <textarea class="form-control" id="<?= $h ?>" name="<?= $h ?>"><?= old($h) ?? ''?></textarea>
+            <!-- <textarea class="form-control" id="<?= $h ?>" name="<?= $h ?>"><?= old($h) ?? ''?></textarea> -->
+
+            <select class="form-control" id="<?= $h ?>" name="<?= $h ?>">
+              <option value="">-- Pilih Kegiatan --</option>
+              <?php foreach ($data['tipeaktifitas'] as $row): ?>
+
+                  <option value="<?= $row[0]; ?>"><?= $row[1];?>
+                    <?= old($h) == $row[0] ? 'selected' : '' ?>
+                    <?= esc($row[1]) ?>
+                  </option>
+
+              <?php endforeach; ?>
+          </select>
         </div>
     <?php endforeach; ?>
 
