@@ -334,23 +334,20 @@ public function print($id)
     $db = \Config\Database::connect();
     $builder = $db->table('Hasil2 a');
     $builder->select('a.*, 
-        b.aktifitas_nama as senin, 
-        c.aktifitas_nama as selasa,
-        d.aktifitas_nama as rabu,
-        e.aktifitas_nama as kamis,
-        f.aktifitas_nama as jumat
+        b.tipeaktifitas_nama as senin, 
+        c.tipeaktifitas_nama as selasa,
+        d.tipeaktifitas_nama as rabu,
+        e.tipeaktifitas_nama as kamis,
+        f.tipeaktifitas_nama as jumat
         ');
-    $builder->join('Aktifitas b', 'b.aktifitas_id = a.senin','left');
-    $builder->join('Aktifitas c', 'c.aktifitas_id = a.selasa','left');
-    $builder->join('Aktifitas d', 'd.aktifitas_id = a.rabu','left');
-    $builder->join('Aktifitas e', 'e.aktifitas_id = a.kamis','left');
-    $builder->join('Aktifitas f', 'f.aktifitas_id = a.jumat','left');
+    $builder->join('Tipeaktifitas b', 'b.tipeaktifitas_id = a.senin','left');
+    $builder->join('Tipeaktifitas c', 'c.tipeaktifitas_id = a.selasa','left');
+    $builder->join('Tipeaktifitas d', 'd.tipeaktifitas_id = a.rabu','left');
+    $builder->join('Tipeaktifitas e', 'e.tipeaktifitas_id = a.kamis','left');
+    $builder->join('Tipeaktifitas f', 'f.tipeaktifitas_id = a.jumat','left');
     $builder->where('a.hasil_id', $id);
     $hasil = $builder->get()->getRow();
 
-     echo json_encode($hasil);
-
-    exit();
 
     $data = [
         'hasil' => $hasil,
