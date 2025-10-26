@@ -95,8 +95,8 @@ $table = "Penilaian";
                 type: "POST"
             },
             columns: [
-                { data: 'aktifitas_id' },
-                { data: 'aktifitas_nama' },
+                { data: 'tipeaktifitas_id' },
+                { data: 'tipeaktifitas_nama' },
                 {
                 data: null,
                 render: function(data, type, row) {
@@ -104,20 +104,20 @@ $table = "Penilaian";
                   if (row.penilaian_id && row.penilaian_id !== null && row.penilaian_id !== '') {
                     // Show EDIT button
                     return `
-                      <a href="<?= base_url() ?>Penilaian/edit_nilai/${row.aktifitas_id}" 
-                         class="btn btn-sm btn-warning edit-btn" data-id="${row.aktifitas_id}">
+                      <a href="<?= base_url() ?>Penilaian/edit_nilai/${row.tipeaktifitas_id}" 
+                         class="btn btn-sm btn-warning edit-btn" data-id="${row.tipeaktifitas_id}">
                         <i class="bi bi-pencil"></i> Edit
                       </a>
-                       <a href="<?= base_url() ?>Penilaian/printnilai/${row.aktifitas_id}" 
-                         class="btn btn-sm btn-success add-btn" data-id="${row.aktifitas_id}">
+                       <a href="<?= base_url() ?>Penilaian/printnilai/${row.tipeaktifitas_id}" 
+                         class="btn btn-sm btn-success add-btn" data-id="${row.tipeaktifitas_id}">
                         <i class="bi bi-plus"></i> Print
                       </a>
                     `;
                   } else {
                     // Show ADD button
                     return `
-                      <a href="<?= base_url() ?>Penilaian/newpenilaian/${row.aktifitas_id}" 
-                         class="btn btn-sm btn-primary add-btn" data-id="${row.aktifitas_id}">
+                      <a href="<?= base_url() ?>Penilaian/newpenilaian/${row.tipeaktifitas_id}" 
+                         class="btn btn-sm btn-primary add-btn" data-id="${row.tipeaktifitas_id}">
                         <i class="bi bi-plus"></i> Add
                       </a>
 

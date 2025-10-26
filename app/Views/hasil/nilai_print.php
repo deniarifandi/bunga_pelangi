@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Penilaian - <?= esc($aktifitas->aktifitas_nama) ?></title>
+  <title>Penilaian - <?= esc($aktifitas->tipeaktifitas_nama) ?></title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,11 +46,11 @@
 <body>
   <div class="no-print">
     <button onclick="window.print()">🖨️ Print</button>
-    <a href="<?= base_url('Penilaian/edit_nilai/' . $aktifitas->aktifitas_id) ?>" class="btn">⬅️ Back</a>
+    <a href="<?= base_url('Penilaian/edit_nilai/' . $aktifitas->tipeaktifitas_id) ?>" class="btn">⬅️ Back</a>
   </div>
 
   <h2>Rekap Nilai Aktivitas</h2>
-  <h3><?= esc($aktifitas->aktifitas_nama) ?></h3>
+  <h3><?= esc($aktifitas->tipeaktifitas_nama) ?></h3>
 
   <table>
     <thead>

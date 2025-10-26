@@ -60,14 +60,14 @@ $title = "Penilaian";
                 <div class="card-body">
 
                   <h4 class="mb-3 fw-bold text-primary">
-                      Judul Aktivitas: <span class="text-dark"><?= $aktifitas[0]->aktifitas_nama ?></span>
+                      Judul Aktivitas: <span class="text-dark"><?= $aktifitas[0]->tipeaktifitas_nama ?></span>
                     </h4>
 
-                    <input type="hidden" name="aktifitas_id" value="<?= $aktifitas[0]->aktifitas_id ?>">
+                    <input type="hidden" name="tipeaktifitas_id" value="<?= $aktifitas[0]->tipeaktifitas_id ?>">
 
 
                    <form action="<?= base_url('Penilaian/update_nilai') ?>" method="POST">
-                    <input type="hidden" name="aktifitas_id" value="<?= $aktifitas[0]->aktifitas_id ?>">
+                    <input type="hidden" name="aktifitas_id" value="<?= $aktifitas[0]->tipeaktifitas_id ?>">
 
                   <table class="table table-bordered table-striped align-middle">
                     <thead class="table-light text-center">

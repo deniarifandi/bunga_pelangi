@@ -57,7 +57,7 @@ class Raport extends BaseController
                     ->select("
                         Murid.murid_nama, 
                         Murid.murid_id, 
-                        Aktifitas.aktifitas_nama,
+                        Tipeaktifitas.tipeaktifitas_nama,
                         Penilaian.hasil_id,
                         CASE Penilaian.hasil_id
                             WHEN 'MB' THEN 'Mulai Berkembang'
@@ -68,7 +68,7 @@ class Raport extends BaseController
                         END AS hasil_text
                     ")
                     ->join('Penilaian','Penilaian.murid_id = Murid.murid_id')
-                    ->join('Aktifitas','Aktifitas.aktifitas_id = Penilaian.aktifitas_id')
+                    ->join('Tipeaktifitas','Tipeaktifitas.tipeaktifitas_id = Penilaian.aktifitas_id')
                     ->where('Murid.murid_id', $muridId)
                     ->get()
                     ->getResult();

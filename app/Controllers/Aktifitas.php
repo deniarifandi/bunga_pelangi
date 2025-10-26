@@ -380,10 +380,10 @@ public function newpenilaian($aktifitas_id){
     $builder->orderBy('Murid.murid_nama');
     $data = $builder->get()->getResult();
 
-    $builder2 = $db->table('Aktifitas');
-    $builder2->select('Aktifitas.*');
-    $builder2->where('Aktifitas.aktifitas_id',$aktifitas_id);
-    $builder2->where('Aktifitas.deleted_at',null);
+    $builder2 = $db->table('Tipeaktifitas');
+    $builder2->select('Tipeaktifitas.*');
+    $builder2->where('Tipeaktifitas.tipeaktifitas_id',$aktifitas_id);
+    $builder2->where('Tipeaktifitas.deleted_at',null);
     $data2 = $builder2->get()->getResult();
 
     return view('hasil/createpenilaian',['data' => $data, 'aktifitas' => $data2]);
@@ -408,10 +408,10 @@ public function edit_nilai($aktifitas_id)
     }
 
     // Get the related activity info
-    $aktifitas = $db->table('Aktifitas')
-        ->select('Aktifitas.*')
-        ->where('Aktifitas.aktifitas_id', $aktifitas_id)
-        ->where('Aktifitas.deleted_at', null)
+    $aktifitas = $db->table('Tipeaktifitas')
+        ->select('Tipeaktifitas.*')
+        ->where('Tipeaktifitas.tipeaktifitas_id', $aktifitas_id)
+        ->where('Tipeaktifitas.deleted_at', null)
         ->get()
         ->getResult();
 
@@ -428,7 +428,7 @@ public function simpan_nilai()
      $db = \Config\Database::connect();
     // Get all POSTed values
     $nilai = $this->request->getPost('nilai');
-    $aktifitas_id = $this->request->getPost('aktifitas_id');
+    $aktifitas_id = $this->request->getPost('tipeaktifitas_id');
 
     if ($nilai && is_array($nilai)) {
         foreach ($nilai as $murid_id => $grade) {
@@ -450,10 +450,10 @@ public function simpan_nilai()
 
 public function penilaiandata(){
 
-    $builder = Database::connect()->table('Aktifitas')
-        ->select('Aktifitas.*, Penilaian.penilaian_id')
-        ->join('Penilaian','Aktifitas.aktifitas_id = Penilaian.aktifitas_id','left')
-        ->groupBy('aktifitas_id');
+    $builder = Database::connect()->table('Tipeaktifitas')
+        ->select('Tipeaktifitas.*, Penilaian.penilaian_id')
+        ->join('Penilaian','Tipeaktifitas.tipeaktifitas_id = Penilaian.aktifitas_id','left')
+        ->groupBy('tipeaktifitas_id');
 
     // print_r($builder->get()->getResult());
     // exit();
@@ -461,8 +461,8 @@ public function penilaiandata(){
 
     $datatable = new Datatable();
 
-    return $datatable->generate($builder, 'Aktifitas.aktifitas_id',[
-        'Aktifitas.aktifitas_nama'
+    return $datatable->generate($builder, 'Tipeaktifitas.tipeaktifitas_id',[
+        'Tipeaktifitas.tipeaktifitas_nama'
     ]);
 }
 
@@ -518,8 +518,8 @@ public function print_nilai($aktifitas_id)
         ->getResult();
 
     // Get the related activity info
-    $aktifitas = $db->table('Aktifitas')
-        ->where('aktifitas_id', $aktifitas_id)
+    $aktifitas = $db->table('Tipeaktifitas')
+        ->where('tipeaktifitas_id', $aktifitas_id)
         ->get()
         ->getRow();
 
