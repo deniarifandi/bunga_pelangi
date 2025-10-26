@@ -164,7 +164,7 @@
     <div>
         <strong>KB AISYIYAH PURWOSARI</strong><br>
         <strong>LAPORAN CAPAIAN HASIL BELAJAR</strong><br>
-        <strong>SEMESTER II TAHUN PELAJARAN 2023/2024</strong>
+        <strong>SEMESTER <?= esc($raport->raport_semester) ?> TAHUN PELAJARAN <?= esc($raport->raport_tahun) ?></strong>
     </div>
 
     <hr style="border:2px solid #000; margin:10px 0;">
