@@ -75,7 +75,7 @@ $title = "Penilaian";
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>MB</th>
-                        <th>M</th>
+                        <th>B</th>
                         <th>BSH</th>
                         <th>SB</th>
                       </tr>
@@ -91,7 +91,7 @@ $title = "Penilaian";
 
                           </td>
                           <?php
-                            $options = ['MB', 'M', 'BSH', 'SB'];
+                            $options = ['MB', 'B', 'BSH', 'SB'];
                             foreach ($options as $opt):
                               $id = 'hasil_id' . $row->murid_id . '_' . $opt;
                               $checked = ($row->hasil_id === $opt) ? 'checked' : '';

@@ -150,3 +150,21 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 	$routes->get('/Penilaian/printnilai/(:any)','Aktifitas::print_nilai/$1');
 
 	$routes->get('/getpetakonsep/(:any)','Aktifitas::getPetaKonsep/$1');
+
+
+	$routes->get('/Raport','Raport::index');
+	$routes->post('/Raport/data','Raport::data');
+
+	$routes->get('/Raport/new','Raport::new');
+
+	$routes->post('/Raport/create','Raport::create');
+
+	$routes->post('/Raport/delete/(:num)', 'Raport::delete/$1');
+
+	$routes->get('/Raport/printraport/(:num)', 'Raport::printraport/$1');
+
+	$routes->get('Raport/editraport/(:num)', 'Raport::editraport/$1');
+	$routes->post('Raport/update/(:num)', 'Raport::update/$1');
+
+	$routes->get('raport/getPerkembangan/', 'Raport::getPerkembangan');
+

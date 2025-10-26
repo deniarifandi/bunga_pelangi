@@ -73,7 +73,7 @@ $title = "Penilaian";
                           <th style="width: 5%;">No</th>
                           <th style="width: 40%;">Nama Siswa</th>
                           <th>MB</th>
-                          <th>M</th>
+                          <th>B</th>
                           <th>BSH</th>
                           <th>SB</th>
                         </tr>
@@ -86,7 +86,7 @@ $title = "Penilaian";
                             <td><?= ++$index ?></td>
                             <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?></td>
                             <?php
-                              $options = ['MB', 'M', 'BSH', 'SB'];
+                              $options = ['MB', 'B', 'BSH', 'SB'];
                               foreach ($options as $opt):
                                 $id = 'nilai_' . $row->murid_id . '_' . $opt; // unique ID
                                 $checked = ($opt === 'BSH') ? 'checked' : ''; // ✅ default selected
