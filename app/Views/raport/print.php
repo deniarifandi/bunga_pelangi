@@ -205,20 +205,20 @@ body::before {
     <h3>Data Siswa</h3>
     <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;">
         <tr>
-            <th style="text-align:left; width:30%;">Nama</th>
-            <td><?= esc($murid->murid_nama) ?></td>
+            <th style="text-align:left; width:30%; background-color:white">Nama</th>
+            <td style="background-color:white"><?= esc($murid->murid_nama) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">ID</th>
-            <td><?= esc($murid->murid_id) ?></td>
+            <th style="text-align:left; background-color:white">ID</th>
+            <td style="background-color:white"> <?= esc($murid->murid_id) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">Semester</th>
-            <td><?= esc($raport->raport_semester) ?></td>
+            <th style="text-align:left; ; background-color:white">Semester</th>
+            <td style="background-color:white"><?= esc($raport->raport_semester) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">Tahun Ajaran</th>
-            <td><?= esc($raport->raport_tahun) ?></td>
+            <th style="text-align:left; ; background-color:white">Tahun Ajaran</th>
+            <td style="background-color:white"><?= esc($raport->raport_tahun) ?></td>
         </tr>
     </table>
 </div>
