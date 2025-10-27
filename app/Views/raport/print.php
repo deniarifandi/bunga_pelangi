@@ -225,7 +225,7 @@ body::before {
 
 
     <div class="box">
-        <h3>📏 Measurements & Attendance</h3>
+        <h3>📏 Kehadiran & Kesehatan</h3>
         <table class="table-box">
             <tr>
                 <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
@@ -255,7 +255,7 @@ body::before {
 
     <div class="box">
         <h3>Perkembangan Siswa</h3>
-        <div class="content"><?= nl2br(esc($raport->perkembangan)) ?></div>
+        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
     </div>
 
     <div style="page-break-before: always;"></div>
