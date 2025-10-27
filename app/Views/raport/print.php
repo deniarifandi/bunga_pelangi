@@ -291,7 +291,7 @@ body::before {
 
     <div class="box">
        <div class="section-title">B. Jati Diri</div>
-<div class="images-row" style="background-color:white">
+<div class="images-row">
     <?php for ($i=4; $i<=6; $i++):
         $img = $raport->{'img'.$i} ?? null;
         if ($img): ?>
@@ -311,7 +311,7 @@ body::before {
             <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
     <?php endif; endfor; ?>
 </div>
-<p><?= esc($raport->ketliterasi ?? '') ?></p>
+<p style="background-color:white"><?= esc($raport->ketliterasi ?? '') ?></p>
 <div class="section-divider"></div>
     </div>
 
