@@ -246,9 +246,9 @@ body::before {
         <h3>🎯 Ekstrakurikuler</h3>
         <table class="table-box">
             <tr>
-                <th>Hari</th><td><?= esc($raport->ekskulhari) ?></td>
-                <th>Jenis</th><td><?= esc($raport->ekskuljenis) ?></td>
-                <th>Nilai</th><td><?= esc($raport->ekskulnilai) ?></td>
+                <th>Hari</th><td style="background-color:white"><?= esc($raport->ekskulhari) ?></td>
+                <th>Jenis</th><td style="background-color:white"><?= esc($raport->ekskuljenis) ?></td>
+                <th>Nilai</th><td style="background-color:white"><?= esc($raport->ekskulnilai) ?></td>
             </tr>
         </table>
     </div>
