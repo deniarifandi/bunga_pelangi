@@ -326,7 +326,9 @@ body::before {
 </table>
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
-        <td><?= esc($raport
+        <td><?= esc($raport->ketliterasi ?? '-') ?></td>
+    </tr>
+</table>
 
 
 <div class="section-divider"></div>
