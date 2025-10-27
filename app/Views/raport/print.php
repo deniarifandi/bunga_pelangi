@@ -251,6 +251,13 @@ body::before {
                 <th>Nilai</th><td><?= esc($raport->ekskulnilai) ?></td>
             </tr>
         </table>
+        <table class="table-box">
+            <tr>
+                <th>Hari</th><td><?= esc($raport->ekskulhari2) ?></td>
+                <th>Jenis</th><td><?= esc($raport->ekskuljenis2) ?></td>
+                <th>Nilai</th><td><?= esc($raport->ekskulnilai2) ?></td>
+            </tr>
+        </table>
     </div>
 
     <div class="box">

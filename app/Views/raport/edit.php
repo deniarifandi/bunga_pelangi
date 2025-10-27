@@ -170,6 +170,20 @@
               <input type="text" name="ekskulnilai" class="form-control" value="<?= esc($raport->ekskulnilai) ?>">
             </div>
           </div>
+          <div class="card-body row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Hari</label>
+              <input type="text" name="ekskulhari2" class="form-control" value="<?= esc($raport->ekskulhari2) ?>">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Jenis</label>
+              <input type="text" name="ekskuljenis2" class="form-control" value="<?= esc($raport->ekskuljenis2) ?>">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Nilai</label>
+              <input type="text" name="ekskulnilai2" class="form-control" value="<?= esc($raport->ekskulnilai2) ?>">
+            </div>
+          </div>
         </div>
 
         <!-- Submit Buttons -->
