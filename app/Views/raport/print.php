@@ -260,9 +260,7 @@ body::before {
 
     <div style="page-break-before: always;"></div>
 
-    <div class="box">
-        
-      <h3>Nilai Agama dan Budi Pekerti</h3>
+<!-- A. Agama -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
     <tr>
         <?php for ($i=1; $i<=3; $i++): 
@@ -278,13 +276,58 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
-
-<!-- Keterangan -->
-<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;  background-color:white">
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketagama ?? '-') ?></td>
     </tr>
 </table>
+
+<div class="section-divider"></div>
+
+<!-- B. Jati Diri -->
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+    <tr>
+        <?php for ($i=4; $i<=6; $i++): 
+            $img = $raport->{'img'.$i} ?? null;
+        ?>
+        <td style="width:33%;">
+            <?php if ($img): ?>
+                <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>" style="max-width:100%; max-height:150px; display:block; margin:auto;">
+            <?php else: ?>
+                &nbsp;
+            <?php endif; ?>
+        </td>
+        <?php endfor; ?>
+    </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
+    <tr>
+        <td><?= esc($raport->ketjati ?? '-') ?></td>
+    </tr>
+</table>
+
+<div class="section-divider"></div>
+
+<!-- C. Literasi -->
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+    <tr>
+        <?php for ($i=7; $i<=9; $i++): 
+            $img = $raport->{'img'.$i} ?? null;
+        ?>
+        <td style="width:33%;">
+            <?php if ($img): ?>
+                <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>" style="max-width:100%; max-height:150px; display:block; margin:auto;">
+            <?php else: ?>
+                &nbsp;
+            <?php endif; ?>
+        </td>
+        <?php endfor; ?>
+    </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
+    <tr>
+        <td><?= esc($raport
+
 
 <div class="section-divider"></div>
     </div>
@@ -312,6 +355,8 @@ body::before {
     <?php endif; endfor; ?>
 </div>
 <p style="background-color:white"><?= esc($raport->ketliterasi ?? '') ?></p>
+
+
 <div class="section-divider"></div>
     </div>
 
