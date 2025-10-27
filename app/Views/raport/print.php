@@ -263,7 +263,7 @@ body::before {
     <div class="box">
         
       <h3>Nilai Agama dan Budi Pekerti</h3>
-<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center;">
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
     <tr>
         <?php for ($i=1; $i<=3; $i++): 
             $img = $raport->{'img'.$i} ?? null;
@@ -280,7 +280,7 @@ body::before {
 </table>
 
 <!-- Keterangan -->
-<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;">
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;  background-color:white">
     <tr>
         <td><?= esc($raport->ketagama ?? '-') ?></td>
     </tr>
