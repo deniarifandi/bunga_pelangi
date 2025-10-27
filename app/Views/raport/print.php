@@ -205,39 +205,39 @@ body::before {
     <h3>Data Siswa</h3>
     <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;">
         <tr>
-            <th style="text-align:left; width:30%;">Nama</th>
-            <td><?= esc($murid->murid_nama) ?></td>
+            <th style="text-align:left; width:30%; background-color:white">Nama</th>
+            <td style="background-color:white"><?= esc($murid->murid_nama) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">ID</th>
-            <td><?= esc($murid->murid_id) ?></td>
+            <th style="text-align:left; background-color:white">ID</th>
+            <td style="background-color:white"> <?= esc($murid->murid_id) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">Semester</th>
-            <td><?= esc($raport->raport_semester) ?></td>
+            <th style="text-align:left; ; background-color:white">Semester</th>
+            <td style="background-color:white"><?= esc($raport->raport_semester) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left;">Tahun Ajaran</th>
-            <td><?= esc($raport->raport_tahun) ?></td>
+            <th style="text-align:left; ; background-color:white">Tahun Ajaran</th>
+            <td style="background-color:white"><?= esc($raport->raport_tahun) ?></td>
         </tr>
     </table>
 </div>
 
 
     <div class="box">
-        <h3>📏 Measurements & Attendance</h3>
+        <h3>📏 Kehadiran & Kesehatan</h3>
         <table class="table-box">
             <tr>
-                <th>Tinggi (cm)</th><td><?= esc($raport->tinggi) ?></td>
-                <th>Berat (kg)</th><td><?= esc($raport->berat) ?></td>
+                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
+                <th>Berat (kg)</th><td style="background-color:white"><?= esc($raport->berat) ?></td>
             </tr>
             <tr>
-                <th>Lingkar Kepala (cm)</th><td><?= esc($raport->kepala) ?></td>
-                <th>Sakit (hari)</th><td><?= esc($raport->sakit) ?></td>
+                <th>Lingkar Kepala (cm)</th><td style="background-color:white"><?= esc($raport->kepala) ?></td>
+                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($raport->sakit) ?></td>
             </tr>
             <tr>
-                <th>Ijin (hari)</th><td><?= esc($raport->ijin) ?></td>
-                <th>Alpha (hari)</th><td><?= esc($raport->alpha) ?></td>
+                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($raport->ijin) ?></td>
+                <th>Alpha (hari)</th><td style="background-color:white"><?= esc($raport->alpha) ?></td>
             </tr>
         </table>
     </div>
@@ -246,9 +246,9 @@ body::before {
         <h3>🎯 Ekstrakurikuler</h3>
         <table class="table-box">
             <tr>
-                <th>Hari</th><td><?= esc($raport->ekskulhari) ?></td>
-                <th>Jenis</th><td><?= esc($raport->ekskuljenis) ?></td>
-                <th>Nilai</th><td><?= esc($raport->ekskulnilai) ?></td>
+                <th>Hari</th><td style="background-color:white"><?= esc($raport->ekskulhari) ?></td>
+                <th>Jenis</th><td style="background-color:white"><?= esc($raport->ekskuljenis) ?></td>
+                <th>Nilai</th><td style="background-color:white"><?= esc($raport->ekskulnilai) ?></td>
             </tr>
         </table>
         <table class="table-box">
@@ -262,15 +262,13 @@ body::before {
 
     <div class="box">
         <h3>Perkembangan Siswa</h3>
-        <div class="content"><?= nl2br(esc($raport->perkembangan)) ?></div>
+        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
     </div>
 
     <div style="page-break-before: always;"></div>
 
-    <div class="box">
-        
-      <h3>Nilai Agama dan Budi Pekerti</h3>
-<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center;">
+<!-- A. Agama -->
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
     <tr>
         <?php for ($i=1; $i<=3; $i++): 
             $img = $raport->{'img'.$i} ?? null;
@@ -285,40 +283,60 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
-
-<!-- Keterangan -->
-<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse;">
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketagama ?? '-') ?></td>
     </tr>
 </table>
 
 <div class="section-divider"></div>
-    </div>
 
-    <div class="box">
-       <div class="section-title">B. Jati Diri</div>
-<div class="images-row">
-    <?php for ($i=4; $i<=6; $i++):
-        $img = $raport->{'img'.$i} ?? null;
-        if ($img): ?>
-            <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
-    <?php endif; endfor; ?>
-</div>
-<p><?= esc($raport->ketjati ?? '') ?></p>
+<!-- B. Jati Diri -->
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+    <tr>
+        <?php for ($i=4; $i<=6; $i++): 
+            $img = $raport->{'img'.$i} ?? null;
+        ?>
+        <td style="width:33%;">
+            <?php if ($img): ?>
+                <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>" style="max-width:100%; max-height:150px; display:block; margin:auto;">
+            <?php else: ?>
+                &nbsp;
+            <?php endif; ?>
+        </td>
+        <?php endfor; ?>
+    </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
+    <tr>
+        <td><?= esc($raport->ketjati ?? '-') ?></td>
+    </tr>
+</table>
+
 <div class="section-divider"></div>
-    </div>
 
-    <div class="box">
-      <div class="section-title">C. Literasi</div>
-<div class="images-row">
-    <?php for ($i=7; $i<=9; $i++):
-        $img = $raport->{'img'.$i} ?? null;
-        if ($img): ?>
-            <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
-    <?php endif; endfor; ?>
-</div>
-<p><?= esc($raport->ketliterasi ?? '') ?></p>
+<!-- C. Literasi -->
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+    <tr>
+        <?php for ($i=7; $i<=9; $i++): 
+            $img = $raport->{'img'.$i} ?? null;
+        ?>
+        <td style="width:33%;">
+            <?php if ($img): ?>
+                <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>" style="max-width:100%; max-height:150px; display:block; margin:auto;">
+            <?php else: ?>
+                &nbsp;
+            <?php endif; ?>
+        </td>
+        <?php endfor; ?>
+    </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
+    <tr>
+        <td><?= esc($raport->ketliterasi ?? '-') ?></td>
+    </tr>
+</table>
+
 <div class="section-divider"></div>
     </div>
 
