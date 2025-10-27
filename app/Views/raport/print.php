@@ -229,15 +229,15 @@ body::before {
         <table class="table-box">
             <tr>
                 <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
-                <th>Berat (kg)</th><td><?= esc($raport->berat) ?></td>
+                <th>Berat (kg)</th><td style="background-color:white"><?= esc($raport->berat) ?></td>
             </tr>
             <tr>
-                <th>Lingkar Kepala (cm)</th><td><?= esc($raport->kepala) ?></td>
-                <th>Sakit (hari)</th><td><?= esc($raport->sakit) ?></td>
+                <th>Lingkar Kepala (cm)</th><td style="background-color:white"><?= esc($raport->kepala) ?></td>
+                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($raport->sakit) ?></td>
             </tr>
             <tr>
-                <th>Ijin (hari)</th><td><?= esc($raport->ijin) ?></td>
-                <th>Alpha (hari)</th><td><?= esc($raport->alpha) ?></td>
+                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($raport->ijin) ?></td>
+                <th>Alpha (hari)</th><td style="background-color:white"><?= esc($raport->alpha) ?></td>
             </tr>
         </table>
     </div>
