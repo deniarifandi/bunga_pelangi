@@ -330,35 +330,6 @@ body::before {
     </tr>
 </table>
 
-
-<div class="section-divider"></div>
-    </div>
-
-    <div class="box">
-       <div class="section-title">B. Jati Diri</div>
-<div class="images-row">
-    <?php for ($i=4; $i<=6; $i++):
-        $img = $raport->{'img'.$i} ?? null;
-        if ($img): ?>
-            <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
-    <?php endif; endfor; ?>
-</div>
-<p style="background-color:white"><?= esc($raport->ketjati ?? '') ?></p>
-<div class="section-divider"></div>
-    </div>
-
-    <div class="box">
-      <div class="section-title">C. Literasi</div>
-<div class="images-row">
-    <?php for ($i=7; $i<=9; $i++):
-        $img = $raport->{'img'.$i} ?? null;
-        if ($img): ?>
-            <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
-    <?php endif; endfor; ?>
-</div>
-<p style="background-color:white"><?= esc($raport->ketliterasi ?? '') ?></p>
-
-
 <div class="section-divider"></div>
     </div>
 
