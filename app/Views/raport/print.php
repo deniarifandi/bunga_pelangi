@@ -291,14 +291,14 @@ body::before {
 
     <div class="box">
        <div class="section-title">B. Jati Diri</div>
-<div class="images-row">
+<div class="images-row" style="background-color:white">
     <?php for ($i=4; $i<=6; $i++):
         $img = $raport->{'img'.$i} ?? null;
         if ($img): ?>
             <img src="<?= base_url('uploads/raport/'.$img) ?>" alt="img<?= $i ?>">
     <?php endif; endfor; ?>
 </div>
-<p><?= esc($raport->ketjati ?? '') ?></p>
+<p style="background-color:white"><?= esc($raport->ketjati ?? '') ?></p>
 <div class="section-divider"></div>
     </div>
 
