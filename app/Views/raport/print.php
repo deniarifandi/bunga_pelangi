@@ -228,7 +228,7 @@ body::before {
         <h3>📏 Measurements & Attendance</h3>
         <table class="table-box">
             <tr>
-                <th>Tinggi (cm)</th><td><?= esc($raport->tinggi) ?></td>
+                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
                 <th>Berat (kg)</th><td><?= esc($raport->berat) ?></td>
             </tr>
             <tr>
