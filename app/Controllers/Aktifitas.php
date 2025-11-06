@@ -514,6 +514,7 @@ public function print_nilai($aktifitas_id)
         ->join('Murid', 'Penilaian.murid_id = Murid.murid_id')
         ->where('Penilaian.aktifitas_id', $aktifitas_id)
         ->orderBy('Murid.murid_nama', 'ASC')
+        ->groupBy('Murid.murid_id')
         ->get()
         ->getResult();
 
