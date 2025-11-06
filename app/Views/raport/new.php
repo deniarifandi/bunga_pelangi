@@ -216,7 +216,7 @@ $(document).ready(function() {
           const textData = JSON.stringify(muridData, null, 2);
           const prompt = `
           Tanpa perlu intro atau kata2 "berikut", langsung tuliskan hasilnya untuk perintah ini:
-          Buatkan satu atau dua atau tiga paragraf efektif rekap untuk raport sekolah PAUD berdasarkan data berikut:
+          Buatkan satu atau dua atau tiga paragraf rekap untuk raport sekolah PAUD berdasarkan data berikut:
           ${textData}
           `;
 
