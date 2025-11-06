@@ -87,8 +87,6 @@ $title = "Penilaian";
                         <tr>
                           <td><?= $row->penilaian_id ?></td>
                           <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?>
-                            <?= $row->hasil_id ?>
-
                           </td>
                           <?php
                             $options = ['MB', 'B', 'BSH', 'SB'];
