@@ -338,13 +338,17 @@ public function print($id)
         c.tipeaktifitas_nama as selasa,
         d.tipeaktifitas_nama as rabu,
         e.tipeaktifitas_nama as kamis,
-        f.tipeaktifitas_nama as jumat
+        f.tipeaktifitas_nama as jumat,
+        u.unit_nama,
+        s.subunit_nama
         ');
     $builder->join('Tipeaktifitas b', 'b.tipeaktifitas_id = a.senin','left');
     $builder->join('Tipeaktifitas c', 'c.tipeaktifitas_id = a.selasa','left');
     $builder->join('Tipeaktifitas d', 'd.tipeaktifitas_id = a.rabu','left');
     $builder->join('Tipeaktifitas e', 'e.tipeaktifitas_id = a.kamis','left');
     $builder->join('Tipeaktifitas f', 'f.tipeaktifitas_id = a.jumat','left');
+    $builder->join('Unit u','u.unit_id = a.topik');
+    $builder->join('Subunit s','s.subunit_id = a.subtopik');
     $builder->where('a.hasil_id', $id);
     $hasil = $builder->get()->getRow();
 
@@ -357,8 +361,6 @@ public function print($id)
         'agama2' => $this->getAgama($hasil->nilai_agama_2),
         'jati2' => $this->getJati($hasil->jati_diri_2),
         'literasi2' => $this->getLiterasi($hasil->literasi_2),
-        'unit' => $this->getUnit(),
-        'subunit' => $this->getSubunit(),
         'petakonsep' => $this->getPetakonsep($hasil->peta_konsep),
     ];
 

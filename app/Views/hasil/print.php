@@ -153,11 +153,11 @@
           <td><b>Semester</b></td>
           <td>: <?= esc($hasil->semester) ?></td>
           <td><b>Topik</b></td>
-          <td>: <?= esc($unit[0]->unit_nama ?? '-') ?></td>
+          <td>: <?= esc($hasil->unit_nama ?? '-') ?></td>
         </tr>
         <tr>
           <td><b>Sub Topik</b></td>
-          <td colspan="3">: <?= esc($subunit[0]->subunit_nama ?? '-') ?></td>
+          <td colspan="3">: <?= esc($hasil->subunit_nama ?? '-') ?></td>
         </tr>
       </table>
     </div>
