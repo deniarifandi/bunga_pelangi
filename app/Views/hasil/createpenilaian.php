@@ -50,7 +50,7 @@ $title = "Penilaian";
 
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Penilaian list</h3>
+                  <h3 class="card-title">Penilaian Baru</h3>
                   <div class="card-tools">
                   
                   </div>
@@ -72,6 +72,7 @@ $title = "Penilaian";
                         <tr>
                           <th style="width: 5%;">No</th>
                           <th style="width: 40%;">Nama Siswa</th>
+                          <th style="">Kelompok ID</th>
                           <th>MB</th>
                           <th>B</th>
                           <th>BSH</th>
@@ -85,6 +86,7 @@ $title = "Penilaian";
                           <tr>
                             <td><?= ++$index ?></td>
                             <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?></td>
+                            <td><?= $row->kelompok_nama ?></td>
                             <?php
                               $options = ['MB', 'B', 'BSH', 'SB'];
                               foreach ($options as $opt):

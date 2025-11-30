@@ -14,12 +14,14 @@ class Tipeaktifitas extends MyResourceController
     public $title = "Jenis Aktifitas Harian";
     public $primaryKey = "tipeaktifitas_id";
     public $fieldList = [
-        ['tipeaktifitas_nama','Activity Name']
+        ['tipeaktifitas_nama','Activity Name'],
+        ['tingkat_nama','Level']
         // ['Aktifitas_password','Password']
     ];
 
     public $selectList= [
-            'Tipeaktifitas.*'
+            'Tipeaktifitas.*',
+            'Tingkat.tingkat_nama'
     ];
 
     public $toSearch = 
@@ -27,22 +29,25 @@ class Tipeaktifitas extends MyResourceController
         'Tipeaktifitas.*',
     ];
 
-     public $where = [
-      
+    
+    public $joinTable = [
+        ['Tingkat', 'Tingkat.tingkat_id = Tipeaktifitas.tingkat_id','left'],
+        // ['Unit','Unit.unit_id = Subunit.unit_id','left']
     ];
 
 
     public $field = [
         ['text','tipeaktifitas_nama'],
+        ['select','tingkat_id']
 ];
 
 public $fieldName = [
-        'Tipe Aktifitas Harian'
-        
+        'Aktifitas Harian',
+        'Level'
     ];
 
 public $fieldOption = [
-        ['noOption'],
+        [''],
         ['noOption'],
         ['noOption']
 ];
@@ -52,7 +57,13 @@ public $fieldOption = [
 
     public function __construct()
     {
+        $tingkat_id = session()->get('tingkat_id');
+    
+        $this->where = [
+          "Tipeaktifitas.tingkat_id" => $tingkat_id,
+        ];
         $this->model = new TipeaktifitasModel();
+        $this->fieldOption[1] = $this->getdata('Tingkat');
         $this->dataToShow = $this->prepareDataToShow();
     }
 

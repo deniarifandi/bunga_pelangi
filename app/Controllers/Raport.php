@@ -21,6 +21,8 @@ class Raport extends BaseController
     $builder = Database::connect()->table('Raport')
         ->select('Raport.*, Murid.murid_nama')
         ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
+        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
+        ->where('Kelompok.kelompok_id',session()->get('kelompok_id'))
         ->orderBy('raport_id','desc')
         ->groupBy('raport_id');
 
@@ -41,6 +43,7 @@ class Raport extends BaseController
         $muridList = $db->table('Murid')
             ->select('murid_id, murid_nama')
             ->where('deleted_at',null)
+            ->where('kelompok_id',session()->get('kelompok_id'))
             ->orderBy('murid_nama')
             ->get()->getResult();
 

@@ -32,7 +32,7 @@ $table = "Penilaian";
 
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><?= $title ?> list</h3>
+                  <h3 class="card-title"><?= $title ?> Baru</h3>
                   <div class="card-tools">
                    
                   </div>

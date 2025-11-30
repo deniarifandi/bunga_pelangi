@@ -14,13 +14,16 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
+CI_DEBUG = true
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+app.divisi = 1
+
+app.baseURL = 'https://aba.sinarumi.co.id/'
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
@@ -30,13 +33,13 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
-# database.default.port = 3306
+database.default.hostname = localhost
+database.default.database = sinarumi_aba
+database.default.username = sinarumi_bungapelangi
+database.default.password = w{=b^@TdSW7c
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
 
 # If you use MySQLi as tests, first update the values of Config\Database::$tests.
 # database.tests.hostname = localhost

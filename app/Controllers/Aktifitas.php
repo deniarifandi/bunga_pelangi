@@ -375,10 +375,15 @@ public function listpenilaian(){
 
 public function newpenilaian($aktifitas_id){
 
+    $guru_id = session()->get('guru_id');
+    // exit();
+
     $db = \Config\Database::connect();
     $builder = $db->table('Murid');
-    $builder->select('Murid.*');
+    $builder->select('Murid.*, Kelompok.kelompok_nama');
+    $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id');
     $builder->where('Murid.deleted_at',null);
+    $builder->where('Kelompok.guru_id',$guru_id);
     $builder->orderBy('Murid.murid_nama');
     $data = $builder->get()->getResult();
 
@@ -397,9 +402,11 @@ public function edit_nilai($aktifitas_id)
 
     // Get all students and their existing nilai for this activity
     $nilaiData = $db->table('Penilaian')
-        ->select('Penilaian.*, Murid.murid_nama')
+        ->select('Penilaian.*, Murid.murid_nama, Kelompok.kelompok_nama')
         ->join('Murid', 'Penilaian.murid_id = Murid.murid_id')
+        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
         ->where('Penilaian.aktifitas_id', $aktifitas_id)
+        
         ->orderBy('Murid.murid_nama', 'ASC')
         ->groupBy('Murid.murid_id')
         ->get()
@@ -453,9 +460,14 @@ public function simpan_nilai()
 
 public function penilaiandata(){
 
+    $kelompok_id = session()->get('kelompok_id');
+
     $builder = Database::connect()->table('Tipeaktifitas')
         ->select('Tipeaktifitas.*, Penilaian.penilaian_id')
         ->join('Penilaian','Tipeaktifitas.tipeaktifitas_id = Penilaian.aktifitas_id','left')
+        ->join('Tingkat','Tingkat.tingkat_id = Tipeaktifitas.tingkat_id')
+        ->join('Kelompok','Kelompok.tingkat_id = Tingkat.tingkat_id')
+        ->where('kelompok_id',$kelompok_id)
         ->groupBy('tipeaktifitas_id');
 
     // print_r($builder->get()->getResult());

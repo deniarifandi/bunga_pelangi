@@ -17,13 +17,14 @@ class Tujuan extends MyResourceController
         ['tujuan_nama','Tujuan Pembelajaran'],
     // ['tujuan_date','Date'],
         // ['subunit_nama','Sub-Topik'],
-        ['subjek_nama','Capaian']
+        ['subjek_nama','Capaian'],
+        ['tingkat_nama','Level']
 
     ];
 
     public $selectList= [
             'Tujuan.*',
-            // 'Tingkat.tingkat_nama',
+            'Tingkat.tingkat_nama',
             // 'Unit.*',
             'Subjek.*'
         ];
@@ -40,8 +41,7 @@ class Tujuan extends MyResourceController
     ];
 
     public $joinTable = [
-        // ['Tingkat', 'Tingkat.tingkat_id = Tujuan.tingkat_id','left'],
-
+        ['Tingkat', 'Tingkat.tingkat_id = Tujuan.tingkat_id','left'],
         ['Subjek','Subjek.subjek_id = Tujuan.subjek_id','left'],
         // ['Unit','Unit.unit_id = Subunit.unit_id','left']
     ];
@@ -52,13 +52,14 @@ class Tujuan extends MyResourceController
         ['select','subjek_id'],
         // ['date','tujuan_date'],
         ['text','tujuan_nama'],
+        ['select','tingkat_id']
 
 ];
 
 public $fieldName = [
         'Capaian Pembelajaran',
         'Tujuan Pembelajaran',
-        // 'Date'
+        'Level'
     ];
 
 public $fieldOption = [
@@ -82,6 +83,7 @@ public $fieldOption = [
     public function __construct()
     {
         $this->fieldOption[0] = $this->getdata('Subjek'); 
+        $this->fieldOption[2] = $this->getdata('Tingkat');
         $this->model = new TujuanModel();
         $this->dataToShow = $this->prepareDataToShow();
        

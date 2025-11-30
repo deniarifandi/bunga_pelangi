@@ -74,6 +74,7 @@ $title = "Penilaian";
                       <tr>
                         <th>No</th>
                         <th>Nama Siswa</th>
+                        <th>Kelompok</th>
                         <th>MB</th>
                         <th>B</th>
                         <th>BSH</th>
@@ -88,6 +89,7 @@ $title = "Penilaian";
                           <td><?= $row->penilaian_id ?></td>
                           <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?>
                           </td>
+                          <td><?php echo $row->kelompok_nama ?></td>
                           <?php
                             $options = ['MB', 'B', 'BSH', 'SB'];
                             foreach ($options as $opt):

@@ -66,9 +66,11 @@ class Home extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-       $user = $model->select('Guru.*, Gurudivisi.*, Divisi.*')
+       $user = $model->select('Guru.*, Gurudivisi.*, Divisi.*, Kelompok.kelompok_id,Tingkat.tingkat_id')
         ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id', 'left')
         ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id', 'left')
+        ->join('Kelompok','Kelompok.guru_id = Guru.guru_id','left')
+        ->join('Tingkat','Tingkat.tingkat_id = Kelompok.tingkat_id','left')
         ->where('Guru.guru_username', $username)
         ->first();
 
@@ -76,6 +78,8 @@ class Home extends BaseController
             $this->session->set([
                 'guru_id' => $user['guru_id'], 
                 'nama' => $user['guru_nama'], 
+                'kelompok_id' => $user['kelompok_id'],
+                'tingkat_id' => $user['tingkat_id'],
                 'username' => $user['guru_username'], 
                 'divisi_id' => $user['divisi_id'],
                 'divisi_nama' => $user['divisi_nama'],
