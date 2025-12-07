@@ -189,150 +189,107 @@ $title = "Add Raport";
 
 <?= $this->include('layouts/footer.php') ?>
 <script>
-
-const PROMPT_PERKEMBANGAN = `Tuliskan ringkasan perkembangan anak PAUD berdasarkan data berikut. 
-Gunakan gaya bahasa yang positif, hangat, dan profesional. 
-Jangan gunakan kalimat "berikut ini", "secara keseluruhan", atau kalimat pembuka formal lainnya. 
-Langsung mulai dengan deskripsi perkembangan anak.
-
-Fokuskan pada:
-- kemampuan sosial emosional,
-- kemandirian,
-- interaksi dengan teman,
-- kemampuan mengikuti instruksi,
-- minat belajar,
-- perkembangan umum selama periode penilaian.
-
-Gunakan 2–3 paragraf yang singkat namun jelas.
-Hindari penilaian negatif yang terlalu keras; gunakan bahasa membangun.
-Data anak:
-{{DATA}}
-`
-
-const PROMPT_AGAMA = `Tuliskan deskripsi perkembangan nilai agama dan spiritual anak berdasarkan data berikut. 
-Gunakan paragraf ringkas dan positif.
-
-Fokuskan pada:
-- kebiasaan berdoa,
-- sikap syukur,
-- kemampuan mengikuti kegiatan keagamaan,
-- sikap sopan santun,
-- perilaku menghargai teman dan lingkungan.
-
-Gunakan 1 paragraf yang berisi 3–5 kalimat.
-Hindari istilah terlalu berat atau bersifat evaluatif ekstrem.
-Data anak:
-{{DATA}}
-
-`;
-
-const PROMPT_JATI = `Tuliskan deskripsi perkembangan jati diri anak berdasarkan data berikut.
-
-Fokuskan pada:
-- rasa percaya diri,
-- kemampuan mengungkapkan pendapat,
-- cara anak mengenali emosi diri,
-- kemandirian dalam aktivitas sederhana,
-- ketekunan dalam menyelesaikan tugas.
-
-Gunakan 1 paragraf agak panjang.
-Gunakan bahasa positif dan membangun.
-Data anak:
-{{DATA}}
-`;
-
-const PROMPT_LITERASI =  `Tuliskan deskripsi perkembangan literasi anak berdasarkan data berikut.
-
-Fokuskan pada:
-- minat terhadap buku,
-- kemampuan mengenali huruf/angka,
-- kemampuan memahami instruksi sederhana,
-- kemampuan menceritakan kembali gambar atau cerita,
-- perkembangan komunikasi verbal.
-
-Gunakan 1 paragraf agak panjang.
-Jangan menyertakan angka capaian atau istilah teknis.
-Bahasa harus sederhana dan mudah dipahami orang tua.
-Data anak:
-{{DATA}}
-`;
-
 $(document).ready(function () {
 
-  function processAI(targetField, extraInstruction) {
-    let muridId = $('#raport_murid_id').val();
-
-    if (!muridId) {
-      $(targetField).val('');
-      return;
-    }
-
-    // Tampilkan loading
-    $(targetField)
-      .val("⏳ Sedang memproses data dengan ChatGPT...")
-      .prop("disabled", true);
-
-    // Step 1: Ambil data murid
-    $.ajax({
-      url: "<?= base_url('raport/getPerkembangan') ?>",
-      type: "GET",
-      data: { id: muridId },
-      dataType: "json",
-      success: function (response) {
-        if (!response.success) {
-          $(targetField)
-            .val("❌ Data murid tidak ditemukan.")
-            .prop("disabled", false);
-          return;
+    // ====== Fungsi Utama Reusable ======
+    function generateAI(textareaId, focusPrompt) {
+        let muridId = $('#raport_murid_id').val();
+        if (!muridId) {
+            $(textareaId).val('');
+            return;
         }
 
-        // Step 2: Bangun prompt
-        const muridData = response.data;
-        const textData = JSON.stringify(muridData, null, 2);
+        // Loading
+        $(textareaId)
+            .val('⏳ Sedang memproses data dari Gemini...')
+            .prop('disabled', true);
 
-        const prompt = `
-Tanpa intro atau kata pembuka, langsung buatkan satu sampai tiga paragraf rekap raport PAUD.
-${extraInstruction}
-Data murid:
-${textData}
-        `;
-
-        // Step 3: Kirim ke backend (AMAN)
+        // Get data dari backend
         $.ajax({
-          url: "<?= base_url('raport/generateRaport') ?>",
-          type: "POST",
-          data: { prompt: prompt },
-          dataType: "json",
-          success: function (aiResponse) {
+            url: "<?= base_url('raport/getPerkembangan') ?>",
+            type: "GET",
+            data: { id: muridId },
+            dataType: "json",
 
-            const result = aiResponse?.choices?.[0]?.message?.content
-              || "❌ Tidak ada hasil dari ChatGPT.";
+            success: function (response) {
+                if (!response.success) {
+                    $(textareaId)
+                        .val('❌ Data murid tidak ditemukan.')
+                        .prop('disabled', false);
+                    return;
+                }
 
-            $(targetField)
-              .val(result)
-              .prop("disabled", false);
-          },
-          error: function () {
-            $(targetField)
-              .val("❌ Gagal memproses data dari ChatGPT.")
-              .prop("disabled", false);
-          }
+                const muridData = response.data;
+                const textData = JSON.stringify(muridData, null, 2);
+
+                // Build prompt final
+                const prompt = `
+Tanpa perlu intro atau kata-kata "berikut", langsung tuliskan hasilnya:
+Buatkan satu sampai tiga paragraf rekap raport PAUD.
+Fokus: ${focusPrompt}
+
+Data:
+${textData}
+                `;
+
+                // API Key → (disarankan pindahkan ke backend)
+                const apiKey = "put api key here";
+
+                const payload = {
+                    contents: [
+                        { parts: [{ text: prompt }] }
+                    ]
+                };
+
+                // Kirim ke Gemini API
+                fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const result =
+                        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+                        "Tidak ada hasil.";
+
+                    $(textareaId)
+                        .val(result)
+                        .prop('disabled', false);
+                })
+                .catch(() => {
+                    $(textareaId)
+                        .val('❌ Gagal memproses data dari Gemini.')
+                        .prop('disabled', false);
+                });
+            },
+
+            error: function () {
+                alert('Terjadi kesalahan saat mengambil data.');
+                $(textareaId).prop('disabled', false);
+            }
         });
-      },
-      error: function () {
-        $(targetField).val("❌ Gagal mengambil data murid.");
-      }
+    }
+
+    // ========== EVENT DROPDOWN ==========
+    $('#raport_murid_id').on('change', function () {
+
+        generateAI('#perkembangan',
+            "Ringkasan umum perkembangan anak."
+        );
+
+        generateAI('#ketagama',
+            "Aspek nilai agama, perkembangan spiritual, sikap kasih sayang terhadap sesama dan makhluk hidup lainnya, keadilan, kejujuran,  dan murid menghargai diri dengan menjaga diri, kebersihan dan kesehatan diri"
+        );
+
+        generateAI('#ketjati',
+            "Aspek jati diri, mengenali gender, agama dan sosial budaya, menyadari diri bagian dari keluarga, negara, dunia, mengenal emosi diri, sosial emosional, kemampuan motorik kasar, motorik halus, kemandirian. "
+        );
+
+        generateAI('#ketliterasi',
+            "Aspek nilai literasi, kemampuan dasar berkomunikasi secara lisan atau tertulis, kemampuan bertutur, kosakata, menyimak, memahami pesan sederhana, berkomunikasi, bertanya, mengidentifikasi pola, mengenali bentuk, karakteristik benda sekitar, mengklasifikasi objek, kesadaran waktu, hubungan sebab akibat, pemecahan masalah sehari-hari, mengenali fungsi dan bentuk benda, mengembangkan kreativitas, eksplorasim ekspresi dan apresiasi karya seni. "
+        );
     });
-  }
-
-  // Ketika murid berubah → proses semua bidang otomatis
-  $('#raport_murid_id').on('change', function () {
-    processAI('#perkembangan', PROMPT_PERKEMBANGAN);
-    processAI('#ketagama', PROMPT_AGAMA);
-    processAI('#ketjati', PROMPT_JATI);
-    processAI('#ketliterasi', PROMPT_LITERASI);
-});
-
 
 });
 </script>

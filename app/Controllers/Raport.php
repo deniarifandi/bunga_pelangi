@@ -16,32 +16,61 @@ class Raport extends BaseController
 
    }
 
-   public function generateRaport()
-{
-    $prompt = $this->request->getPost('prompt');
+  public function generateRaport()
+    {
+        $prompt = $this->request->getPost('prompt');
+        $apiKey = getenv('GEMINI_API_KEY');
 
-    $apiKey = getenv("OPENAI_API_KEY"); // Pastikan ada di .env
+        if (!$apiKey) {
+            return $this->response->setJSON([
+                "error" => "API key not found in .env"
+            ]);
+        }
 
-    $ch = curl_init("https://api.openai.com/v1/chat/completions");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json",
-        "Authorization: Bearer $apiKey"
-    ]);
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . $apiKey;
 
-    $payload = [
-        "model" => "gpt-4o-mini",
-        "messages" => [
-            ["role" => "user", "content" => $prompt]
-        ]
-    ];
+        $payload = [
+            "contents" => [
+                [
+                    "role" => "user",
+                    "parts" => [
+                        ["text" => $prompt]
+                    ]
+                ]
+            ]
+        ];
 
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    $response = curl_exec($ch);
-    curl_close($ch);
+        $client = \Config\Services::curlrequest();
 
-    return $this->response->setJSON(json_decode($response));
-}
+        try {
+            $response = $client->post($url, [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => json_encode($payload)
+            ]);
+
+            $json = json_decode($response->getBody(), true);
+
+            // Kalau ada error dari Gemini
+            if (isset($json['error'])) {
+                return $this->response->setJSON([
+                    "error" => $json['error']['message'] ?? "Error from Gemini"
+                ]);
+            }
+
+            return $this->response->setJSON([
+            "raw" => $json  // ← tampilkan raw response
+        ]);
+
+        } catch (\Exception $e) {
+
+            return $this->response->setJSON([
+                "error" => $e->getMessage()
+            ]);
+        }
+    }
+
 
 
 
