@@ -109,19 +109,22 @@
         <hr>
 
       <!-- Section: Class Management -->
-        <?php if (session()->get('guru_id') == 0): ?>
+        
       <div class="" style="margin-top:40px"><h4>🧑‍🏫 Kelola Kelas</h4></div>
       <div class="row">
         <?= card('Absensi Murid', 'Absensi Murid', 'absensi', 'bi-person-check', '#ffc5e5') ?>
+        <?php if (session()->get('guru_id') == 0): ?>
          <?= card('Absensi Guru', 'Absensi Guru', 'absensiguru', 'bi-person-check', '#ffc5e5') ?>
-
+       <?php endif ?>
          <?= card('Laporan Absensi Murid', 'Absensi Murid', 'absensi/front', 'bi-file-earmark-text', '#a9b9f1') ?>
+         <?php if (session()->get('guru_id') == 0): ?>
           <?= card('Laporan Absensi Guru', 'Absensi Guru', 'absensiguru/frontguru', 'bi-file-earmark-text', '#90caf9') ?>
+        <?php endif ?>
       </div>  
       <div class="mt-2 mb-3"><h4>📖 Kelola Subjek</h4></div>
 
         <?= card('Capaian Pembelajaran', 'Kelola Capaian', 'Subjek', 'bi-folder', '#adfbcf') ?>
-        <?php endif ?>
+    
 
       <!-- Section: Subject Management -->
     

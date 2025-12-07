@@ -376,6 +376,7 @@ public function listpenilaian(){
 public function newpenilaian($aktifitas_id){
 
     $guru_id = session()->get('guru_id');
+    $assguru_id = session()->get('guru_id');
     // exit();
 
     $db = \Config\Database::connect();
@@ -384,6 +385,7 @@ public function newpenilaian($aktifitas_id){
     $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id');
     $builder->where('Murid.deleted_at',null);
     $builder->where('Kelompok.guru_id',$guru_id);
+    $builder->orwhere('Kelompok.assguru_id',$assguru_id);
     $builder->orderBy('Murid.murid_nama');
     $data = $builder->get()->getResult();
 

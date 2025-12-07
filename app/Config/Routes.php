@@ -168,3 +168,4 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 
 	$routes->get('raport/getPerkembangan/', 'Raport::getPerkembangan');
 
+	$routes->post('raport/generateRaport/', 'Raport::generateRaport');

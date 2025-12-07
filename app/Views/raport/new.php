@@ -189,327 +189,150 @@ $title = "Add Raport";
 
 <?= $this->include('layouts/footer.php') ?>
 <script>
-$(document).ready(function() {
-  $('#raport_murid_id').on('change', function() {
-    let muridId = $(this).val();
+
+const PROMPT_PERKEMBANGAN = `Tuliskan ringkasan perkembangan anak PAUD berdasarkan data berikut. 
+Gunakan gaya bahasa yang positif, hangat, dan profesional. 
+Jangan gunakan kalimat "berikut ini", "secara keseluruhan", atau kalimat pembuka formal lainnya. 
+Langsung mulai dengan deskripsi perkembangan anak.
+
+Fokuskan pada:
+- kemampuan sosial emosional,
+- kemandirian,
+- interaksi dengan teman,
+- kemampuan mengikuti instruksi,
+- minat belajar,
+- perkembangan umum selama periode penilaian.
+
+Gunakan 2–3 paragraf yang singkat namun jelas.
+Hindari penilaian negatif yang terlalu keras; gunakan bahasa membangun.
+Data anak:
+{{DATA}}
+`
+
+const PROMPT_AGAMA = `Tuliskan deskripsi perkembangan nilai agama dan spiritual anak berdasarkan data berikut. 
+Gunakan paragraf ringkas dan positif.
+
+Fokuskan pada:
+- kebiasaan berdoa,
+- sikap syukur,
+- kemampuan mengikuti kegiatan keagamaan,
+- sikap sopan santun,
+- perilaku menghargai teman dan lingkungan.
+
+Gunakan 1 paragraf yang berisi 3–5 kalimat.
+Hindari istilah terlalu berat atau bersifat evaluatif ekstrem.
+Data anak:
+{{DATA}}
+
+`;
+
+const PROMPT_JATI = `Tuliskan deskripsi perkembangan jati diri anak berdasarkan data berikut.
+
+Fokuskan pada:
+- rasa percaya diri,
+- kemampuan mengungkapkan pendapat,
+- cara anak mengenali emosi diri,
+- kemandirian dalam aktivitas sederhana,
+- ketekunan dalam menyelesaikan tugas.
+
+Gunakan 1 paragraf agak panjang.
+Gunakan bahasa positif dan membangun.
+Data anak:
+{{DATA}}
+`;
+
+const PROMPT_LITERASI =  `Tuliskan deskripsi perkembangan literasi anak berdasarkan data berikut.
+
+Fokuskan pada:
+- minat terhadap buku,
+- kemampuan mengenali huruf/angka,
+- kemampuan memahami instruksi sederhana,
+- kemampuan menceritakan kembali gambar atau cerita,
+- perkembangan komunikasi verbal.
+
+Gunakan 1 paragraf agak panjang.
+Jangan menyertakan angka capaian atau istilah teknis.
+Bahasa harus sederhana dan mudah dipahami orang tua.
+Data anak:
+{{DATA}}
+`;
+
+$(document).ready(function () {
+
+  function processAI(targetField, extraInstruction) {
+    let muridId = $('#raport_murid_id').val();
 
     if (!muridId) {
-      $('#perkembangan').val('');
+      $(targetField).val('');
       return;
     }
 
-    // Show loading text
-    $('#perkembangan')
-      .val('⏳ Sedang memproses data dari Gemini...')
-      .prop('disabled', true);
+    // Tampilkan loading
+    $(targetField)
+      .val("⏳ Sedang memproses data dengan ChatGPT...")
+      .prop("disabled", true);
 
-    // Step 1: Get data from your CodeIgniter controller
+    // Step 1: Ambil data murid
     $.ajax({
       url: "<?= base_url('raport/getPerkembangan') ?>",
       type: "GET",
       data: { id: muridId },
       dataType: "json",
-      success: function(response) {
-        if (response.success) {
-          // Step 2: Build prompt text
-          const muridData = response.data;
-          const textData = JSON.stringify(muridData, null, 2);
-          const prompt = `
-          Tanpa perlu intro atau kata2 "berikut", langsung tuliskan hasilnya untuk perintah ini:
-          Buatkan satu atau dua atau tiga paragraf rekap untuk raport sekolah PAUD berdasarkan data berikut:
-          ${textData}
-          `;
-
-          // Step 3: Send to Gemini API
-          const apiKey = "AIzaSyCsxLYoasut5slzq3TNHxff3UIDMOvXHKU"; // ⚠️ Move to backend in production
-          const payload = {
-            contents: [
-              {
-                parts: [
-                  { text: prompt }
-                ]
-              }
-            ]
-          };
-
-          fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(res => res.json())
-          .then(data => {
-            // Step 4: Show Gemini result in textarea
-            const result = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada hasil.";
-            $('#perkembangan')
-              .val(result)
-              .prop('disabled', false);
-          })
-          .catch(err => {
-            console.error(err);
-            $('#perkembangan')
-              .val('❌ Gagal memproses data dari Gemini.')
-              .prop('disabled', false);
-          });
-
-        } else {
-          $('#perkembangan')
-            .val('❌ Data murid tidak ditemukan.')
-            .prop('disabled', false);
+      success: function (response) {
+        if (!response.success) {
+          $(targetField)
+            .val("❌ Data murid tidak ditemukan.")
+            .prop("disabled", false);
+          return;
         }
+
+        // Step 2: Bangun prompt
+        const muridData = response.data;
+        const textData = JSON.stringify(muridData, null, 2);
+
+        const prompt = `
+Tanpa intro atau kata pembuka, langsung buatkan satu sampai tiga paragraf rekap raport PAUD.
+${extraInstruction}
+Data murid:
+${textData}
+        `;
+
+        // Step 3: Kirim ke backend (AMAN)
+        $.ajax({
+          url: "<?= base_url('raport/generateRaport') ?>",
+          type: "POST",
+          data: { prompt: prompt },
+          dataType: "json",
+          success: function (aiResponse) {
+
+            const result = aiResponse?.choices?.[0]?.message?.content
+              || "❌ Tidak ada hasil dari ChatGPT.";
+
+            $(targetField)
+              .val(result)
+              .prop("disabled", false);
+          },
+          error: function () {
+            $(targetField)
+              .val("❌ Gagal memproses data dari ChatGPT.")
+              .prop("disabled", false);
+          }
+        });
       },
-      error: function() {
-        alert('Terjadi kesalahan saat mengambil data.');
-        $('#perkembangan').prop('disabled', false);
+      error: function () {
+        $(targetField).val("❌ Gagal mengambil data murid.");
       }
     });
-  });
+  }
+
+  // Ketika murid berubah → proses semua bidang otomatis
+  $('#raport_murid_id').on('change', function () {
+    processAI('#perkembangan', PROMPT_PERKEMBANGAN);
+    processAI('#ketagama', PROMPT_AGAMA);
+    processAI('#ketjati', PROMPT_JATI);
+    processAI('#ketliterasi', PROMPT_LITERASI);
 });
-</script>
-
-<script>
-$(document).ready(function() {
-  $('#raport_murid_id').on('change', function() {
-    let muridId = $(this).val();
-
-    if (!muridId) {
-      $('#ketagama').val('');
-      return;
-    }
-
-    // Show loading text
-    $('#ketagama')
-      .val('⏳ Sedang memproses data dari Gemini...')
-      .prop('disabled', true);
-
-    // Step 1: Get data from your CodeIgniter controller
-    $.ajax({
-      url: "<?= base_url('raport/getPerkembangan') ?>",
-      type: "GET",
-      data: { id: muridId },
-      dataType: "json",
-      success: function(response) {
-        if (response.success) {
-          // Step 2: Build prompt text
-          const muridData = response.data;
-          const textData = JSON.stringify(muridData, null, 2);
-          const prompt = `
-          Tanpa perlu intro atau kata2 "berikut", langsung tuliskan hasilnya untuk perintah ini:
-          Buatkan satu atau dua atau tiga paragraf rekap untuk raport sekolah PAUD berdasarkan data berikut, tetapi hanya buat data tentang nilai agama:
-          ${textData}
-          `;
-
-          // Step 3: Send to Gemini API
-          const apiKey = "AIzaSyCsxLYoasut5slzq3TNHxff3UIDMOvXHKU"; // ⚠️ Move to backend in production
-          const payload = {
-            contents: [
-              {
-                parts: [
-                  { text: prompt }
-                ]
-              }
-            ]
-          };
-
-          fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(res => res.json())
-          .then(data => {
-            // Step 4: Show Gemini result in textarea
-            const result = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada hasil.";
-            $('#ketagama')
-              .val(result)
-              .prop('disabled', false);
-          })
-          .catch(err => {
-            console.error(err);
-            $('#ketagama')
-              .val('❌ Gagal memproses data dari Gemini.')
-              .prop('disabled', false);
-          });
-
-        } else {
-          $('#ketagama')
-            .val('❌ Data murid tidak ditemukan.')
-            .prop('disabled', false);
-        }
-      },
-      error: function() {
-        alert('Terjadi kesalahan saat mengambil data.');
-        $('#ketagama').prop('disabled', false);
-      }
-    });
-  });
-});
-</script>
 
 
-<script>
-$(document).ready(function() {
-  $('#raport_murid_id').on('change', function() {
-    let muridId = $(this).val();
-
-    if (!muridId) {
-      $('#ketjati').val('');
-      return;
-    }
-
-    // Show loading text
-    $('#ketjati')
-      .val('⏳ Sedang memproses data dari Gemini...')
-      .prop('disabled', true);
-
-    // Step 1: Get data from your CodeIgniter controller
-    $.ajax({
-      url: "<?= base_url('raport/getPerkembangan') ?>",
-      type: "GET",
-      data: { id: muridId },
-      dataType: "json",
-      success: function(response) {
-        if (response.success) {
-          // Step 2: Build prompt text
-          const muridData = response.data;
-          const textData = JSON.stringify(muridData, null, 2);
-          const prompt = `
-          Tanpa perlu intro atau kata2 "berikut", langsung tuliskan hasilnya untuk perintah ini:
-          Buatkan satu atau dua atau tiga paragraf rekap untuk raport sekolah PAUD berdasarkan data berikut, tetapi hanya buat data tentang nilai jati diri:
-          ${textData}
-          `;
-
-          // Step 3: Send to Gemini API
-          const apiKey = "AIzaSyCsxLYoasut5slzq3TNHxff3UIDMOvXHKU"; // ⚠️ Move to backend in production
-          const payload = {
-            contents: [
-              {
-                parts: [
-                  { text: prompt }
-                ]
-              }
-            ]
-          };
-
-          fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(res => res.json())
-          .then(data => {
-            // Step 4: Show Gemini result in textarea
-            const result = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada hasil.";
-            $('#ketjati')
-              .val(result)
-              .prop('disabled', false);
-          })
-          .catch(err => {
-            console.error(err);
-            $('#ketjati')
-              .val('❌ Gagal memproses data dari Gemini.')
-              .prop('disabled', false);
-          });
-
-        } else {
-          $('#ketjati')
-            .val('❌ Data murid tidak ditemukan.')
-            .prop('disabled', false);
-        }
-      },
-      error: function() {
-        alert('Terjadi kesalahan saat mengambil data.');
-        $('#ketjati').prop('disabled', false);
-      }
-    });
-  });
-});
-</script>
-
-
-<script>
-$(document).ready(function() {
-  $('#raport_murid_id').on('change', function() {
-    let muridId = $(this).val();
-
-    if (!muridId) {
-      $('#ketliterasi').val('');
-      return;
-    }
-
-    // Show loading text
-    $('#ketliterasi')
-      .val('⏳ Sedang memproses data dari Gemini...')
-      .prop('disabled', true);
-
-    // Step 1: Get data from your CodeIgniter controller
-    $.ajax({
-      url: "<?= base_url('raport/getPerkembangan') ?>",
-      type: "GET",
-      data: { id: muridId },
-      dataType: "json",
-      success: function(response) {
-        if (response.success) {
-          // Step 2: Build prompt text
-          const muridData = response.data;
-          const textData = JSON.stringify(muridData, null, 2);
-          const prompt = `
-          Tanpa perlu intro atau kata2 "berikut", langsung tuliskan hasilnya untuk perintah ini:
-          Buatkan satu atau dua atau tiga paragraf rekap untuk raport sekolah PAUD berdasarkan data berikut, tetapi hanya buat data tentang nilai literasi:
-          ${textData}
-          `;
-
-          // Step 3: Send to Gemini API
-          const apiKey = "AIzaSyCsxLYoasut5slzq3TNHxff3UIDMOvXHKU"; // ⚠️ Move to backend in production
-          const payload = {
-            contents: [
-              {
-                parts: [
-                  { text: prompt }
-                ]
-              }
-            ]
-          };
-
-          fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          })
-          .then(res => res.json())
-          .then(data => {
-            // Step 4: Show Gemini result in textarea
-            const result = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada hasil.";
-            $('#ketliterasi')
-              .val(result)
-              .prop('disabled', false);
-          })
-          .catch(err => {
-            console.error(err);
-            $('#ketliterasi')
-              .val('❌ Gagal memproses data dari Gemini.')
-              .prop('disabled', false);
-          });
-
-        } else {
-          $('#ketliterasi')
-            .val('❌ Data murid tidak ditemukan.')
-            .prop('disabled', false);
-        }
-      },
-      error: function() {
-        alert('Terjadi kesalahan saat mengambil data.');
-        $('#ketliterasi').prop('disabled', false);
-      }
-    });
-  });
 });
 </script>

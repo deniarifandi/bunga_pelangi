@@ -16,6 +16,35 @@ class Raport extends BaseController
 
    }
 
+   public function generateRaport()
+{
+    $prompt = $this->request->getPost('prompt');
+
+    $apiKey = getenv("OPENAI_API_KEY"); // Pastikan ada di .env
+
+    $ch = curl_init("https://api.openai.com/v1/chat/completions");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer $apiKey"
+    ]);
+
+    $payload = [
+        "model" => "gpt-4o-mini",
+        "messages" => [
+            ["role" => "user", "content" => $prompt]
+        ]
+    ];
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $this->response->setJSON(json_decode($response));
+}
+
+
+
     public function data(){
 
     $builder = Database::connect()->table('Raport')
