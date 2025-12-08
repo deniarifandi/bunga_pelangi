@@ -76,6 +76,25 @@ class Raport extends BaseController
 
     public function data(){
 
+        if (session()->get('guru_id') >= 7 ) {
+            $builder = Database::connect()->table('Raport')
+        ->select('Raport.*, Murid.murid_nama, Kelompok.kelompok_nama')
+        ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
+        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
+        ->orderBy('raport_id','desc')
+        ->groupBy('raport_id');
+
+        // print_r($builder->get()->getResult());
+        // exit();
+
+
+        $datatable = new Datatable();
+
+        return $datatable->generate($builder, 'Raport.raport_id',[
+            'Raport.raport_id'
+        ]);
+        }
+
     $builder = Database::connect()->table('Raport')
         ->select('Raport.*, Murid.murid_nama')
         ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
@@ -297,7 +316,7 @@ public function update($id)
                     ->get()
                     ->getRow();
 
-                    
+
 
 
 

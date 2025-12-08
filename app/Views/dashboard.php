@@ -3,6 +3,49 @@
   echo view('layouts/sidebar.php');
 ?>
 
+ <?php if (session()->get('guru_id') >= 7): ?>
+  <main class="app-main">
+
+  <!--begin::App Content Header-->
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">
+            <img src="<?= base_url() ?>assets/img/class.svg" style="max-width: 35px;"> 
+            Dashboard <?= $data->kelompok_nama ?>
+
+          </h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div>
+
+      
+      </div>
+    </div>
+  </div>
+  <!--end::App Content Header-->
+
+  <!--begin::App Content-->
+  <div class="app-content">
+    <div class="container-fluid">
+     
+        <div class="mb-3"><h4>📁 Human Resource</h4></div>
+        <div class="row">
+          <?= card('Ekstra', 'Nilai Ekstra', 'Raport', 'bi-person-badge', '#82adf3') ?>
+         
+        </div>
+  
+    </div>
+  </div>
+  <!--end::App Content-->
+</main>
+<?php else: ?>
+
 <!--begin::App Main-->
 <main class="app-main">
 
@@ -108,6 +151,7 @@
 </div>
 
 
+
         <hr>
 
       <!-- Section: Class Management -->
@@ -143,8 +187,9 @@
     </div>
   </div>
   <!--end::App Content-->
-
 </main>
+
+<?php endif ?>
 <!--end::App Main-->
 
 <?php 

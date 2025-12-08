@@ -56,7 +56,9 @@
       <form action="<?= base_url('Raport/update/' . $raport->raport_id) ?>" method="post" enctype="multipart/form-data">
 
         <!-- Basic Info Card -->
-        <div class="card mb-3">
+        <div class="card mb-3" <?php if (session()->get('guru_id') >= 7): ?>
+          style="display: none;"
+        <?php endif ?>>
           <div class="card-header">📝 Basic Info</div>
           <div class="card-body row g-3">
             <div class="col-md-4">
@@ -90,7 +92,9 @@
         </div>
 
         <!-- Perkembangan Siswa Card -->
-        <div class="card mb-3">
+        <div class="card mb-3" <?php if (session()->get('guru_id') >= 7): ?>
+          style="display: none;"
+        <?php endif ?>>
           <div class="card-header">🖊️ Perkembangan Siswa</div>
           <div class="card-body">
             <textarea class="form-control" id="perkembangan" name="perkembangan" rows="3"><?= esc($raport->perkembangan ?? '') ?></textarea>
@@ -99,7 +103,9 @@
         </div>
 
         <!-- Nilai Sections Card -->
-        <div class="card mb-3">
+        <div class="card mb-3" <?php if (session()->get('guru_id') >= 7): ?>
+          style="display: none;"
+        <?php endif ?>>
           <div class="card-header">📸 Nilai & Keterangan</div>
           <div class="card-body">
             <?php
@@ -139,7 +145,9 @@
         </div>
 
         <!-- Measurements & Attendance Card -->
-        <div class="card mb-3">
+        <div class="card mb-3" <?php if (session()->get('guru_id') >= 7): ?>
+          style="display: none;"
+        <?php endif ?>>
           <div class="card-header">📏 Measurements & Attendance</div>
           <div class="card-body row g-3">
             <?php
@@ -154,7 +162,7 @@
         </div>
 
         <!-- Ekstrakurikuler Card -->
-        <div class="card mb-3">
+        <div class="card mb-3" >
           <div class="card-header">🎯 Ekstrakurikuler</div>
           <div class="card-body row g-3">
             <div class="col-md-4">

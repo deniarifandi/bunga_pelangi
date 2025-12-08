@@ -71,12 +71,21 @@ class Home extends BaseController
             Gurudivisi.*,
             Divisi.*
         ')
-        ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id', 'left')
-        ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id', 'left')
+        ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id')
+        ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id')
         ->where('Guru.guru_username', $username)
         ->first();
 
-        // print_r($user);
+         print_r($user);
+
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not Found or Division not registered');
+        } else {
+            
+        }
+
+
 
         $builder = Database::connect()->table('Kelompok');
         $builder->select('Kelompok.kelompok_nama, Kelompok.kelompok_id, Tingkat.*');
@@ -87,11 +96,23 @@ class Home extends BaseController
         $query = $builder->get();
         $kelompok = $query->getResult();
         
-        // print_r($kelompok);
+        print_r($kelompok);
         
         // exit();
 
+
+
         if ($user && password_verify($password, $user['guru_password'])) {
+            if (!$kelompok) {
+                $this->session->set([
+                'guru_id' => $user['guru_id'], 
+                'nama' => $user['guru_nama'], 
+                'username' => $user['guru_username'], 
+                'guru_role'=> $user['guru_role'],
+                'logged_in' => true]);
+                return redirect()->to('/');
+            }
+
             $this->session->set([
                 'guru_id' => $user['guru_id'], 
                 'nama' => $user['guru_nama'], 
