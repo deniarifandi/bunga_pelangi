@@ -288,12 +288,18 @@ public function update($id)
         if (!$raport) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Raport with ID $raportId not found");
         }
-
+        
         // Get student (murid) data
         $murid = $db->table('Murid')
+                    ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
+                    ->join('Guru','Guru.guru_id = Kelompok.guru_id','left')
                     ->where('murid_id', $raport->raport_murid_id)
                     ->get()
                     ->getRow();
+
+                    
+
+
 
         if (!$murid) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Murid not found for this raport");

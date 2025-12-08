@@ -48,17 +48,19 @@
           <?= card('Daftar Absensi', '', 'Presensidata', 'bi-geo-alt', '#d6d9dd') ?>    
         </div>
         
-      
+      <?php endif ?>
 
       <!-- Section: School Management -->
       <div class="mt-5 mb-3"><h4>🏫 Kelola Sekolah</h4></div>
       <div class="row">
+        <?php if (session()->get('guru_id') == 0): ?>
         <?= card('Kelas', 'Kelola Kelas', 'Kelompok', 'bi-people', '#fdfe9c') ?>
+      <?php endif ?>
         <?= card('Murid', 'Kelola Murid', 'Murid', 'bi-mortarboard', '#c5f1dc') ?>
         <?= card('Buku Induk', 'Kelola Buku Induk', 'bukuinduk', 'bi-file-earmark-text', '#ffb8b8') ?>
         
       </div>
-      <?php endif ?>
+      
       <div class="row">
          <div class="col-md-6 mb-4">
           <a href="<?= base_url('Aktifitas') ?>" class="text-decoration-none">

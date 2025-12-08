@@ -158,7 +158,12 @@ $title = "Add Raport";
             <label class="form-label">Nilai</label>
             <input type="text" class="form-control" name="ekskulnilai" value="<?= isset($raport)?esc($raport->ekskulnilai):'' ?>">
           </div>
+          <div class="col-md-12">
+            <label class="form-label">Deskripsi</label>
+            <input type="text" class="form-control" name="ekskuldeskripsi" value="<?= isset($raport)?esc($raport->ekskuldeskripsi):'' ?>">
+          </div>
         </div>
+        <hr>
         <div class="card-body row g-3">
           <div class="col-md-4">
             <label class="form-label">Hari</label>
@@ -166,11 +171,15 @@ $title = "Add Raport";
           </div>
           <div class="col-md-4">
             <label class="form-label">Jenis</label>
-            <input type="text" class="form-control" name="ekskuljenis2" value="<?= isset($raport)?esc($raport->ekskuljenis2):'Tahfidz' ?>">
+            <input type="text" class="form-control" name="ekskuljenis2" value="<?= isset($raport)?esc($raport->ekskuljenis2):'Mewarnai' ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Nilai</label>
             <input type="text" class="form-control" name="ekskulnilai2" value="<?= isset($raport)?esc($raport->ekskulnilai2):'' ?>">
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Deskripsi</label>
+            <input type="text" class="form-control" name="ekskuldeskripsi2" value="<?= isset($raport)?esc($raport->ekskuldeskripsi2):'' ?>">
           </div>
         </div>
       </div>

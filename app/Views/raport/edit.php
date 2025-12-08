@@ -169,6 +169,10 @@
               <label class="form-label">Nilai</label>
               <input type="text" name="ekskulnilai" class="form-control" value="<?= esc($raport->ekskulnilai) ?>">
             </div>
+            <div class="col-md-12">
+              <label class="form-label">Deskripsi</label>
+              <input type="text" class="form-control" name="ekskuldeskripsi" value="<?= isset($raport)?esc($raport->ekskuldeskripsi):'' ?>">
+            </div>
           </div>
           <div class="card-body row g-3">
             <div class="col-md-4">
@@ -183,6 +187,10 @@
               <label class="form-label">Nilai</label>
               <input type="text" name="ekskulnilai2" class="form-control" value="<?= esc($raport->ekskulnilai2) ?>">
             </div>
+            <div class="col-md-12">
+            <label class="form-label">Deskripsi</label>
+            <input type="text" class="form-control" name="ekskuldeskripsi2" value="<?= isset($raport)?esc($raport->ekskuldeskripsi2):'' ?>">
+          </div>
           </div>
         </div>
 

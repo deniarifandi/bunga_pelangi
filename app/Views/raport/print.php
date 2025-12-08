@@ -155,9 +155,9 @@ body::before {
     width: 70%;
     height: auto;
     aspect-ratio: 1 / 1; /* keep it square */
-    background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
+    background: url('<?= base_url("assets/img/ppbp.png") ?>') no-repeat center center;
     background-size: contain;
-    opacity: 0.3; /* watermark transparency */
+    opacity: 0.1; /* watermark transparency */
     transform: translate(-50%, -50%);
     z-index: -1;
 }
@@ -165,7 +165,7 @@ body::before {
 /* Make sure it prints too */
 @media print {
     body::before {
-        background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
+        background: url('<?= base_url("assets/img/ppbp.png") ?>') no-repeat center center;
         background-size: contain;
         opacity: 0.3;
         -webkit-print-color-adjust: exact;
@@ -184,7 +184,7 @@ body::before {
     <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
       
         <div>
-            <h1 style="margin:0; font-size:24px;">Aisyiyah Bustanul Athfal</h1>
+            <h1 style="margin:0; font-size:24px;">Pos Paud Bunga Pelangi</h1>
             <h4 style="margin:0; font-size:16px;">Raport Siswa</h4>
         </div>
     </div>
@@ -192,7 +192,7 @@ body::before {
     <hr style="border:2px solid #000; margin:10px 0;">
 
     <div>
-        <strong>KB AISYIYAH PURWOSARI</strong><br>
+        <strong>POS PAUD BUNGA PELANGI</strong><br>
         <strong>LAPORAN CAPAIAN HASIL BELAJAR</strong><br>
         <strong>SEMESTER <?= esc($raport->raport_semester) ?> TAHUN PELAJARAN <?= esc($raport->raport_tahun) ?></strong>
     </div>
@@ -209,8 +209,8 @@ body::before {
             <td style="background-color:white"><?= esc($murid->murid_nama) ?></td>
         </tr>
         <tr>
-            <th style="text-align:left; background-color:white">ID</th>
-            <td style="background-color:white"> <?= esc($murid->murid_id) ?></td>
+            <th style="text-align:left; background-color:white">NISN</th>
+            <td style="background-color:white"> <?= esc($murid->nis) ?></td>
         </tr>
         <tr>
             <th style="text-align:left; ; background-color:white">Semester</th>
@@ -250,6 +250,9 @@ body::before {
                 <th>Jenis</th><td style="background-color:white"><?= esc($raport->ekskuljenis) ?></td>
                 <th>Nilai</th><td style="background-color:white"><?= esc($raport->ekskulnilai) ?></td>
             </tr>
+            <tr>
+                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($raport->ekskuldeskripsi) ?></td>
+            </tr>
         </table>
         <table class="table-box">
             <tr>
@@ -257,18 +260,21 @@ body::before {
                 <th>Jenis</th><td><?= esc($raport->ekskuljenis2) ?></td>
                 <th>Nilai</th><td><?= esc($raport->ekskulnilai2) ?></td>
             </tr>
+            <tr>
+                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($raport->ekskuldeskripsi2) ?></td>
+            </tr>
         </table>
     </div>
 
-    <div class="box">
-        <h3>Perkembangan Siswa</h3>
-        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
-    </div>
+         <div style="page-break-before: always;"></div>
 
-    <div style="page-break-before: always;"></div>
+    
 
 <!-- A. Agama -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+    <tr>
+        <th colspan="3">Capaian Perkembangan Nilai Agama dan Budi Pekerti</th>
+    </tr>
     <tr>
         <?php for ($i=1; $i<=3; $i++): 
             $img = $raport->{'img'.$i} ?? null;
@@ -283,6 +289,7 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
+
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketagama ?? '-') ?></td>
@@ -293,6 +300,9 @@ body::before {
 
 <!-- B. Jati Diri -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+     <tr>
+        <th colspan="3">Capaian Perkembangan Jati Diri</th>
+    </tr>
     <tr>
         <?php for ($i=4; $i<=6; $i++): 
             $img = $raport->{'img'.$i} ?? null;
@@ -307,6 +317,7 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
+
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketjati ?? '-') ?></td>
@@ -317,6 +328,9 @@ body::before {
 
 <!-- C. Literasi -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
+     <tr>
+        <th colspan="3">Capaian Perkembangan Dasar-dasar Literasi dan STEAM</th>
+    </tr>
     <tr>
         <?php for ($i=7; $i<=9; $i++): 
             $img = $raport->{'img'.$i} ?? null;
@@ -331,13 +345,21 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
+
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketliterasi ?? '-') ?></td>
     </tr>
 </table>
 
+
 <div class="section-divider"></div>
+
+<div class="box">
+        <h3>Perkembangan Siswa</h3>
+        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
+    </div>
+
     </div>
 
     
@@ -346,10 +368,12 @@ body::before {
         <div>
             Guru Wali
             <div class="line"></div>
+            <?php echo $murid->guru_nama ?>
         </div>
         <div>
             Kepala Sekolah
             <div class="line"></div>
+            Siti Maghfiroh, S.Kom
         </div>
     </div>
 
