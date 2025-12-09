@@ -18,7 +18,7 @@ class EkskulController extends BaseController
     ============================ */
     public function listMurid()
     {
-        $muridList = $this->db->table('murid')->get()->getResultArray();
+        $muridList = $this->db->table('Murid')->get()->getResultArray();
 
         // Cek apakah setiap murid sudah punya nilai ekskul
         foreach ($muridList as &$m) {
@@ -39,7 +39,7 @@ class EkskulController extends BaseController
     public function index()
     {
         $data['ekskul'] = $this->db->table('ekskul')
-            ->join('murid', 'murid.murid_id = ekskul.murid_id') // FIX: table name lowercase
+            ->join('Murid', 'murid.murid_id = ekskul.murid_id') // FIX: table name lowercase
             ->select('ekskul.*, murid.murid_nama')
             ->get()
             ->getResultArray();
@@ -54,7 +54,7 @@ class EkskulController extends BaseController
     {
         $muridId = $this->request->getGet('murid');
 
-        $data['data'] = $this->db->table('murid')
+        $data['data'] = $this->db->table('Murid')
             ->where('murid_id', $muridId)
             ->get()
             ->getResult();
@@ -90,7 +90,7 @@ class EkskulController extends BaseController
             ->get()
             ->getRowArray();
 
-        $data['data'] = $this->db->table('murid')
+        $data['data'] = $this->db->table('Murid')
             ->where('murid_id', $data['ekskul']['murid_id'])
             ->get()
             ->getResult();
