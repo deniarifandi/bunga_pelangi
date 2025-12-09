@@ -161,6 +161,23 @@
           </div>
         </div>
 
+
+         <div class="card">
+        <div class="card-header">
+          Refleksi
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+                <label class="form-label">Refleksi Guru</label>
+                <input type="text" class="form-control" name="refleksiguru" value="<?= isset($raport)?esc($raport->refleksiguru):'' ?>">
+              </div>
+          </div>  
+        </div>
+        
+      </div>
+      <br>
+
         <!-- Submit Buttons -->
         <div class="text-end mb-5">
           <button type="submit" class="btn btn-success">💾 Update</button>

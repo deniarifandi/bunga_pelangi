@@ -385,6 +385,26 @@ body::before {
         </div>
     </div>
 
+    <div style="page-break-before: always;"></div>
+    <div class="box" style="background-color: white;">
+            <h3>Refleksi Guru</h3>
+            <div class="content" style="background-color:white"><?= nl2br(esc($raport->refleksiguru)) ?></div>
+            <br>
+    </div>
+
+     <div class="box" style="background-color: white;">
+            <h3>Refleksi Orang Tua</h3>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+    </div>
+
+
 </div>
 
 </body>
