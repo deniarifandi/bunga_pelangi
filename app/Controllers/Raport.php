@@ -96,7 +96,7 @@ class Raport extends BaseController
         }
 
     $builder = Database::connect()->table('Raport')
-        ->select('Raport.*, Murid.murid_nama')
+        ->select('Raport.*, Murid.murid_nama, Kelompok.kelompok_nama')
         ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
         ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
         ->where('Kelompok.kelompok_id',session()->get('kelompok_id'))
