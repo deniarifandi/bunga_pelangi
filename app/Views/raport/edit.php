@@ -145,9 +145,7 @@
         </div>
 
         <!-- Measurements & Attendance Card -->
-        <div class="card mb-3" <?php if (session()->get('guru_id') >= 7): ?>
-          style="display: none;"
-        <?php endif ?>>
+        <div class="card mb-3" style="display: none;">
           <div class="card-header">📏 Measurements & Attendance</div>
           <div class="card-body row g-3">
             <?php

@@ -228,17 +228,14 @@ body::before {
         <h3>📏 Kehadiran & Kesehatan</h3>
         <table class="table-box">
             <tr>
-                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
-                <th>Berat (kg)</th><td style="background-color:white"><?= esc($raport->berat) ?></td>
+                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($murid->anak_tinggi) ?></td>
+                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($absensi['status2']) ?></td>
             </tr>
             <tr>
-                <th>Lingkar Kepala (cm)</th><td style="background-color:white"><?= esc($raport->kepala) ?></td>
-                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($raport->sakit) ?></td>
+                <th>Berat (kg)</th><td style="background-color:white"><?= esc($murid->anak_berat) ?></td>
+                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($absensi['status3']) ?></td>
             </tr>
-            <tr>
-                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($raport->ijin) ?></td>
-                <th>Alpha (hari)</th><td style="background-color:white"><?= esc($raport->alpha) ?></td>
-            </tr>
+            
         </table>
     </div>
 

@@ -317,11 +317,41 @@ public function update($id)
                     ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
                     ->join('Guru','Guru.guru_id = Kelompok.guru_id','left')
                     ->join('ekskul','Murid.murid_id = ekskul.murid_id','left')
+                    ->join('Identitasanak','Identitasanak.murid_id = Murid.murid_id','left')
                     ->where('Murid.murid_id', $raport->raport_murid_id)
                     ->get()
                     ->getRow();
 
         // print_r($murid);
+        // exit();
+
+        $start = '2025-07-01';
+        $end   = '2025-12-31';
+
+      $absensi = $db->table('absensi')
+    ->select('status, COUNT(*) as total_absensi')
+    ->where('tanggal >=', $start)
+    ->where('tanggal <=', $end)
+    ->where('murid_id', $raport->raport_murid_id)
+    ->groupBy('status')
+    ->get()
+    ->getResultArray();
+
+
+    $result = [
+    'murid_id' => 5,
+    'status1'  => 0,
+    'status2'  => 0,
+    'status3'  => 0
+];
+
+foreach ($absensi as $row) {
+    $statusKey = 'status' . $row['status'];
+    $result[$statusKey] = $row['total_absensi'];
+}
+
+
+        // print_r($result);
         // exit();
 
         if (!$murid) {
@@ -330,7 +360,8 @@ public function update($id)
 
         $data = [
             'raport' => $raport,
-            'murid'  => $murid
+            'murid'  => $murid,
+            'absensi' => $result
         ];
 
         // Load the print view

@@ -127,7 +127,7 @@ $title = "Add Raport";
       <?php endforeach; ?>
 
       <!-- Measurements & Attendance -->
-      <div class="card mb-3">
+      <div class="card mb-3" style="display:none">
         <div class="card-header">📏 Measurements & Attendance</div>
         <div class="card-body row g-3">
           <?php 
