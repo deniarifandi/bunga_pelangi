@@ -16,6 +16,10 @@ class Raport extends BaseController
 
    }
 
+   public function indexEkskul(){
+    return view('raport/ekskullist');
+   }
+
   public function generateRaport()
     {
         $prompt = $this->request->getPost('prompt');
@@ -312,13 +316,13 @@ public function update($id)
         $murid = $db->table('Murid')
                     ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
                     ->join('Guru','Guru.guru_id = Kelompok.guru_id','left')
-                    ->where('murid_id', $raport->raport_murid_id)
+                    ->join('Ekskul','Murid.murid_id = Ekskul.murid_id','left')
+                    ->where('Murid.murid_id', $raport->raport_murid_id)
                     ->get()
                     ->getRow();
 
-
-
-
+        // print_r($murid);
+        // exit();
 
         if (!$murid) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Murid not found for this raport");

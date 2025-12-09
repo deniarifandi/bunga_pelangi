@@ -168,4 +168,11 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 
 	$routes->get('raport/getPerkembangan/', 'Raport::getPerkembangan');
 
-	$routes->post('raport/generateRaport/', 'Raport::generateRaport');
+	$routes->post('raport/generateRaport/', 'Raport::generateRaport');	
+
+	$routes->get('ekskul/murid', 'EkskulController::listMurid');
+
+$routes->get('ekskul/create', 'EkskulController::create');
+$routes->post('ekskul/store', 'EkskulController::store');
+$routes->get('ekskul/edit/(:num)', 'EkskulController::edit/$1');
+$routes->post('ekskul/update/(:num)', 'EkskulController::update/$1');

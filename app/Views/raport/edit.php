@@ -161,47 +161,6 @@
           </div>
         </div>
 
-        <!-- Ekstrakurikuler Card -->
-        <div class="card mb-3" >
-          <div class="card-header">🎯 Ekstrakurikuler</div>
-          <div class="card-body row g-3">
-            <div class="col-md-4">
-              <label class="form-label">Hari</label>
-              <input type="text" name="ekskulhari" class="form-control" value="<?= esc($raport->ekskulhari) ?>">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Jenis</label>
-              <input type="text" name="ekskuljenis" class="form-control" value="<?= esc($raport->ekskuljenis) ?>">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Nilai</label>
-              <input type="text" name="ekskulnilai" class="form-control" value="<?= esc($raport->ekskulnilai) ?>">
-            </div>
-            <div class="col-md-12">
-              <label class="form-label">Deskripsi</label>
-              <input type="text" class="form-control" name="ekskuldeskripsi" value="<?= isset($raport)?esc($raport->ekskuldeskripsi):'' ?>">
-            </div>
-          </div>
-          <div class="card-body row g-3">
-            <div class="col-md-4">
-              <label class="form-label">Hari</label>
-              <input type="text" name="ekskulhari2" class="form-control" value="<?= esc($raport->ekskulhari2) ?>">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Jenis</label>
-              <input type="text" name="ekskuljenis2" class="form-control" value="<?= esc($raport->ekskuljenis2) ?>">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Nilai</label>
-              <input type="text" name="ekskulnilai2" class="form-control" value="<?= esc($raport->ekskulnilai2) ?>">
-            </div>
-            <div class="col-md-12">
-            <label class="form-label">Deskripsi</label>
-            <input type="text" class="form-control" name="ekskuldeskripsi2" value="<?= isset($raport)?esc($raport->ekskuldeskripsi2):'' ?>">
-          </div>
-          </div>
-        </div>
-
         <!-- Submit Buttons -->
         <div class="text-end mb-5">
           <button type="submit" class="btn btn-success">💾 Update</button>

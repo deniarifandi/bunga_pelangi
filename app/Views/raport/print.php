@@ -246,22 +246,22 @@ body::before {
         <h3>🎯 Ekstrakurikuler</h3>
         <table class="table-box">
             <tr>
-                <th>Hari</th><td style="background-color:white"><?= esc($raport->ekskulhari) ?></td>
-                <th>Jenis</th><td style="background-color:white"><?= esc($raport->ekskuljenis) ?></td>
-                <th>Nilai</th><td style="background-color:white"><?= esc($raport->ekskulnilai) ?></td>
+             
+                <th>Ekskul</th><td style="background-color:white"><?= esc($murid->ekskul1) ?></td>
+                <th>Nilai</th><td style="background-color:white"><?= esc($murid->nilai1) ?></td>
             </tr>
             <tr>
-                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($raport->ekskuldeskripsi) ?></td>
+                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($murid->deskripsi1) ?></td>
             </tr>
         </table>
         <table class="table-box">
             <tr>
-                <th>Hari</th><td><?= esc($raport->ekskulhari2) ?></td>
-                <th>Jenis</th><td><?= esc($raport->ekskuljenis2) ?></td>
-                <th>Nilai</th><td><?= esc($raport->ekskulnilai2) ?></td>
+               
+                <th>Ekskul</th><td><?= esc($murid->ekskul2) ?></td>
+                <th>Nilai</th><td><?= esc($murid->nilai2) ?></td>
             </tr>
             <tr>
-                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($raport->ekskuldeskripsi2) ?></td>
+                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($murid->deskripsi2) ?></td>
             </tr>
         </table>
     </div>
@@ -355,7 +355,7 @@ body::before {
 
 <div class="section-divider"></div>
 
-<div class="box">
+<div class="box" style="background-color: white;">
         <h3>Perkembangan Siswa</h3>
         <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
     </div>
@@ -365,15 +365,23 @@ body::before {
     
 
     <div class="signatures">
+
         <div>
+            Orang tua
+            <div class="line"></div>
+            
+        </div>
+        <div style="margin-top: 100px;">
+            Mengetahui,<br>
+            Kepala Sekolah PP Bunga Pelangi
+            <div class="line"></div>
+            Siti Maghfiroh, S.Kom
+        </div>
+        <div >
+            Malang, 19 Desember 2025<br>
             Guru Wali
             <div class="line"></div>
             <?php echo $murid->guru_nama ?>
-        </div>
-        <div>
-            Kepala Sekolah
-            <div class="line"></div>
-            Siti Maghfiroh, S.Kom
         </div>
     </div>
 

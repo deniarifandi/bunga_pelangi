@@ -142,52 +142,28 @@ $title = "Add Raport";
         </div>
       </div>
 
-      <!-- Ekstrakurikuler -->
-      <div class="card mb-3">
-        <div class="card-header">🎯 Ekstrakurikuler</div>
-        <div class="card-body row g-3">
-          <div class="col-md-4">
-            <label class="form-label">Hari</label>
-            <input type="text" class="form-control" name="ekskulhari" value="<?= isset($raport)?esc($raport->ekskulhari):'Senin' ?>">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Jenis</label>
-            <input type="text" class="form-control" name="ekskuljenis" value="<?= isset($raport)?esc($raport->ekskuljenis):'Menari' ?>">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Nilai</label>
-            <input type="text" class="form-control" name="ekskulnilai" value="<?= isset($raport)?esc($raport->ekskulnilai):'' ?>">
-          </div>
-          <div class="col-md-12">
-            <label class="form-label">Deskripsi</label>
-            <input type="text" class="form-control" name="ekskuldeskripsi" value="<?= isset($raport)?esc($raport->ekskuldeskripsi):'' ?>">
-          </div>
+      <div class="card">
+        <div class="card-header">
+          Refleksi
         </div>
-        <hr>
-        <div class="card-body row g-3">
-          <div class="col-md-4">
-            <label class="form-label">Hari</label>
-            <input type="text" class="form-control" name="ekskulhari2" value="<?= isset($raport)?esc($raport->ekskulhari2):'Kamis' ?>">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Jenis</label>
-            <input type="text" class="form-control" name="ekskuljenis2" value="<?= isset($raport)?esc($raport->ekskuljenis2):'Mewarnai' ?>">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Nilai</label>
-            <input type="text" class="form-control" name="ekskulnilai2" value="<?= isset($raport)?esc($raport->ekskulnilai2):'' ?>">
-          </div>
-          <div class="col-md-12">
-            <label class="form-label">Deskripsi</label>
-            <input type="text" class="form-control" name="ekskuldeskripsi2" value="<?= isset($raport)?esc($raport->ekskuldeskripsi2):'' ?>">
-          </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+                <label class="form-label">Refleksi Guru</label>
+                <input type="text" class="form-control" name="refleksiguru" value="<?= isset($raport)?esc($raport->refleksiguru):'' ?>">
+              </div>
+          </div>  
         </div>
+        
       </div>
+      <br>
 
-      <div class="text-end mb-5">
-        <a href="<?= base_url('Raport'); ?>" class="btn btn-secondary me-2">Cancel</a>
-        <button type="submit" class="btn btn-primary"><?= isset($raport)?'Update Raport':'Save Raport' ?></button>
-      </div>
+      
+        <div class="text-end mb-5">
+          <a href="<?= base_url('Raport'); ?>" class="btn btn-secondary me-2">Cancel</a>
+          <button type="submit" class="btn btn-primary"><?= isset($raport)?'Update Raport':'Save Raport' ?></button>
+        </div>
+      
 
     </form>
   </div>

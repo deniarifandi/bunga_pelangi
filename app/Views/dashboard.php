@@ -36,7 +36,7 @@
      
         <div class="mb-3"><h4>📁 Human Resource</h4></div>
         <div class="row">
-          <?= card('Ekstra', 'Nilai Ekstra', 'Raport', 'bi-person-badge', '#82adf3') ?>
+          <?= card('Ekstra', 'Nilai Ekstra', 'ekskul/murid', 'bi-person-badge', '#82adf3') ?>
          
         </div>
   
