@@ -350,7 +350,7 @@ foreach ($absensi as $row) {
     $result[$statusKey] = $row['total_absensi'];
 }
 
-
+        
         // print_r($result);
         // exit();
 

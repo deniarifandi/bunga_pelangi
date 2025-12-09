@@ -61,13 +61,14 @@ $title = isset($ekskul) ? "Edit Ekskul" : "Tambah Ekskul";
 
           <div class="col-md-4">
             <label class="form-label">Nilai</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              name="nilai1" 
-               value="<?= isset($ekskul) ? esc($ekskul['nilai1']) : '' ?>" 
-              placeholder=""
-            >
+         <select name="nilai1" class="form-control">
+    <option value="">-- Pilih Nilai --</option>
+    <option value="BB - Belum Berkembang"  <?= isset($ekskul) && $ekskul['nilai1'] == 'BB - Belum Berkembang' ? 'selected' : '' ?>>BB – Belum Berkembang</option>
+    <option value="MB - Mulai Berkembang"  <?= isset($ekskul) && $ekskul['nilai1'] == 'MB - Mulai Berkembang' ? 'selected' : '' ?>>MB – Mulai Berkembang</option>
+    <option value="Berkembang"   <?= isset($ekskul) && $ekskul['nilai1'] == 'Berkembang'  ? 'selected' : '' ?>>B – Berkembang</option>
+    <option value="BSB - Berkembang Sangat Baik" <?= isset($ekskul) && $ekskul['nilai1'] == 'BSB - Berkembang Sangat Baik'? 'selected' : '' ?>>BSB – Berkembang Sangat Baik</option>
+</select>
+
           </div>
 
           <div class="col-md-12">
@@ -100,14 +101,14 @@ $title = isset($ekskul) ? "Edit Ekskul" : "Tambah Ekskul";
 
           <div class="col-md-4">
             <label class="form-label">Nilai</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              name="nilai2" 
-              value="<?= isset($ekskul) ? esc($ekskul['nilai2']) : '' ?>" 
-              placeholder=""
-            >
-          </div>
+            <select name="nilai2" class="form-control">
+    <option value="">-- Pilih Nilai --</option>
+    <option value="BB - Belum Berkembang"  <?= isset($ekskul) && $ekskul['nilai2'] == 'BB - Belum Berkembang' ? 'selected' : '' ?>>BB – Belum Berkembang</option>
+    <option value="MB - Mulai Berkembang"  <?= isset($ekskul) && $ekskul['nilai2'] == 'MB - Mulai Berkembang' ? 'selected' : '' ?>>MB – Mulai Berkembang</option>
+    <option value="Berkembang"   <?= isset($ekskul) && $ekskul['nilai2'] == 'Berkembang'  ? 'selected' : '' ?>>B – Berkembang</option>
+    <option value="BSB - Berkembang Sangat Baik" <?= isset($ekskul) && $ekskul['nilai2'] == 'BSB - Berkembang Sangat Baik'? 'selected' : '' ?>>BSB – Berkembang Sangat Baik</option>
+</select>
+
 
           <div class="col-md-12">
             <label class="form-label">Deskripsi</label>
