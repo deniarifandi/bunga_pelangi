@@ -62,7 +62,7 @@ $title = isset($ekskul) ? "Edit Ekskul" : "Tambah Ekskul";
           <div class="col-md-4">
             <label class="form-label">Nilai</label>
             <input 
-              type="number" 
+              type="text" 
               class="form-control" 
               name="nilai1" 
                value="<?= isset($ekskul) ? esc($ekskul['nilai1']) : '' ?>" 
@@ -101,7 +101,7 @@ $title = isset($ekskul) ? "Edit Ekskul" : "Tambah Ekskul";
           <div class="col-md-4">
             <label class="form-label">Nilai</label>
             <input 
-              type="number" 
+              type="text" 
               class="form-control" 
               name="nilai2" 
               value="<?= isset($ekskul) ? esc($ekskul['nilai2']) : '' ?>" 
