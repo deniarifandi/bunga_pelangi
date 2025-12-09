@@ -316,7 +316,7 @@ public function update($id)
         $murid = $db->table('Murid')
                     ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
                     ->join('Guru','Guru.guru_id = Kelompok.guru_id','left')
-                    ->join('ekskul','Murid.murid_id = Ekskul.murid_id','left')
+                    ->join('ekskul','Murid.murid_id = ekskul.murid_id','left')
                     ->where('Murid.murid_id', $raport->raport_murid_id)
                     ->get()
                     ->getRow();
