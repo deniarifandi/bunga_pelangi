@@ -86,9 +86,11 @@ class EkskulController extends BaseController
     public function edit($id)
     {
         $data['ekskul'] = $this->db->table('ekskul')
-            ->where('id', $id)
+            ->where('murid_id', $id)
             ->get()
             ->getRowArray();
+        // print_r($data);
+        // exit();
 
         $data['data'] = $this->db->table('Murid')
             ->where('murid_id', $data['ekskul']['murid_id'])
