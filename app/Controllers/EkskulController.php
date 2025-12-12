@@ -105,7 +105,7 @@ class EkskulController extends BaseController
     ============================ */
     public function update($id)
     {
-        $this->db->table('ekskul')->where('id', $id)->update([
+        $this->db->table('ekskul')->where('murid_id', $id)->update([
             'murid_id'   => $this->request->getPost('murid_id'),
             'ekskul1'    => $this->request->getPost('ekskul1'),
             'nilai1'     => $this->request->getPost('nilai1'),
