@@ -384,7 +384,10 @@ public function newpenilaian($aktifitas_id){
     $builder->select('Murid.*, Kelompok.kelompok_nama');
     $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id');
     $builder->where('Murid.deleted_at',null);
-    $builder->where('Kelompok.guru_id',$guru_id);
+    if ($guru_id == 3 || $guru_id == 4) {
+        $builder->where('Kelompok.kelompok_id >',2);
+    }
+    
     $builder->orwhere('Kelompok.assguru_id',$assguru_id);
     $builder->orderBy('Murid.murid_nama');
     $data = $builder->get()->getResult();
@@ -405,8 +408,8 @@ public function edit_nilai($aktifitas_id)
     // Get all students and their existing nilai for this activity
     $nilaiData = $db->table('Penilaian')
         ->select('Penilaian.*, Murid.murid_nama, Kelompok.kelompok_nama')
-        ->join('Murid', 'Penilaian.murid_id = Murid.murid_id')
-        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
+        ->join('Murid', 'Penilaian.murid_id = Murid.murid_id','left')
+        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
         ->where('Penilaian.aktifitas_id', $aktifitas_id)
         
         ->orderBy('Murid.murid_nama', 'ASC')
