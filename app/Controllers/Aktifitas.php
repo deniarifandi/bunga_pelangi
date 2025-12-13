@@ -373,94 +373,182 @@ public function listpenilaian(){
     return view('hasil/listpenilaian');
 }
 
-public function newpenilaian($aktifitas_id){
+ public function newPenilaian(int $tipeaktifitas_id)
+    {
 
-    $guru_id = session()->get('guru_id');
-    $assguru_id = session()->get('guru_id');
-    // exit();
 
-    $db = \Config\Database::connect();
-    $builder = $db->table('Murid');
-    $builder->select('Murid.*, Kelompok.kelompok_nama');
-    $builder->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id');
-    $builder->where('Murid.deleted_at',null);
-    if ($guru_id == 3 || $guru_id == 4) {
-        $builder->where('Kelompok.kelompok_id >',2);
+        $guruId    = session()->get('guru_id');
+        $assGuruId = session()->get('assguru_id') ?? $guruId;
+
+        $db = \Config\Database::connect();
+
+        // Murid list
+        $muridBuilder = $db->table('Murid')
+            ->select('Murid.*, Kelompok.kelompok_nama')
+            ->join('Kelompok', 'Kelompok.kelompok_id = Murid.kelompok_id','left')
+            ->where('Murid.deleted_at', null)
+            ->groupStart();
+            // ->get()->getResult();
+
+        // print_r($muridBuilder);
+        // exit();
+
+        if ($guruId == 3 || $guruId == 4) {
+            $muridBuilder->where('Kelompok.kelompok_id >', 2);
+        }
+
+        $muridBuilder
+            ->orWhere('Kelompok.assguru_id', $assGuruId)
+            ->groupEnd()
+            ->orderBy('Murid.murid_nama', 'ASC');
+
+        $muridList = $muridBuilder->get()->getResult();
+
+        // Aktivitas
+        $aktifitas = $db->table('Tipeaktifitas')
+            ->where('tipeaktifitas_id', $tipeaktifitas_id)
+            ->where('deleted_at', null)
+            ->get()
+            ->getRow();
+
+        if (!$aktifitas) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return view('hasil/createpenilaian', [
+            'data'      => $muridList,
+            'aktifitas' => $aktifitas
+        ]);
     }
-    
-    $builder->orwhere('Kelompok.assguru_id',$assguru_id);
-    $builder->orderBy('Murid.murid_nama');
-    $data = $builder->get()->getResult();
 
-    $builder2 = $db->table('Tipeaktifitas');
-    $builder2->select('Tipeaktifitas.*');
-    $builder2->where('Tipeaktifitas.tipeaktifitas_id',$aktifitas_id);
-    $builder2->where('Tipeaktifitas.deleted_at',null);
-    $data2 = $builder2->get()->getResult();
-
-    return view('hasil/createpenilaian',['data' => $data, 'aktifitas' => $data2]);
-}
-
-public function edit_nilai($aktifitas_id)
+public function edit_nilai(int $tipeaktifitas_id)
 {
-    $db = \Config\Database::connect();
+    $guruId    = session()->get('guru_id');
+    $assGuruId = session()->get('assguru_id') ?? $guruId;
 
-    // Get all students and their existing nilai for this activity
-    $nilaiData = $db->table('Penilaian')
-        ->select('Penilaian.*, Murid.murid_nama, Kelompok.kelompok_nama')
-        ->join('Murid', 'Penilaian.murid_id = Murid.murid_id','left')
-        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
-        ->where('Penilaian.aktifitas_id', $aktifitas_id)
-        
-        ->orderBy('Murid.murid_nama', 'ASC')
-        ->groupBy('Murid.murid_id')
-        ->get()
-        ->getResult();
-
-    // Check if there is data
-    if (empty($nilaiData)) {
-        return redirect()->back()->with('error', 'Data penilaian tidak ditemukan.');
+    if (!$guruId) {
+        return redirect()->to('/login');
     }
 
-    // Get the related activity info
-    $aktifitas = $db->table('Tipeaktifitas')
-        ->select('Tipeaktifitas.*')
-        ->where('Tipeaktifitas.tipeaktifitas_id', $aktifitas_id)
-        ->where('Tipeaktifitas.deleted_at', null)
-        ->get()
-        ->getResult();
+    $db = \Config\Database::connect();
 
-    // Pass data to view
+    /*
+     * =========================
+     * Murid + existing nilai
+     * =========================
+     */
+    $builder = $db->table('Murid');
+    $builder
+        ->select('
+            Murid.murid_id,
+            Murid.murid_nama,
+            Kelompok.kelompok_nama,
+            Penilaian.hasil_id
+        ')
+        ->join('Kelompok', 'Kelompok.kelompok_id = Murid.kelompok_id', 'left')
+        ->join(
+            'Penilaian',
+            'Penilaian.murid_id = Murid.murid_id 
+             AND Penilaian.aktifitas_id = ' . (int) $tipeaktifitas_id,
+            'left'
+        )
+        ->groupBy('murid_id')
+        ->where('Murid.deleted_at', null)
+        ->groupStart();
+
+    // Same rule as newPenilaian()
+    if ($guruId == 3 || $guruId == 4) {
+        $builder->where('Kelompok.kelompok_id >', 2);
+    }
+
+    $builder
+        ->orWhere('Kelompok.assguru_id', $assGuruId)
+        ->groupEnd()
+        ->orderBy('Murid.murid_nama', 'ASC');
+
+    $nilaiList = $builder->get()->getResult();
+
+    if (empty($nilaiList)) {
+        return redirect()->back()
+            ->with('error', 'Data penilaian tidak ditemukan.');
+    }
+
+    /*
+     * =========================
+     * Aktivitas
+     * =========================
+     */
+    $aktifitas = $db->table('Tipeaktifitas')
+        ->where('tipeaktifitas_id', $tipeaktifitas_id)
+        ->where('deleted_at', null)
+        ->get()
+        ->getRow();
+
+    if (!$aktifitas) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+
+    /*
+     * =========================
+     * View
+     * =========================
+     */
     return view('hasil/nilai_edit', [
-        'data' => $nilaiData,   // <-- FIXED (use nilaiData)
+        'data'      => $nilaiList,
         'aktifitas' => $aktifitas
     ]);
 }
 
 
+
 public function simpan_nilai()
 {
-     $db = \Config\Database::connect();
-    // Get all POSTed values
-    $nilai = $this->request->getPost('nilai');
-    $aktifitas_id = $this->request->getPost('tipeaktifitas_id');
+    $db = \Config\Database::connect();
 
-    if ($nilai && is_array($nilai)) {
-        foreach ($nilai as $murid_id => $grade) {
-            // Example: save to database
-            $db->table('Penilaian')
-                     ->replace([
-                         'murid_id'     => $murid_id,
-                         'hasil_id'     => $grade,
-                         'aktifitas_id' => $aktifitas_id
-                     ]);
-        }
+    $nilaiData   = $this->request->getPost('nilai');
+    $aktifitasId = $this->request->getPost('tipeaktifitas_id');
+    $guruId      = session()->get('guru_id');
 
-        return redirect()->to(site_url('listpenilaian'))->with('success', 'Data berhasil disimpan!');
+    if (!$guruId || !$aktifitasId || empty($nilaiData)) {
+        return redirect()->back()->with('error', 'Data tidak valid');
     }
 
-    return redirect()->back()->with('msg', 'Tidak ada data untuk disimpan.');
+    foreach ($nilaiData as $muridId => $nilai) {
+
+        if (!in_array($nilai, ['MB', 'B', 'BSH', 'SB'], true)) {
+            continue;
+        }
+
+        // Check existing
+        $exists = $db->table('Penilaian')
+            ->where('murid_id', $muridId)
+            ->where('aktifitas_id', $aktifitasId) // 🔴 IMPORTANT
+            ->countAllResults();
+
+        if ($exists > 0) {
+            // UPDATE
+            $db->table('Penilaian')
+                ->where('murid_id', $muridId)
+                ->where('aktifitas_id', $aktifitasId)
+                ->update([
+                    'hasil_id' => $nilai
+                ]);
+        } else {
+            // INSERT
+            $db->table('Penilaian')->insert([
+                'murid_id'     => $muridId,
+                'aktifitas_id' => $aktifitasId,
+                'hasil_id'        => $nilai
+            ]);
+        }
+    }
+
+    return redirect()->to(site_url('listpenilaian'))
+        ->with('success', 'Penilaian berhasil disimpan');
 }
+
+
+
 
 
 public function penilaiandata(){

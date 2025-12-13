@@ -1,15 +1,8 @@
-<?php 
+<?php
 echo view('layouts/header.php');
-// print_r($data);
-// echo count($data);
-// exit();
-$title = "Penilaian";
 
-
-
-    // Example student data (replace this with your DB query)
-    $students = json_encode($data);   ?>
-
+$title = 'Edit Penilaian';
+?>
 
 <style>
   .clickable-cell {
@@ -22,139 +15,139 @@ $title = "Penilaian";
     cursor: pointer;
   }
 </style>
-      <!--begin::App Main-->
-      <main class="app-main">
-        <!--begin::App Content Header-->
-        <div class="app-content-header">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-sm-6"><h3 class="mb-0"><?= $title ?></h3></div>
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
-                </ol>
-              </div>
-            </div>
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
+
+<main class="app-main">
+  <!-- Header -->
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0"><?= esc($title) ?></h3>
         </div>
-        <div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!-- Info boxes -->
-            <div class="row">
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item">
+              <a href="<?= base_url() ?>">Home</a>
+            </li>
+            <li class="breadcrumb-item active">
+              <?= esc($title) ?>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Penilaian list</h3>
-                  <div class="card-tools">
-                  
-                  </div>
-                  <!-- /.card-tools -->
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
+  <!-- Content -->
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="card">
 
-                  <h4 class="mb-3 fw-bold text-primary">
-                      Judul Aktivitas: <span class="text-dark"><?= $aktifitas[0]->tipeaktifitas_nama ?></span>
-                    </h4>
+          <div class="card-header">
+            <h3 class="card-title">Edit Nilai Siswa</h3>
+          </div>
 
-                    <input type="hidden" name="tipeaktifitas_id" value="<?= $aktifitas[0]->tipeaktifitas_id ?>">
+          <div class="card-body">
+            <form action="<?= base_url('Penilaian/simpan_nilai') ?>" method="POST">
 
+              <!-- Aktivitas -->
+              <h4 class="mb-3 fw-bold text-primary">
+                Judul Aktivitas:
+                <span class="text-dark">
+                  <?= esc($aktifitas->tipeaktifitas_nama) ?>
+                </span>
+              </h4>
 
-                   <form action="<?= base_url('Penilaian/update_nilai') ?>" method="POST">
-                    <input type="hidden" name="aktifitas_id" value="<?= $aktifitas[0]->tipeaktifitas_id ?>">
+              <input type="hidden"
+                     name="tipeaktifitas_id"
+                     value="<?= esc($aktifitas->tipeaktifitas_id) ?>">
 
-                  <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-light text-center">
+              <!-- Table -->
+              <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light text-center">
+                  <tr>
+                    <th style="width:5%">No</th>
+                    <th style="width:40%">Nama Siswa</th>
+                    <th>Kelompok</th>
+                    <th>MB</th>
+                    <th>B</th>
+                    <th>BSH</th>
+                    <th>SB</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php if (!empty($data)): ?>
+                    <?php
+                      $no = 1;
+                      $options = ['MB', 'B', 'BSH', 'SB'];
+                    ?>
+                    <?php foreach ($data as $row): ?>
                       <tr>
-                        <th>No</th>
-                        <th>Nama Siswa</th>
-                        <th>Kelompok</th>
-                        <th>MB</th>
-                        <th>B</th>
-                        <th>BSH</th>
-                        <th>SB</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php 
-                      $index = 0;
-                      foreach ($data as $row): ?>
-                        <tr>
-                          <td><?= $row->penilaian_id ?></td>
-                          <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?>
-                          </td>
-                          <td><?php echo $row->kelompok_nama ?></td>
+                        <td><?= $no++ ?></td>
+                        <td><?= esc($row->murid_nama) ?></td>
+                        <td><?= esc($row->kelompok_nama ?? '-') ?></td>
+
+                        <?php foreach ($options as $opt): ?>
                           <?php
-                            $options = ['MB', 'B', 'BSH', 'SB'];
-                            foreach ($options as $opt):
-                              $id = 'hasil_id' . $row->murid_id . '_' . $opt;
-                              $checked = ($row->hasil_id === $opt) ? 'checked' : '';
+                            // Pre-check existing nilai
+                            if ($row->hasil_id) {
+                                $checked = ($row->hasil_id === $opt) ? 'checked' : '';
+                            } else {
+                                // default if no nilai yet
+                               $checked = '';
+                            }
+
+                            $id = 'nilai_' . $row->murid_id . '_' . $opt;
                           ?>
-                            <td class="text-center clickable-cell">
-                              <input type="radio"
-                                     id="<?= $id ?>"
-                                     name="nilai[<?= $row->murid_id ?>]"
-                                     value="<?= $opt ?>"
-                                     class="form-check-input"
-                                     <?= $checked ?>
-                                     required>
-                            </td>
-                          <?php endforeach; ?>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
+                          <td class="text-center clickable-cell">
+                            <input type="radio"
+                                   id="<?= esc($id) ?>"
+                                   name="nilai[<?= esc($row->murid_id) ?>]"
+                                   value="<?= esc($opt) ?>"
+                                   class="form-check-input"
+                                   <?= $checked ?>
+                                   required>
+                          </td>
+                        <?php endforeach; ?>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php else: ?>
+                    <tr>
+                      <td colspan="7" class="text-center text-muted">
+                        Tidak ada data penilaian
+                      </td>
+                    </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
 
-                  <div class="text-end mt-3">
-                    <button type="submit" class="btn btn-primary px-4">Update Nilai</button>
-                  </div>
-                </form>
-                   
-                </div>
-                <!-- /.card-body -->
-                
-                <!-- /.card-footer -->
+              <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary px-4">
+                  Update Nilai
+                </button>
               </div>
-              <!-- /.card -->
-             
-            </div>
-            <!-- /.row -->
-            <!--begin::Row-->
-           
 
-
-            <!--end::Row-->
-            <!--begin::Row-->
-           
-            <!--end::Row-->
+            </form>
           </div>
-          <!--end::Container-->
-        </div>
-        <!--end::App Content-->
-      </main>
-      <!--end::App Main-->
-      <!--begin::Footer-->
-     
-      <?php 
-        echo view('layouts/footer.php');
-      ?>
-    
 
- <script>
-  document.querySelectorAll('.clickable-cell').forEach(cell => {
-    cell.addEventListener('click', function(e) {
-      const radio = this.querySelector('input[type="radio"]');
-      if (radio) {
-        radio.checked = true;
-      }
-    });
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<?php echo view('layouts/footer.php'); ?>
+
+<script>
+document.querySelectorAll('.clickable-cell').forEach(cell => {
+  cell.addEventListener('click', function () {
+    const radio = this.querySelector('input[type="radio"]');
+    if (radio && !radio.checked) {
+      radio.checked = true;
+    }
   });
+});
 </script>
 
 </body>
