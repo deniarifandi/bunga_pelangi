@@ -43,7 +43,7 @@ class bukuinduk extends BaseController
     
         $data = $query->getResultArray();
 
-        $exist = $db->table('Identitasanak')->where('murid_id', $murid_id)->get()->getRowArray();
+        $exist = $db->table('Identitasanak')->where('anak_id', $murid_id)->get()->getRowArray();
 
         // print_r($exist);
         return view('bukuinduk/edit',['data'=>$data,'exist' => $exist]);
@@ -116,10 +116,10 @@ class bukuinduk extends BaseController
     }
 
     // Check if record exists
-    $exists = $builder->where('murid_id', $id)->get()->getRowArray();
+    $exists = $builder->where('anak_id', $id)->get()->getRowArray();
 
     if ($exists) {
-        $success = $builder->where('murid_id', $id)->update($data);
+        $success = $builder->where('anak_id', $id)->update($data);
         $message = $success ? 'Data updated successfully!' : 'Failed to update data.';
     } else {
         $success = $builder->insert($data);
