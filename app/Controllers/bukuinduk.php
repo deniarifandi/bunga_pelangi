@@ -43,7 +43,7 @@ class bukuinduk extends BaseController
     
         $data = $query->getResultArray();
 
-        $exist = $db->table('Identitasanak')->where('anak_id', $murid_id)->get()->getRowArray();
+        $exist = $db->table('Identitasanak')->where('murid_id', $murid_id)->get()->getRowArray();
 
         // print_r($exist);
         return view('bukuinduk/edit',['data'=>$data,'exist' => $exist]);
