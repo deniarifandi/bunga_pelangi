@@ -66,58 +66,16 @@ class Home extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-         $user = $model->select('
-            Guru.*,
-            Gurudivisi.*,
-            Divisi.*
-        ')
-        ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id')
-        ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id')
+       $user = $model->select('Guru.*, Gurudivisi.*, Divisi.*')
+        ->join('Gurudivisi', 'Gurudivisi.guru_id = Guru.guru_id', 'left')
+        ->join('Divisi', 'Divisi.divisi_id = Gurudivisi.divisi_id', 'left')
         ->where('Guru.guru_username', $username)
         ->first();
 
-         print_r($user);
-
-
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not Found or Division not registered');
-        } else {
-            
-        }
-
-
-
-        $builder = Database::connect()->table('Kelompok');
-        $builder->select('Kelompok.kelompok_nama, Kelompok.kelompok_id, Tingkat.*');
-        $builder->join('Tingkat','Tingkat.tingkat_id = Kelompok.tingkat_id');
-        $builder->where('guru_id', $user['guru_id']);
-        $builder->orwhere('assguru_id', $user['guru_id']);
-
-        $query = $builder->get();
-        $kelompok = $query->getResult();
-        
-        print_r($kelompok);
-        
-        // exit();
-
-
-
         if ($user && password_verify($password, $user['guru_password'])) {
-            if (!$kelompok) {
-                $this->session->set([
-                'guru_id' => $user['guru_id'], 
-                'nama' => $user['guru_nama'], 
-                'username' => $user['guru_username'], 
-                'guru_role'=> $user['guru_role'],
-                'logged_in' => true]);
-                return redirect()->to('/');
-            }
-
             $this->session->set([
                 'guru_id' => $user['guru_id'], 
                 'nama' => $user['guru_nama'], 
-                'kelompok_id' => $kelompok[0]->kelompok_id,
-                'tingkat_id' => $kelompok[0]->tingkat_id,
                 'username' => $user['guru_username'], 
                 'divisi_id' => $user['divisi_id'],
                 'divisi_nama' => $user['divisi_nama'],

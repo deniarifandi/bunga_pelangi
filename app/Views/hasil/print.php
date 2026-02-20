@@ -2,254 +2,245 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Modul Pembelajaran - Hasil Observasi</title>
+  <title>Modul Pembelajaran</title>
+
   <style>
-    /* ======= PAGE LAYOUT ======= */
+    /* ===== PAGE ===== */
     @page {
       size: A4;
-      margin: 20mm;
+      margin: 22mm;
     }
 
     body {
       font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13.5px;
       color: #222;
-      font-size: 13.8px;
       line-height: 1.6;
       margin: 0;
       background: #fff;
     }
 
-    /* ======= CONTAINER ======= */
-    .page {
-      width: 100%;
-
-      box-sizing: border-box;
+    /* ===== HEADINGS ===== */
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin: 0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    /* ======= HEADER ======= */
-    .header {
+    h2 {
+      font-size: 15px;
+      margin: 30px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #333;
+      text-transform: uppercase;
+    }
+
+    /* ===== HEADER ===== */
+    .doc-header {
       text-align: center;
       margin-bottom: 25px;
-      padding-bottom: 10px;
-      border-bottom: 3px solid #007bff;
-    }
-    .header h2 {
-      margin: 0;
-      font-size: 26px;
-      color: #007bff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .header p {
-      margin-top: 4px;
-      font-size: 12px;
-      color: #666;
     }
 
-    /* ======= INFORMATION TABLE ======= */
-    .info table {
+    .doc-header small {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* ===== INFO TABLE ===== */
+    .info {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
+      font-size: 13px;
     }
+
     .info td {
-      padding: 6px 10px;
+      padding: 4px 6px;
       vertical-align: top;
     }
-    .info td:first-child {
-      width: 120px;
+
+    .info td.label {
+      width: 140px;
+      font-weight: 600;
+      color: #333;
     }
 
-    /* ======= SECTION HEADINGS ======= */
-    h3 {
-      font-size: 17px;
-      color: #007bff;
-      margin-top: 35px;
-      margin-bottom: 10px;
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 3px;
-      display: inline-block;
-      text-transform: uppercase;
-    }
-
-    /* ======= DATA TABLE ======= */
+    /* ===== DATA TABLE ===== */
     table.data {
       width: 100%;
       border-collapse: collapse;
       margin-top: 8px;
-      font-size: 13.5px;
-      page-break-inside: avoid;
+      font-size: 13px;
     }
-    table.data th, table.data td {
-      border: 1px solid #aaa;
+
+    table.data th,
+    table.data td {
+      border: 1px solid #bbb;
       padding: 8px 10px;
       vertical-align: top;
     }
+
     table.data th {
-      background: #f0f5ff;
+      background: #f4f6f8;
       font-weight: 600;
-    }
-    table.data tr:nth-child(even) td {
-      background: #fafafa;
+      text-align: left;
     }
 
-    /* ======= ASSESSMENT SECTION ======= */
-    .section p {
-      text-align: justify;
+    /* ===== LIST ===== */
+    ol {
+      margin: 0;
+      padding-left: 18px;
     }
 
-    /* ======= FOOTER ======= */
+    /* ===== IMAGE ===== */
+    .image-box {
+      border: 1px solid #bbb;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .image-box img {
+      max-width: 240px;
+    }
+
+    /* ===== FOOTER ===== */
     .footer {
       margin-top: 40px;
-      text-align: right;
-      font-size: 11.5px;
+      font-size: 11px;
       color: #555;
+      text-align: right;
       border-top: 1px solid #ccc;
       padding-top: 6px;
     }
 
-    /* ======= PAGE BREAK RULES ======= */
-    .section {
-      page-break-inside: avoid;
-      margin-bottom: 20px;
-    }
-    .page-break {
-      page-break-before: always;
-    }
-
-    /* ======= PRINT RULES ======= */
+    /* ===== PRINT ===== */
     @media print {
-      body {
-        background: white;
-        margin: 0;
-      }
-      .page {
-        box-shadow: none;
-        padding: 0 25px;
-      }
-      .footer {
-        page-break-after: avoid;
-      }
+      body { background: #fff; }
     }
   </style>
 </head>
 <body>
 
-  <div class="page">
-    <div class="header">
-      <h2>Modul Pembelajaran</h2>
-      <p><em>Dicetak pada: <?= date('d M Y H:i') ?></em></p>
-    </div>
+  <!-- HEADER -->
+  <div class="doc-header">
+    <h1>Modul Pembelajaran</h1>
+    <small>Dicetak pada <?= date('d M Y H:i') ?></small>
+  </div>
 
-    <div class="info">
-      <table>
-        <tr>
-          <td><b>Guru</b></td>
-          <td>: <?= esc($hasil->guru_nama) ?></td>
-          <td><b>Kelompok</b></td>
-          <td>: <?= esc($hasil->kelompok) ?></td>
-        </tr>
-        <tr>
-          <td><b>Semester</b></td>
-          <td>: <?= esc($hasil->semester) ?></td>
-          <td><b>Topik</b></td>
-          <td>: <?= esc($hasil->unit_nama ?? '-') ?></td>
-        </tr>
-        <tr>
-          <td><b>Sub Topik</b></td>
-          <td colspan="3">: <?= esc($hasil->subunit_nama ?? '-') ?></td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="info">
-  <table class="data" style="width:100%;">
+  <!-- INFO -->
+  <table class="info">
     <tr>
-      <th><b>Peta Konsep</b></th>
+      <td class="label">Guru</td>
+      <td>: <?= esc($hasil->guru_nama) ?></td>
+      <td class="label">Kelompok</td>
+      <td>: <?= esc($hasil->kelompok) ?></td>
     </tr>
     <tr>
-      <td style="text-align: center;">
-        <?php if (!empty($petakonsep) && !empty($petakonsep[0]->url)): ?>
-          <img src="<?= base_url('uploads/'.$petakonsep[0]->url) ?>" style="max-width: 200px;">
-        <?php else: ?>
-          <span style="color: #888;">No image available</span>
-        <?php endif; ?>
+      <td class="label">Semester</td>
+      <td>: <?= esc($hasil->semester) ?></td>
+      <td class="label">Topik</td>
+      <td>: <?= esc($hasil->unit_nama ?? '-') ?></td>
+    </tr>
+    <tr>
+      <td class="label">Sub Topik</td>
+      <td colspan="3">: <?= esc($hasil->subunit_nama ?? '-') ?></td>
+    </tr>
+  </table>
+
+  <!-- PETA KONSEP -->
+  <h2>Peta Konsep</h2>
+  <div class="image-box">
+    <?php if (!empty($petakonsep) && !empty($petakonsep[0]->url)): ?>
+      <img src="<?= base_url('uploads/'.$petakonsep[0]->url) ?>">
+    <?php else: ?>
+      <em>Tidak ada peta konsep</em>
+    <?php endif; ?>
+  </div>
+
+  <!-- NILAI & TUJUAN -->
+  <h2>Nilai & Tujuan Pembelajaran</h2>
+  <table class="data">
+    <tr>
+      <th width="180">Kategori</th>
+      <th>Tujuan</th>
+    </tr>
+    <tr>
+      <td>Agama</td>
+      <td>
+        <?php foreach ($agama as $a): ?>• <?= esc($a->tujuan_nama) ?><br><?php endforeach; ?>
+        <?php foreach ($agama2 as $a): ?>• <?= esc($a->tujuan_nama) ?><br><?php endforeach; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Jati Diri</td>
+      <td>
+        <?php foreach ($jati as $j): ?>• <?= esc($j->tujuan_nama) ?><br><?php endforeach; ?>
+        <?php foreach ($jati2 as $j): ?>• <?= esc($j->tujuan_nama) ?><br><?php endforeach; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Literasi</td>
+      <td>
+        <?php foreach ($literasi as $l): ?>• <?= esc($l->tujuan_nama) ?><br><?php endforeach; ?>
+        <?php foreach ($literasi2 as $l): ?>• <?= esc($l->tujuan_nama) ?><br><?php endforeach; ?>
       </td>
     </tr>
   </table>
-</div>
 
-    <div class="section">
-      <h3>Nilai & Tujuan</h3>
-      <table class="data">
-        <tr>
-          <th>Kategori</th>
-          <th>Tujuan Pembelajaran</th>
-        </tr>
-        <tr>
-          <td>Agama</td>
-          <td>
-            <?php foreach($agama as $a): ?>
-              • <?= $a->tujuan_nama ?><br>
-            <?php endforeach; ?>
-            <?php foreach($agama2 as $a): ?>
-              • <?= $a->tujuan_nama ?><br>
-            <?php endforeach; ?>
-          </td>
-        </tr>
-        <tr>
-          <td>Jati Diri</td>
-          <td>
-            <?php foreach($jati as $j): ?>
-              • <?= $j->tujuan_nama ?><br>
-            <?php endforeach; ?>
-            <?php foreach($jati2 as $j): ?>
-              • <?= $j->tujuan_nama ?><br>
-            <?php endforeach; ?>
-          </td>
-        </tr>
-        <tr>
-          <td>Literasi</td>
-          <td>
-            <?php foreach($literasi as $l): ?>
-              • <?= $l->tujuan_nama ?><br>
-            <?php endforeach; ?>
-            <?php foreach($literasi2 as $l): ?>
-              • <?= $l->tujuan_nama ?><br>
-            <?php endforeach; ?>
-          </td>
-        </tr>
-      </table>
-    </div>
+  <!-- RENCANA HARIAN -->
+  <h2>Rencana Harian</h2>
+  <table class="data">
+    <tr>
+      <th width="180">Kegiatan</th>
+      <th>Deskripsi</th>
+    </tr>
 
-    <div class="section">
-      <h3>Rencana Harian</h3>
-      <table class="data">
-        <tr><th>Kegiatan</th><th>Deskripsi</th></tr>
-        <tr><td>Pembiasaan</td><td><?= nl2br(esc($hasil->pembiasaan)) ?></td></tr>
-        <tr><td>Pembuka</td><td><?= nl2br(esc($hasil->pembuka)) ?></td></tr>
-        <tr><td>Senin</td><td><?= nl2br(esc($hasil->senin)) ?></td></tr>
-        <tr><td>Selasa</td><td><?= nl2br(esc($hasil->selasa)) ?></td></tr>
-        <tr><td>Rabu</td><td><?= nl2br(esc($hasil->rabu)) ?></td></tr>
-        <tr><td>Kamis</td><td><?= nl2br(esc($hasil->kamis)) ?></td></tr>
-        <tr><td>Jumat</td><td><?= nl2br(esc($hasil->jumat)) ?></td></tr>
-        <tr><td>Istirahat</td><td><?= nl2br(esc($hasil->istirahat)) ?></td></tr>
-        <tr><td>Penutup</td><td><?= nl2br(esc($hasil->penutup)) ?></td></tr>
-      </table>
-    </div>
+    <tr><td>Pembiasaan</td><td><?= nl2br(esc($hasil->pembiasaan)) ?></td></tr>
+    <tr><td>Pembuka</td><td><?= nl2br(esc($hasil->pembuka)) ?></td></tr>
 
-    <div class="section">
-      <h3>Assessment</h3>
-      <p><?= nl2br(esc($hasil->assessment)) ?></p>
-    </div>
+    <?php
+    $hariLabel = [
+      'senin'  => 'Senin',
+      'selasa' => 'Selasa',
+      'rabu'   => 'Rabu',
+      'kamis'  => 'Kamis',
+      'jumat'  => 'Jumat',
+    ];
+    foreach ($hariLabel as $key => $label):
+    ?>
+      <tr>
+        <td><?= $label ?></td>
+        <td>
+          <ol>
+            <?php foreach ($kegiatan[$key] as $item): ?>
+              <li><?= esc($item) ?></li>
+            <?php endforeach; ?>
+          </ol>
+        </td>
+      </tr>
+    <?php endforeach; ?>
 
-    <div class="footer">
-      <p><em>Dibuat pada: <?= esc($hasil->created_at) ?> | Terakhir diubah: <?= esc($hasil->updated_at) ?></em></p>
-    </div>
+    <tr><td>Istirahat</td><td><?= nl2br(esc($hasil->istirahat)) ?></td></tr>
+    <tr><td>Penutup</td><td><?= nl2br(esc($hasil->penutup)) ?></td></tr>
+  </table>
+
+  <!-- ASSESSMENT -->
+  <h2>Assessment</h2>
+  <p><?= nl2br(esc($hasil->assessment)) ?></p>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Dibuat: <?= esc($hasil->created_at) ?> |
+    Diperbarui: <?= esc($hasil->updated_at) ?>
   </div>
 
   <script>
     window.print();
   </script>
+
 </body>
 </html>

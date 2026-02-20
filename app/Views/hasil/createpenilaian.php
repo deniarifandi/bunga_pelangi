@@ -1,8 +1,15 @@
-<?php
+<?php 
 echo view('layouts/header.php');
+// print_r($data);
+// echo count($data);
+// exit();
+$title = "Penilaian";
 
-$title = 'Penilaian';
-?>
+
+
+    // Example student data (replace this with your DB query)
+    $students = json_encode($data);   ?>
+
 
 <style>
   .clickable-cell {
@@ -15,132 +22,130 @@ $title = 'Penilaian';
     cursor: pointer;
   }
 </style>
-
-<!--begin::App Main-->
-<main class="app-main">
-  <!--begin::App Content Header-->
-  <div class="app-content-header">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-6">
-          <h3 class="mb-0"><?= esc($title) ?></h3>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-end">
-            <li class="breadcrumb-item">
-              <a href="<?= base_url() ?>">Home</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-              <?= esc($title) ?>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--begin::App Content-->
-  <div class="app-content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Penilaian Baru</h3>
-          </div>
-
-          <div class="card-body">
-            <form action="<?= base_url('Penilaian/simpan_nilai') ?>" method="POST">
-
-              <!-- Aktivitas Info -->
-              <h4 class="mb-3 fw-bold text-primary">
-                Judul Aktivitas:
-                <span class="text-dark">
-                  <?= esc($aktifitas->tipeaktifitas_nama) ?>
-                </span>
-              </h4>
-
-              <input type="hidden"
-                     name="tipeaktifitas_id"
-                     value="<?= esc($aktifitas->tipeaktifitas_id) ?>">
-
-              <!-- Table -->
-              <table class="table table-bordered table-striped align-middle">
-                <thead class="table-light">
-                  <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:40%">Nama Siswa</th>
-                    <th>Kelompok</th>
-                    <th class="text-center">MB</th>
-                    <th class="text-center">B</th>
-                    <th class="text-center">BSH</th>
-                    <th class="text-center">SB</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (!empty($data)): ?>
-                    <?php
-                      $no = 1;
-                      $options = ['MB', 'B', 'BSH', 'SB'];
-                    ?>
-                    <?php foreach ($data as $row): ?>
-                      <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= esc($row->murid_nama) ?></td>
-                        <td><?= esc($row->kelompok_nama) ?></td>
-
-                        <?php foreach ($options as $opt): ?>
-                          <?php
-                            $id      = 'nilai_' . $row->murid_id . '_' . $opt;
-                            $checked = ($opt === 'BSH') ? 'checked' : '';
-                          ?>
-                          <td class="text-center clickable-cell">
-                            <input type="radio"
-                                   id="<?= esc($id) ?>"
-                                   name="nilai[<?= esc($row->murid_id) ?>]"
-                                   value="<?= esc($opt) ?>"
-                                   class="form-check-input"
-                                   <?= $checked ?>
-                                   required>
-                          </td>
-                        <?php endforeach; ?>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php else: ?>
-                    <tr>
-                      <td colspan="7" class="text-center text-muted">
-                        Tidak ada data siswa
-                      </td>
-                    </tr>
-                  <?php endif; ?>
-                </tbody>
-              </table>
-
-              <!-- Submit -->
-              <div class="text-end">
-                <button type="submit" class="btn btn-success px-4">
-                  Simpan Nilai
-                </button>
+      <!--begin::App Main-->
+      <main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-sm-6"><h3 class="mb-0"><?= $title ?></h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
+                </ol>
               </div>
-
-            </form>
+            </div>
+            <!--end::Row-->
           </div>
+          <!--end::Container-->
         </div>
-      </div>
-    </div>
-  </div>
-</main>
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
 
-<?php echo view('layouts/footer.php'); ?>
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Penilaian list</h3>
+                  <div class="card-tools">
+                  
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
 
-<script>
-document.querySelectorAll('.clickable-cell').forEach(cell => {
-  cell.addEventListener('click', function () {
-    const radio = this.querySelector('input[type="radio"]');
-    if (radio && !radio.checked) {
-      radio.checked = true;
-    }
+                   <form action="<?= base_url('Penilaian/simpan_nilai') ?>" method="POST">
+
+                    <h4 class="mb-3 fw-bold text-primary">
+                      Judul Aktivitas: <span class="text-dark"><?= $aktifitas[0]->tipeaktifitas_nama ?></span>
+                    </h4>
+
+                    <input type="hidden" name="tipeaktifitas_id" value="<?= $aktifitas[0]->tipeaktifitas_id ?>">
+
+                    <table class="table table-bordered table-striped align-middle">
+                      <thead class="table-light">
+                        <tr>
+                          <th style="width: 5%;">No</th>
+                          <th style="width: 40%;">Nama Siswa</th>
+                          <th>MB</th>
+                          <th>B</th>
+                          <th>BSH</th>
+                          <th>SB</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php 
+                        $index = 0;
+                        foreach ($data as $row): ?>
+                          <tr>
+                            <td><?= ++$index ?></td>
+                            <td class="text-start"><?= htmlspecialchars($row->murid_nama) ?></td>
+                            <?php
+                              $options = ['MB', 'B', 'BSH', 'SB'];
+                              foreach ($options as $opt):
+                                $id = 'nilai_' . $row->murid_id . '_' . $opt; // unique ID
+                                $checked = ($opt === 'BSH') ? 'checked' : ''; // ✅ default selected
+                            ?>
+                              <td class="text-center clickable-cell">
+                                <input type="radio" id="<?= $id ?>" name="nilai[<?= $row->murid_id ?>]" value="<?= $opt ?>" class="form-check-input" <?= $checked ?> required>
+                              </td>
+                            <?php endforeach; ?>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+
+
+
+                    </table>
+
+                    <div class="text-end">
+                      <button type="submit" class="btn btn-success px-4">Simpan Nilai</button>
+                    </div>
+                  </form>
+                   
+                </div>
+                <!-- /.card-body -->
+                
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+             
+            </div>
+            <!-- /.row -->
+            <!--begin::Row-->
+           
+
+
+            <!--end::Row-->
+            <!--begin::Row-->
+           
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <!--end::App Content-->
+      </main>
+      <!--end::App Main-->
+      <!--begin::Footer-->
+     
+      <?php 
+        echo view('layouts/footer.php');
+      ?>
+
+      <script>
+  document.querySelectorAll('.clickable-cell').forEach(cell => {
+    cell.addEventListener('click', function(e) {
+      const radio = this.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+      }
+    });
   });
-});
 </script>
 
 </body>

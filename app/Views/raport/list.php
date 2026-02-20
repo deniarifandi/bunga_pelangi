@@ -34,9 +34,7 @@ $table = "Raport";
                 <div class="card-header">
                   <h3 class="card-title"><?= $title ?> list</h3>
                   <div class="card-tools">
-                    <?php if(session()->get('guru_id') < 7): ?>
                     <a href="<?= $table ?>/new" class="btn btn-primary">Add <?= $title ?></a>
-                    <?php endif ?>
                   </div>
                   <!-- /.card-tools -->
                 </div>
@@ -57,7 +55,6 @@ $table = "Raport";
                           <th>Semester</th>
                           <th>AY</th>
                           <th>Murid</th>
-                          <th>Kelompok</th>
                           <th>Action</th>
                       </tr>
                   </thead>
@@ -104,13 +101,11 @@ $table = "Raport";
                 { data: 'raport_semester' },
                 { data: 'raport_tahun' },
                 { data: 'murid_nama' },
-                { data: 'kelompok_nama' },
                 {
                 data: null,
                 render: function(data, type, row) {
                     // Check if penilaian_id exists
                     
-                    <?php if(session()->get('guru_id') < 7): ?>
                     return `
                       <a href="<?= base_url() ?>Raport/editraport/${row.raport_id}" 
                          class="btn btn-sm btn-warning edit-btn" data-id="${row.raport_id}">
@@ -124,15 +119,6 @@ $table = "Raport";
                           <i class="bi bi-trash"></i> Delete
                       </button>
                     `;
-                  <?php else: ?>
-                    return `
-                      <a href="<?= base_url() ?>Raport/editraport/${row.raport_id}" 
-                         class="btn btn-sm btn-warning edit-btn" data-id="${row.raport_id}">
-                        <i class="bi bi-pencil"></i> Edit
-                      </a>
-                      
-                    `;
-                  <?php endif ?>
                 },
                 orderable: false,
                 searchable: false

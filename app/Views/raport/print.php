@@ -155,9 +155,9 @@ body::before {
     width: 70%;
     height: auto;
     aspect-ratio: 1 / 1; /* keep it square */
-    background: url('<?= base_url("assets/img/ppbp.png") ?>') no-repeat center center;
+    background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
     background-size: contain;
-    opacity: 0.1; /* watermark transparency */
+    opacity: 0.3; /* watermark transparency */
     transform: translate(-50%, -50%);
     z-index: -1;
 }
@@ -165,7 +165,7 @@ body::before {
 /* Make sure it prints too */
 @media print {
     body::before {
-        background: url('<?= base_url("assets/img/ppbp.png") ?>') no-repeat center center;
+        background: url('<?= base_url("assets/img/bg aba.png") ?>') no-repeat center center;
         background-size: contain;
         opacity: 0.3;
         -webkit-print-color-adjust: exact;
@@ -184,7 +184,7 @@ body::before {
     <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
       
         <div>
-            <h1 style="margin:0; font-size:24px;">Pos Paud Bunga Pelangi</h1>
+            <h1 style="margin:0; font-size:24px;">Aisyiyah Bustanul Athfal</h1>
             <h4 style="margin:0; font-size:16px;">Raport Siswa</h4>
         </div>
     </div>
@@ -192,7 +192,7 @@ body::before {
     <hr style="border:2px solid #000; margin:10px 0;">
 
     <div>
-        <strong>POS PAUD BUNGA PELANGI</strong><br>
+        <strong>KB AISYIYAH PURWOSARI</strong><br>
         <strong>LAPORAN CAPAIAN HASIL BELAJAR</strong><br>
         <strong>SEMESTER <?= esc($raport->raport_semester) ?> TAHUN PELAJARAN <?= esc($raport->raport_tahun) ?></strong>
     </div>
@@ -228,14 +228,17 @@ body::before {
         <h3>📏 Kehadiran & Kesehatan</h3>
         <table class="table-box">
             <tr>
-                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($murid->anak_tinggi) ?></td>
-                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($absensi['status2']) ?></td>
+                <th>Tinggi (cm)</th><td style="background-color:white"><?= esc($raport->tinggi) ?></td>
+                <th>Berat (kg)</th><td style="background-color:white"><?= esc($raport->berat) ?></td>
             </tr>
             <tr>
-                <th>Berat (kg)</th><td style="background-color:white"><?= esc($murid->anak_berat) ?></td>
-                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($absensi['status3']) ?></td>
+                <th>Lingkar Kepala (cm)</th><td style="background-color:white"><?= esc($raport->kepala) ?></td>
+                <th>Sakit (hari)</th><td style="background-color:white"><?= esc($raport->sakit) ?></td>
             </tr>
-            
+            <tr>
+                <th>Ijin (hari)</th><td style="background-color:white"><?= esc($raport->ijin) ?></td>
+                <th>Alpha (hari)</th><td style="background-color:white"><?= esc($raport->alpha) ?></td>
+            </tr>
         </table>
     </div>
 
@@ -243,34 +246,31 @@ body::before {
         <h3>🎯 Ekstrakurikuler</h3>
         <table class="table-box">
             <tr>
-             
-                <th>Ekskul</th><td style="background-color:white"><?= esc($murid->ekskul1) ?></td>
-                <th>Nilai</th><td style="background-color:white"><?= esc($murid->nilai1) ?></td>
-            </tr>
-            <tr>
-                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($murid->deskripsi1) ?></td>
+                <th>Hari</th><td style="background-color:white"><?= esc($raport->ekskulhari) ?></td>
+                <th>Jenis</th><td style="background-color:white"><?= esc($raport->ekskuljenis) ?></td>
+                <th>Nilai</th><td style="background-color:white"><?= esc($raport->ekskulnilai) ?></td>
             </tr>
         </table>
         <table class="table-box">
             <tr>
-               
-                <th>Ekskul</th><td><?= esc($murid->ekskul2) ?></td>
-                <th>Nilai</th><td><?= esc($murid->nilai2) ?></td>
-            </tr>
-            <tr>
-                <th>Deskripsi</th><td colspan="5" style="background-color:white"><?= esc($murid->deskripsi2) ?></td>
+                <th>Hari</th><td><?= esc($raport->ekskulhari2) ?></td>
+                <th>Jenis</th><td><?= esc($raport->ekskuljenis2) ?></td>
+                <th>Nilai</th><td><?= esc($raport->ekskulnilai2) ?></td>
             </tr>
         </table>
     </div>
 
-         <div style="page-break-before: always;"></div>
+    <div class="box">
+        <h3>Perkembangan Siswa</h3>
+        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
+    </div>
 
-    
+    <div style="page-break-before: always;"></div>
 
 <!-- A. Agama -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
-    <tr>
-        <th colspan="3">Capaian Perkembangan Nilai Agama dan Budi Pekerti</th>
+     <tr>
+        <th colspan="3">Nilai agama dan budi pekerti</th>
     </tr>
     <tr>
         <?php for ($i=1; $i<=3; $i++): 
@@ -286,7 +286,6 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
-
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketagama ?? '-') ?></td>
@@ -298,7 +297,7 @@ body::before {
 <!-- B. Jati Diri -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
      <tr>
-        <th colspan="3">Capaian Perkembangan Jati Diri</th>
+        <th colspan="3">Jati diri</th>
     </tr>
     <tr>
         <?php for ($i=4; $i<=6; $i++): 
@@ -314,7 +313,6 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
-
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketjati ?? '-') ?></td>
@@ -325,8 +323,8 @@ body::before {
 
 <!-- C. Literasi -->
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; text-align:center; background-color:white">
-     <tr>
-        <th colspan="3">Capaian Perkembangan Dasar-dasar Literasi dan STEAM</th>
+    <tr>
+        <th colspan="3">Dasar dasar Literasi, matematika, sains, teknologi, rekayasa, dan seni</th>
     </tr>
     <tr>
         <?php for ($i=7; $i<=9; $i++): 
@@ -342,65 +340,37 @@ body::before {
         <?php endfor; ?>
     </tr>
 </table>
-
 <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse: collapse; background-color:white">
     <tr>
         <td><?= esc($raport->ketliterasi ?? '-') ?></td>
     </tr>
 </table>
 
-
 <div class="section-divider"></div>
-
-<div class="box" style="background-color: white;">
-        <h3>Perkembangan Siswa</h3>
-        <div class="content" style="background-color:white"><?= nl2br(esc($raport->perkembangan)) ?></div>
-    </div>
-
-    </div>
+   
 
     
 
     <div class="signatures">
-
+        
         <div>
-            Orang tua
+            Kepala Sekolah
+            <div class="line"></div>
+            Purwani S.Pd
+        </div>
+          <div style="margin-top:150px">
+            Orang Tua
             <div class="line"></div>
             
         </div>
-        <div style="margin-top: 100px;">
-            Mengetahui,<br>
-            Kepala Sekolah PP Bunga Pelangi
-            <div class="line"></div>
-            Siti Maghfiroh, S.Kom
-        </div>
-        <div >
-            Malang, 19 Desember 2025<br>
+        <div>
+            Wonoasri, 19 Desember 2025<br>
             Guru Wali
             <div class="line"></div>
-            <?php echo $murid->guru_nama ?>
+            Siti Mahmudah S.Pd
         </div>
+      
     </div>
-
-    <div style="page-break-before: always;"></div>
-    <div class="box" style="background-color: white;">
-            <h3>Refleksi Guru</h3>
-            <div class="content" style="background-color:white"><?= nl2br(esc($raport->refleksiguru)) ?></div>
-            <br>
-    </div>
-
-     <div class="box" style="background-color: white;">
-            <h3>Refleksi Orang Tua</h3>
-            <br>
-            <hr>
-            <br>
-            <hr>
-            <br>
-            <hr>
-            <br>
-            <hr>
-    </div>
-
 
 </div>
 

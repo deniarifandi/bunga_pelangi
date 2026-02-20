@@ -58,8 +58,7 @@ class bukuinduk extends BaseController
 
     // Build data array
     $data = [
-        'anak_id'                => $this->request->getPost('anak_id'),
-        'murid_id'               => $this->request->getPost('anak_id'),
+        'anak_id'               => $this->request->getPost('anak_id'),
         'anak_nis'               => $this->request->getPost('anak_nis'),
         'anak_nama'              => $this->request->getPost('anak_nama'),
         'anak_panggilan'         => $this->request->getPost('anak_panggilan'),

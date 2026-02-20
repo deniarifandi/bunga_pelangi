@@ -207,82 +207,79 @@ public $fieldName = [
 
 
       public function edit($id = null)
-    {
-        // 1️⃣ Connect to the database
-        $db = \Config\Database::connect();
-        $builder = $db->table('Hasil2');
+{
+    $db = \Config\Database::connect();
+    $builder = $db->table('Hasil2');
 
-        
+    $hasil = $builder->where('hasil_id', $id)->get()->getRow();
 
-        // 2️⃣ Get the record by ID
-        $hasil = $builder->where('hasil_id', $id)->get()->getRow();
-
-        // 3️⃣ Check if data exists
-        if (!$hasil) {
-            throw PageNotFoundException::forPageNotFound("Data dengan ID $id tidak ditemukan");
-        }
-
-        // print_r($hasil);
-        // exit();
-
-        // 4️⃣ Get related dropdown / helper data
-        $data['guru_nama']     = session()->get('nama');
-        $data['guru_id']       = session()->get('guru_id');
-        $data['tujuan']        = $this->getdata('Tujuan'); 
-        $data['tipeaktifitas'] = $this->getdata('Tipeaktifitas'); 
-        $data['kelompok']      = $this->getClass();
-        $data['topik']         = $this->getUnit();
-        $data['subtopik']      = $this->getSubunit();
-        $data['agama']         = $this->getAgama();
-        $data['jati']          = $this->getJati();
-        $data['literasi']      = $this->getLiterasi();
-        $data['petakonsep']    = $this->getPetakonsep();
-
-        // 5️⃣ Store the main record (for edit form)
-        $data['hasil']         = $hasil;
-
-        // 6️⃣ Load the view and pass data
-        return view('hasil/edit', ['data' => $data]);
+    if (!$hasil) {
+        throw PageNotFoundException::forPageNotFound("Data dengan ID $id tidak ditemukan");
     }
+
+    // mapping kegiatan per hari (3 kegiatan)
+    $hari = ['senin','selasa','rabu','kamis','jumat'];
+    $kegiatan = [];
+
+    foreach ($hari as $h) {
+        $kegiatan[$h] = [
+            $hasil->{$h.'_1'},
+            $hasil->{$h.'_2'},
+            $hasil->{$h.'_3'},
+        ];
+    }
+
+    $data = [
+        'guru_nama'     => session()->get('nama'),
+        'guru_id'       => session()->get('guru_id'),
+        'tujuan'        => $this->getdata('Tujuan'),
+        'tipeaktifitas' => $this->getdata('Tipeaktifitas'),
+        'kelompok'      => $this->getClass(),
+        'topik'         => $this->getUnit(),
+        'subtopik'      => $this->getSubunit(),
+        'agama'         => $this->getAgama(),
+        'jati'          => $this->getJati(),
+        'literasi'      => $this->getLiterasi(),
+        'petakonsep'    => $this->getPetakonsep(),
+
+        'hasil'         => $hasil,
+        'kegiatan'      => $kegiatan, // ⬅️ penting
+    ];
+
+    return view('hasil/edit', ['data' => $data]);
+}
+
 
    public function store()
 {
     $db = \Config\Database::connect();
     $builder = $db->table('Hasil2');
 
-    
-
-    // ambil semua post
     $data = [
-        'guru_nama'      => $this->request->getPost('guru_nama'),
-        'kelompok'       => $this->request->getPost('kelompok'),
-        'peta_konsep'    => $this->request->getPost('petakonsep'),
-        'nilai_agama_1'  => $this->request->getPost('nilai_agama_1'),
-        'nilai_agama_2'  => $this->request->getPost('nilai_agama_2'),
-        'jati_diri_1'    => $this->request->getPost('jati_diri_1'),
-        'jati_diri_2'    => $this->request->getPost('jati_diri_2'),
-        'literasi_1'     => $this->request->getPost('literasi_1'),
-        'literasi_2'     => $this->request->getPost('literasi_2'),
-        'alat_bahan'     => $this->request->getPost('alat_bahan'),
-        'semester'       => $this->request->getPost('semester'),
-        'topik'          => $this->request->getPost('topik'),
-        'subtopik'       => $this->request->getPost('subtopik'),
-        'pembiasaan'     => $this->request->getPost('pembiasaan'),
-        'pembuka'        => $this->request->getPost('pembuka'),
-        'senin'          => $this->request->getPost('senin'),
-        'selasa'         => $this->request->getPost('selasa'),
-        'rabu'           => $this->request->getPost('rabu'),
-        'kamis'          => $this->request->getPost('kamis'),
-        'jumat'          => $this->request->getPost('jumat'),
-        'istirahat'      => $this->request->getPost('istirahat'),
-        'penutup'        => $this->request->getPost('penutup'),
-        'assessment'     => $this->request->getPost('assessment'),
+        'guru_nama'   => $this->request->getPost('guru_nama'),
+        'kelompok'    => $this->request->getPost('kelompok'),
+        'semester'    => $this->request->getPost('semester'),
+        'topik'       => $this->request->getPost('topik'),
+        'subtopik'    => $this->request->getPost('subtopik'),
+        'pembuka'     => $this->request->getPost('pembuka'),
+        'penutup'     => $this->request->getPost('penutup'),
+        'assessment'  => $this->request->getPost('assessment'),
     ];
 
-    // insert ke database
+    $hari = ['senin','selasa','rabu','kamis','jumat'];
+
+    foreach ($hari as $h) {
+        $kegiatan = $this->request->getPost($h); // array 3 item
+
+        for ($i = 0; $i < 3; $i++) {
+            $data[$h . '_' . ($i + 1)] = $kegiatan[$i] ?? null;
+        }
+    }
+
     $builder->insert($data);
 
-    return redirect()->to(site_url('Aktifitas'))->with('success', 'Data berhasil disimpan!');
+    return redirect()->to(site_url('Aktifitas'))
+        ->with('success', 'Data berhasil disimpan');
 }
 
 public function update($id = null)
@@ -290,277 +287,216 @@ public function update($id = null)
     $db = \Config\Database::connect();
     $builder = $db->table('Hasil2');
 
+    // ===== DATA NON KEGIATAN =====
     $data = [
-        'kelompok'        => $this->request->getPost('kelompok'),
-        'peta_konsep'     => $this->request->getPost('petakonsep'),
-        'nilai_agama_1'   => $this->request->getPost('nilai_agama_1'),
-        'nilai_agama_2'   => $this->request->getPost('nilai_agama_2'),
-        'jati_diri_1'     => $this->request->getPost('jati_diri_1'),
-        'jati_diri_2'     => $this->request->getPost('jati_diri_2'),
-        'literasi_1'      => $this->request->getPost('literasi_1'),
-        'literasi_2'      => $this->request->getPost('literasi_2'),
-        'alat_bahan'      => $this->request->getPost('alat_bahan'),
-        'semester'        => $this->request->getPost('semester'),
-        'topik'           => $this->request->getPost('topik'),
-        'subtopik'        => $this->request->getPost('subtopik'),
-        'pembiasaan'      => $this->request->getPost('pembiasaan'),
-        'pembuka'         => $this->request->getPost('pembuka'),
-        'senin'           => $this->request->getPost('senin'),
-        'selasa'          => $this->request->getPost('selasa'),
-        'rabu'            => $this->request->getPost('rabu'),
-        'kamis'           => $this->request->getPost('kamis'),
-        'jumat'           => $this->request->getPost('jumat'),
-        'istirahat'       => $this->request->getPost('istirahat'),
-        'penutup'         => $this->request->getPost('penutup'),
-        'assessment'      => $this->request->getPost('assessment'),
-        'updated_at'      => date('Y-m-d H:i:s'),
+        'kelompok'      => $this->request->getPost('kelompok'),
+        'peta_konsep'   => $this->request->getPost('petakonsep'), // ⬅️ FIX
+        'nilai_agama_1' => $this->request->getPost('nilai_agama_1'),
+        'nilai_agama_2' => $this->request->getPost('nilai_agama_2'),
+        'jati_diri_1'   => $this->request->getPost('jati_diri_1'),
+        'jati_diri_2'   => $this->request->getPost('jati_diri_2'),
+        'literasi_1'    => $this->request->getPost('literasi_1'),
+        'literasi_2'    => $this->request->getPost('literasi_2'),
+        'alat_bahan'    => $this->request->getPost('alat_bahan'),
+        'semester'      => $this->request->getPost('semester'),
+        'topik'         => $this->request->getPost('topik'),
+        'subtopik'      => $this->request->getPost('subtopik'),
+        'pembiasaan'    => $this->request->getPost('pembiasaan'),
+        'pembuka'       => $this->request->getPost('pembuka'),
+        'istirahat'     => $this->request->getPost('istirahat'),
+        'penutup'       => $this->request->getPost('penutup'),
+        'assessment'    => $this->request->getPost('assessment'),
+        'updated_at'    => date('Y-m-d H:i:s'),
     ];
 
-    // handle upload file peta_konsep kalau ada file baru
-    $file = $this->request->getFile('peta_konsep');
-    if ($file && $file->isValid() && !$file->hasMoved()) {
-        $newName = $file->getRandomName();
-        $file->move('uploads/', $newName);
-        $data['peta_konsep'] = $newName;
+    // ===== KEGIATAN HARIAN (3 PER HARI) =====
+    $hari = ['senin','selasa','rabu','kamis','jumat'];
+
+    foreach ($hari as $h) {
+        $arr = $this->request->getPost($h) ?? []; // ⬅️ guard
+
+        for ($i = 0; $i < 3; $i++) {
+            $data[$h.'_'.($i+1)] = $arr[$i] ?? null;
+        }
     }
 
+    // ===== UPDATE =====
     $builder->where('hasil_id', $id)->update($data);
 
-    return redirect()->to('/Aktifitas')->with('success', 'Data berhasil diperbarui');
+    return redirect()->to('/Aktifitas')
+        ->with('success', 'Data berhasil diperbarui');
 }
+
 
 public function print($id)
 {
     $db = \Config\Database::connect();
-    $builder = $db->table('Hasil2 a');
-    $builder->select('a.*, 
-        b.tipeaktifitas_nama as senin, 
-        c.tipeaktifitas_nama as selasa,
-        d.tipeaktifitas_nama as rabu,
-        e.tipeaktifitas_nama as kamis,
-        f.tipeaktifitas_nama as jumat,
-        u.unit_nama,
-        s.subunit_nama
-        ');
-    $builder->join('Tipeaktifitas b', 'b.tipeaktifitas_id = a.senin','left');
-    $builder->join('Tipeaktifitas c', 'c.tipeaktifitas_id = a.selasa','left');
-    $builder->join('Tipeaktifitas d', 'd.tipeaktifitas_id = a.rabu','left');
-    $builder->join('Tipeaktifitas e', 'e.tipeaktifitas_id = a.kamis','left');
-    $builder->join('Tipeaktifitas f', 'f.tipeaktifitas_id = a.jumat','left');
-    $builder->join('Unit u','u.unit_id = a.topik');
-    $builder->join('Subunit s','s.subunit_id = a.subtopik');
-    $builder->where('a.hasil_id', $id);
-    $hasil = $builder->get()->getRow();
 
+    // ambil data utama
+    $hasil = $db->table('Hasil2 a')
+        ->select('a.*, u.unit_nama, s.subunit_nama')
+        ->join('Unit u', 'u.unit_id = a.topik', 'left')
+        ->join('Subunit s', 's.subunit_id = a.subtopik', 'left')
+        ->where('a.hasil_id', $id)
+        ->get()
+        ->getRow();
+
+    if (!$hasil) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+
+    // kumpulkan semua id kegiatan (15 kolom)
+    $hari = ['senin','selasa','rabu','kamis','jumat'];
+    $ids = [];
+
+    foreach ($hari as $h) {
+        for ($i = 1; $i <= 3; $i++) {
+            $field = $h . '_' . $i;
+            if (!empty($hasil->$field)) {
+                $ids[] = $hasil->$field;
+            }
+        }
+    }
+
+    // ambil nama tipe aktifitas
+    $tipeMap = [];
+    if ($ids) {
+        $rows = $db->table('Tipeaktifitas')
+            ->whereIn('tipeaktifitas_id', array_unique($ids))
+            ->get()
+            ->getResult();
+
+        foreach ($rows as $r) {
+            $tipeMap[$r->tipeaktifitas_id] = $r->tipeaktifitas_nama;
+        }
+    }
+
+    // susun kegiatan per hari untuk view
+    $kegiatan = [];
+    foreach ($hari as $h) {
+        for ($i = 1; $i <= 3; $i++) {
+            $idAktif = $hasil->{$h . '_' . $i} ?? null;
+            $kegiatan[$h][] = $tipeMap[$idAktif] ?? '-';
+        }
+    }
 
     $data = [
-        'hasil' => $hasil,
-        'agama' => $this->getAgama($hasil->nilai_agama_1),
-        'jati' => $this->getJati($hasil->jati_diri_1),
-        'literasi' => $this->getLiterasi($hasil->literasi_1),
-        'agama2' => $this->getAgama($hasil->nilai_agama_2),
-        'jati2' => $this->getJati($hasil->jati_diri_2),
-        'literasi2' => $this->getLiterasi($hasil->literasi_2),
-        'petakonsep' => $this->getPetakonsep($hasil->peta_konsep),
+        'hasil'       => $hasil,
+        'kegiatan'    => $kegiatan,
+
+        'agama'       => $this->getAgama($hasil->nilai_agama_1),
+        'agama2'      => $this->getAgama($hasil->nilai_agama_2),
+        'jati'        => $this->getJati($hasil->jati_diri_1),
+        'jati2'       => $this->getJati($hasil->jati_diri_2),
+        'literasi'    => $this->getLiterasi($hasil->literasi_1),
+        'literasi2'   => $this->getLiterasi($hasil->literasi_2),
+        'petakonsep'  => $this->getPetakonsep($hasil->peta_konsep),
     ];
 
-    // print_r($data);
-   
     return view('hasil/print', $data);
 }
+
 
 public function listpenilaian(){
     return view('hasil/listpenilaian');
 }
 
- public function newPenilaian(int $tipeaktifitas_id)
-    {
-
-
-        $guruId    = session()->get('guru_id');
-        $assGuruId = session()->get('assguru_id') ?? $guruId;
-
-        $db = \Config\Database::connect();
-
-        // Murid list
-        $muridBuilder = $db->table('Murid')
-            ->select('Murid.*, Kelompok.kelompok_nama')
-            ->join('Kelompok', 'Kelompok.kelompok_id = Murid.kelompok_id','left')
-            ->where('Murid.deleted_at', null)
-            ->groupStart();
-            // ->get()->getResult();
-
-        // print_r($muridBuilder);
-        // exit();
-
-        if ($guruId == 3 || $guruId == 4) {
-            $muridBuilder->where('Kelompok.kelompok_id >', 2);
-        }
-
-        $muridBuilder
-            ->orWhere('Kelompok.assguru_id', $assGuruId)
-            ->groupEnd()
-            ->orderBy('Murid.murid_nama', 'ASC');
-
-        $muridList = $muridBuilder->get()->getResult();
-
-        // Aktivitas
-        $aktifitas = $db->table('Tipeaktifitas')
-            ->where('tipeaktifitas_id', $tipeaktifitas_id)
-            ->where('deleted_at', null)
-            ->get()
-            ->getRow();
-
-        if (!$aktifitas) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        return view('hasil/createpenilaian', [
-            'data'      => $muridList,
-            'aktifitas' => $aktifitas
-        ]);
-    }
-
-public function edit_nilai(int $tipeaktifitas_id)
-{
-    $guruId    = session()->get('guru_id');
-    $assGuruId = session()->get('assguru_id') ?? $guruId;
-
-    if (!$guruId) {
-        return redirect()->to('/login');
-    }
+public function newpenilaian($aktifitas_id){
 
     $db = \Config\Database::connect();
-
-    /*
-     * =========================
-     * Murid + existing nilai
-     * =========================
-     */
     $builder = $db->table('Murid');
-    $builder
-        ->select('
-            Murid.murid_id,
-            Murid.murid_nama,
-            Kelompok.kelompok_nama,
-            Penilaian.hasil_id
-        ')
-        ->join('Kelompok', 'Kelompok.kelompok_id = Murid.kelompok_id', 'left')
-        ->join(
-            'Penilaian',
-            'Penilaian.murid_id = Murid.murid_id 
-             AND Penilaian.aktifitas_id = ' . (int) $tipeaktifitas_id,
-            'left'
-        )
-        ->groupBy('murid_id')
-        ->where('Murid.deleted_at', null)
-        ->groupStart();
+    $builder->select('Murid.*');
+    $builder->where('Murid.deleted_at',null);
+    $builder->orderBy('Murid.murid_nama');
+    $data = $builder->get()->getResult();
 
-    // Same rule as newPenilaian()
-    if ($guruId == 3 || $guruId == 4) {
-        $builder->where('Kelompok.kelompok_id >', 2);
+    $builder2 = $db->table('Tipeaktifitas');
+    $builder2->select('Tipeaktifitas.*');
+    $builder2->where('Tipeaktifitas.tipeaktifitas_id',$aktifitas_id);
+    $builder2->where('Tipeaktifitas.deleted_at',null);
+    $data2 = $builder2->get()->getResult();
+
+    return view('hasil/createpenilaian',['data' => $data, 'aktifitas' => $data2]);
+}
+
+public function edit_nilai($aktifitas_id)
+{
+    $db = \Config\Database::connect();
+
+    // Get all students and their existing nilai for this activity
+   $nilaiData = $db->table('Murid')
+    ->select('Penilaian.*, Murid.murid_nama')
+    ->join(
+        'Penilaian',
+        'Penilaian.murid_id = Murid.murid_id AND Penilaian.aktifitas_id = '.$db->escape($aktifitas_id),
+        'left'
+    )
+    ->where('Murid.deleted_at', null)
+    ->orderBy('Murid.murid_nama', 'ASC')
+    ->groupBy('Murid.murid_id')
+    ->get()
+    ->getResult();
+        
+    //$nilaiData = $db->table('Penilaian')
+    //    ->select('Penilaian.*, Murid.murid_nama')
+   //      ->join('Murid', 'Penilaian.murid_id = Murid.murid_id','left')
+    //    ->where('Penilaian.aktifitas_id', $aktifitas_id)
+    //    ->orderBy('Murid.murid_nama', 'ASC')
+    //    ->groupBy('Murid.murid_id')
+    //    ->get()
+    //    ->getResult();
+
+    // Check if there is data
+    if (empty($nilaiData)) {
+        return redirect()->back()->with('error', 'Data penilaian tidak ditemukan.');
     }
 
-    $builder
-        ->orWhere('Kelompok.assguru_id', $assGuruId)
-        ->groupEnd()
-        ->orderBy('Murid.murid_nama', 'ASC');
-
-    $nilaiList = $builder->get()->getResult();
-
-    if (empty($nilaiList)) {
-        return redirect()->back()
-            ->with('error', 'Data penilaian tidak ditemukan.');
-    }
-
-    /*
-     * =========================
-     * Aktivitas
-     * =========================
-     */
+    // Get the related activity info
     $aktifitas = $db->table('Tipeaktifitas')
-        ->where('tipeaktifitas_id', $tipeaktifitas_id)
-        ->where('deleted_at', null)
+        ->select('Tipeaktifitas.*')
+        ->where('Tipeaktifitas.tipeaktifitas_id', $aktifitas_id)
+        ->where('Tipeaktifitas.deleted_at', null)
         ->get()
-        ->getRow();
+        ->getResult();
 
-    if (!$aktifitas) {
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    }
-
-    /*
-     * =========================
-     * View
-     * =========================
-     */
+    // Pass data to view
     return view('hasil/nilai_edit', [
-        'data'      => $nilaiList,
+        'data' => $nilaiData,   // <-- FIXED (use nilaiData)
         'aktifitas' => $aktifitas
     ]);
 }
 
 
-
 public function simpan_nilai()
 {
-    $db = \Config\Database::connect();
+     $db = \Config\Database::connect();
+    // Get all POSTed values
+    $nilai = $this->request->getPost('nilai');
+    $aktifitas_id = $this->request->getPost('tipeaktifitas_id');
 
-    $nilaiData   = $this->request->getPost('nilai');
-    $aktifitasId = $this->request->getPost('tipeaktifitas_id');
-    $guruId      = session()->get('guru_id');
-
-    if (!$guruId || !$aktifitasId || empty($nilaiData)) {
-        return redirect()->back()->with('error', 'Data tidak valid');
-    }
-
-    foreach ($nilaiData as $muridId => $nilai) {
-
-        if (!in_array($nilai, ['MB', 'B', 'BSH', 'SB'], true)) {
-            continue;
-        }
-
-        // Check existing
-        $exists = $db->table('Penilaian')
-            ->where('murid_id', $muridId)
-            ->where('aktifitas_id', $aktifitasId) // 🔴 IMPORTANT
-            ->countAllResults();
-
-        if ($exists > 0) {
-            // UPDATE
+    if ($nilai && is_array($nilai)) {
+        foreach ($nilai as $murid_id => $grade) {
+            // Example: save to database
             $db->table('Penilaian')
-                ->where('murid_id', $muridId)
-                ->where('aktifitas_id', $aktifitasId)
-                ->update([
-                    'hasil_id' => $nilai
-                ]);
-        } else {
-            // INSERT
-            $db->table('Penilaian')->insert([
-                'murid_id'     => $muridId,
-                'aktifitas_id' => $aktifitasId,
-                'hasil_id'        => $nilai
-            ]);
+                     ->replace([
+                         'murid_id'     => $murid_id,
+                         'hasil_id'     => $grade,
+                         'aktifitas_id' => $aktifitas_id
+                     ]);
         }
+
+        return redirect()->to(site_url('listpenilaian'))->with('success', 'Data berhasil disimpan!');
     }
 
-    return redirect()->to(site_url('listpenilaian'))
-        ->with('success', 'Penilaian berhasil disimpan');
+    return redirect()->back()->with('msg', 'Tidak ada data untuk disimpan.');
 }
-
-
-
 
 
 public function penilaiandata(){
 
-    $kelompok_id = session()->get('kelompok_id');
-
     $builder = Database::connect()->table('Tipeaktifitas')
         ->select('Tipeaktifitas.*, Penilaian.penilaian_id')
         ->join('Penilaian','Tipeaktifitas.tipeaktifitas_id = Penilaian.aktifitas_id','left')
-        ->join('Tingkat','Tingkat.tingkat_id = Tipeaktifitas.tingkat_id')
-        ->join('Kelompok','Kelompok.tingkat_id = Tingkat.tingkat_id')
-        ->where('kelompok_id',$kelompok_id)
         ->groupBy('tipeaktifitas_id');
 
     // print_r($builder->get()->getResult());

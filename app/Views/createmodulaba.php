@@ -87,7 +87,7 @@ $table = "hasil";
 
     <!-- Nama Guru -->
     <div class="mb-3">
-        <label for="guru_nama" class="form-label">Nama Guru</label>
+        <label for="guru_nama" class="form-label">Nama Guru:</label>
         <input 
           type="text" 
           class="form-control bg-light" 
@@ -282,27 +282,26 @@ $table = "hasil";
         <textarea class="form-control" id="pembuka" name="pembuka"><?= old('pembuka') ?? '-Masuk Kelas , Berdoa, membuat kesepakatan bersama  '?></textarea>
     </div>
 
-    <!-- Kegiatan Inti per Hari -->
-    <?php 
-        $hari = ['senin','selasa','rabu','kamis','jumat'];
-        foreach ($hari as $h): ?>
-        <div class="mb-3">
-            <label for="<?= $h ?>" class="form-label">Kegiatan <?= ucfirst($h) ?></label>
-            <!-- <textarea class="form-control" id="<?= $h ?>" name="<?= $h ?>"><?= old($h) ?? ''?></textarea> -->
+  <?php 
+$hari = ['senin','selasa','rabu','kamis','jumat'];
+foreach ($hari as $h): ?>
+    <div class="mb-3">
+        <label class="form-label">Kegiatan <?= ucfirst($h) ?></label>
 
-            <select class="form-control" id="<?= $h ?>" name="<?= $h ?>">
-              <option value="">-- Pilih Kegiatan --</option>
-              <?php foreach ($data['tipeaktifitas'] as $row): ?>
+        <?php for ($i = 0; $i < 3; $i++): ?>
+            <select class="form-control mb-2" name="<?= $h ?>[]">
+                <option value="">-- Pilih Kegiatan --</option>
+                <?php foreach ($data['tipeaktifitas'] as $row): ?>
+                    <option value="<?= esc($row[0]) ?>"
+                        <?= (old($h.'.'.$i) == $row[0]) ? 'selected' : '' ?>>
+                        <?= esc($row[1]) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        <?php endfor; ?>
 
-                  <option value="<?= $row[0]; ?>"><?= $row[1];?>
-                    <?= old($h) == $row[0] ? 'selected' : '' ?>
-                    <?= esc($row[1]) ?>
-                  </option>
-
-              <?php endforeach; ?>
-          </select>
-        </div>
-    <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
 
     <!-- Istirahat -->
     <div class="mb-3">

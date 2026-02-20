@@ -15,95 +15,39 @@ class Raport extends BaseController
     return view('raport/list');
 
    }
+   
+    public function generateRaport()
+{
+    $prompt = $this->request->getPost('prompt');
 
-   public function indexEkskul(){
-    return view('raport/ekskullist');
-   }
+    $apiKey = getenv("OPENAI_API_KEY"); // Pastikan ada di .env
 
-  public function generateRaport()
-    {
-        $prompt = $this->request->getPost('prompt');
-        $apiKey = getenv('GEMINI_API_KEY');
+    $ch = curl_init("https://api.openai.com/v1/chat/completions");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer $apiKey"
+    ]);
 
-        if (!$apiKey) {
-            return $this->response->setJSON([
-                "error" => "API key not found in .env"
-            ]);
-        }
+    $payload = [
+        "model" => "gpt-4o-mini",
+        "messages" => [
+            ["role" => "user", "content" => $prompt]
+        ]
+    ];
 
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . $apiKey;
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    $response = curl_exec($ch);
+    curl_close($ch);
 
-        $payload = [
-            "contents" => [
-                [
-                    "role" => "user",
-                    "parts" => [
-                        ["text" => $prompt]
-                    ]
-                ]
-            ]
-        ];
-
-        $client = \Config\Services::curlrequest();
-
-        try {
-            $response = $client->post($url, [
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ],
-                'body' => json_encode($payload)
-            ]);
-
-            $json = json_decode($response->getBody(), true);
-
-            // Kalau ada error dari Gemini
-            if (isset($json['error'])) {
-                return $this->response->setJSON([
-                    "error" => $json['error']['message'] ?? "Error from Gemini"
-                ]);
-            }
-
-            return $this->response->setJSON([
-            "raw" => $json  // ← tampilkan raw response
-        ]);
-
-        } catch (\Exception $e) {
-
-            return $this->response->setJSON([
-                "error" => $e->getMessage()
-            ]);
-        }
-    }
-
-
-
+    return $this->response->setJSON(json_decode($response));
+}
 
     public function data(){
 
-        if (session()->get('guru_id') >= 7 ) {
-            $builder = Database::connect()->table('Raport')
-        ->select('Raport.*, Murid.murid_nama, Kelompok.kelompok_nama')
-        ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
-        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
-        ->orderBy('raport_id','desc')
-        ->groupBy('raport_id');
-
-        // print_r($builder->get()->getResult());
-        // exit();
-
-
-        $datatable = new Datatable();
-
-        return $datatable->generate($builder, 'Raport.raport_id',[
-            'Raport.raport_id'
-        ]);
-        }
-
     $builder = Database::connect()->table('Raport')
-        ->select('Raport.*, Murid.murid_nama, Kelompok.kelompok_nama')
+        ->select('Raport.*, Murid.murid_nama')
         ->join('Murid','Murid.murid_id = Raport.raport_murid_id')
-        ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id')
-        ->where('Kelompok.kelompok_id',session()->get('kelompok_id'))
         ->orderBy('raport_id','desc')
         ->groupBy('raport_id');
 
@@ -124,7 +68,6 @@ class Raport extends BaseController
         $muridList = $db->table('Murid')
             ->select('murid_id, murid_nama')
             ->where('deleted_at',null)
-            ->where('kelompok_id',session()->get('kelompok_id'))
             ->orderBy('murid_nama')
             ->get()->getResult();
 
@@ -311,48 +254,12 @@ public function update($id)
         if (!$raport) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Raport with ID $raportId not found");
         }
-        
+
         // Get student (murid) data
         $murid = $db->table('Murid')
-                    ->join('Kelompok','Kelompok.kelompok_id = Murid.kelompok_id','left')
-                    ->join('Guru','Guru.guru_id = Kelompok.guru_id','left')
-                    ->join('ekskul','Murid.murid_id = ekskul.murid_id','left')
-                    ->join('Identitasanak','Identitasanak.murid_id = Murid.murid_id','left')
-                    ->where('Murid.murid_id', $raport->raport_murid_id)
+                    ->where('murid_id', $raport->raport_murid_id)
                     ->get()
                     ->getRow();
-
-        // print_r($murid);
-        // exit();
-
-        $start = '2025-07-01';
-        $end   = '2025-12-31';
-
-      $absensi = $db->table('absensi')
-    ->select('status, COUNT(*) as total_absensi')
-    ->where('tanggal >=', $start)
-    ->where('tanggal <=', $end)
-    ->where('murid_id', $raport->raport_murid_id)
-    ->groupBy('status')
-    ->get()
-    ->getResultArray();
-
-
-    $result = [
-    'murid_id' => 5,
-    'status1'  => 0,
-    'status2'  => 0,
-    'status3'  => 0
-];
-
-foreach ($absensi as $row) {
-    $statusKey = 'status' . $row['status'];
-    $result[$statusKey] = $row['total_absensi'];
-}
-
-        
-        // print_r($result);
-        // exit();
 
         if (!$murid) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Murid not found for this raport");
@@ -360,8 +267,7 @@ foreach ($absensi as $row) {
 
         $data = [
             'raport' => $raport,
-            'murid'  => $murid,
-            'absensi' => $result
+            'murid'  => $murid
         ];
 
         // Load the print view
